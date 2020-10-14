@@ -1,0 +1,80 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_1", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_1\Pair_1.vcxproj", "{783A9B06-7FB2-3418-ACCA-421E22B73FFF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_2", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_2\Pair_2.vcxproj", "{4B744D52-A294-3FD9-BD15-1E7091220167}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_3", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_3\Pair_3.vcxproj", "{46CF81B0-EAB1-3893-84D2-7D5C11BE9E92}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_4", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_4\Pair_4.vcxproj", "{DA6949F8-474E-3881-AD29-2B9A943291A8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_5", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_5\Pair_5.vcxproj", "{ABB25159-D997-39B1-8896-AD28C737B9C8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_6", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_6\Pair_6.vcxproj", "{18A8DBDF-4213-3C58-BE10-594E26AEB3B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_7", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_7\Pair_7.vcxproj", "{9DC650BC-03FC-31D9-A9E9-695770CB5D0E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_8", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_8\Pair_8.vcxproj", "{B266F757-35F2-3A97-B6D6-3081518A3E7D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_19", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_19\Pair_19.vcxproj", "{D0A70978-ED80-3104-B20C-FA928052D9C8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_20", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_20\Pair_20.vcxproj", "{B11C014D-EDB2-398D-AA94-D742D6F286B4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pair_9", "E:/CPP/MyProects/OOPZadachiCreatorQt/OOPZadachiQtCreator/oopzadachiqtcreator/ClassAndObject/Struct_Pair/Pair_9\Pair_9.vcxproj", "{5B0C5425-0E15-383D-95A1-2DE599554E69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{783A9B06-7FB2-3418-ACCA-421E22B73FFF}.Debug|x64.ActiveCfg = Debug|x64
+		{783A9B06-7FB2-3418-ACCA-421E22B73FFF}.Debug|x64.Build.0 = Debug|x64
+		{783A9B06-7FB2-3418-ACCA-421E22B73FFF}.Release|x64.ActiveCfg = Release|x64
+		{783A9B06-7FB2-3418-ACCA-421E22B73FFF}.Release|x64.Build.0 = Release|x64
+		{4B744D52-A294-3FD9-BD15-1E7091220167}.Debug|x64.ActiveCfg = Debug|x64
+		{4B744D52-A294-3FD9-BD15-1E7091220167}.Debug|x64.Build.0 = Debug|x64
+		{4B744D52-A294-3FD9-BD15-1E7091220167}.Release|x64.ActiveCfg = Release|x64
+		{4B744D52-A294-3FD9-BD15-1E7091220167}.Release|x64.Build.0 = Release|x64
+		{46CF81B0-EAB1-3893-84D2-7D5C11BE9E92}.Debug|x64.ActiveCfg = Debug|x64
+		{46CF81B0-EAB1-3893-84D2-7D5C11BE9E92}.Debug|x64.Build.0 = Debug|x64
+		{46CF81B0-EAB1-3893-84D2-7D5C11BE9E92}.Release|x64.ActiveCfg = Release|x64
+		{46CF81B0-EAB1-3893-84D2-7D5C11BE9E92}.Release|x64.Build.0 = Release|x64
+		{DA6949F8-474E-3881-AD29-2B9A943291A8}.Debug|x64.ActiveCfg = Debug|x64
+		{DA6949F8-474E-3881-AD29-2B9A943291A8}.Debug|x64.Build.0 = Debug|x64
+		{DA6949F8-474E-3881-AD29-2B9A943291A8}.Release|x64.ActiveCfg = Release|x64
+		{DA6949F8-474E-3881-AD29-2B9A943291A8}.Release|x64.Build.0 = Release|x64
+		{ABB25159-D997-39B1-8896-AD28C737B9C8}.Debug|x64.ActiveCfg = Debug|x64
+		{ABB25159-D997-39B1-8896-AD28C737B9C8}.Debug|x64.Build.0 = Debug|x64
+		{ABB25159-D997-39B1-8896-AD28C737B9C8}.Release|x64.ActiveCfg = Release|x64
+		{ABB25159-D997-39B1-8896-AD28C737B9C8}.Release|x64.Build.0 = Release|x64
+		{18A8DBDF-4213-3C58-BE10-594E26AEB3B1}.Debug|x64.ActiveCfg = Debug|x64
+		{18A8DBDF-4213-3C58-BE10-594E26AEB3B1}.Debug|x64.Build.0 = Debug|x64
+		{18A8DBDF-4213-3C58-BE10-594E26AEB3B1}.Release|x64.ActiveCfg = Release|x64
+		{18A8DBDF-4213-3C58-BE10-594E26AEB3B1}.Release|x64.Build.0 = Release|x64
+		{9DC650BC-03FC-31D9-A9E9-695770CB5D0E}.Debug|x64.ActiveCfg = Debug|x64
+		{9DC650BC-03FC-31D9-A9E9-695770CB5D0E}.Debug|x64.Build.0 = Debug|x64
+		{9DC650BC-03FC-31D9-A9E9-695770CB5D0E}.Release|x64.ActiveCfg = Release|x64
+		{9DC650BC-03FC-31D9-A9E9-695770CB5D0E}.Release|x64.Build.0 = Release|x64
+		{B266F757-35F2-3A97-B6D6-3081518A3E7D}.Debug|x64.ActiveCfg = Debug|x64
+		{B266F757-35F2-3A97-B6D6-3081518A3E7D}.Debug|x64.Build.0 = Debug|x64
+		{B266F757-35F2-3A97-B6D6-3081518A3E7D}.Release|x64.ActiveCfg = Release|x64
+		{B266F757-35F2-3A97-B6D6-3081518A3E7D}.Release|x64.Build.0 = Release|x64
+		{D0A70978-ED80-3104-B20C-FA928052D9C8}.Debug|x64.ActiveCfg = Debug|x64
+		{D0A70978-ED80-3104-B20C-FA928052D9C8}.Debug|x64.Build.0 = Debug|x64
+		{D0A70978-ED80-3104-B20C-FA928052D9C8}.Release|x64.ActiveCfg = Release|x64
+		{D0A70978-ED80-3104-B20C-FA928052D9C8}.Release|x64.Build.0 = Release|x64
+		{B11C014D-EDB2-398D-AA94-D742D6F286B4}.Debug|x64.ActiveCfg = Debug|x64
+		{B11C014D-EDB2-398D-AA94-D742D6F286B4}.Debug|x64.Build.0 = Debug|x64
+		{B11C014D-EDB2-398D-AA94-D742D6F286B4}.Release|x64.ActiveCfg = Release|x64
+		{B11C014D-EDB2-398D-AA94-D742D6F286B4}.Release|x64.Build.0 = Release|x64
+		{5B0C5425-0E15-383D-95A1-2DE599554E69}.Debug|x64.ActiveCfg = Debug|x64
+		{5B0C5425-0E15-383D-95A1-2DE599554E69}.Debug|x64.Build.0 = Debug|x64
+		{5B0C5425-0E15-383D-95A1-2DE599554E69}.Release|x64.ActiveCfg = Release|x64
+		{5B0C5425-0E15-383D-95A1-2DE599554E69}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
