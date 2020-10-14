@@ -1,4 +1,9 @@
 # Prerequisites
+__Debugs__/
+Debug/
+Release/
+build*/
+
 *.d
 
 # Compiled Object files
