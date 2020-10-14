@@ -1,2 +1,0 @@
-E:\Project_CPP_QT\OOPZadachiQtCreator\oopzadachiqtcreator\Inherits\Arrays_And_Inherits\ArrayBase\debug\ArrayBase.exe
-E:\Project_CPP_QT\OOPZadachiQtCreator\oopzadachiqtcreator\Inherits\Arrays_And_Inherits\ArrayBase\debug\ArrayBase.pdb
