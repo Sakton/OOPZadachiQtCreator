@@ -9,6 +9,7 @@ SUBDIRS += \
 	Pair_10 \
 	Pair_3 \
 	Pair_5 \
+	Pair_Complex_18 \
 	Pair_Rational_17 \
 	Real_13 \
 	Triad_7 \
