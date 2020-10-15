@@ -4,7 +4,8 @@
 
 #include "triad.h"
 
-// TODO неверно!!!
+//считаем что да та в кольце вычетов 31
+//месяц в кольце 12
 
 class Date : public Triad {
  public:

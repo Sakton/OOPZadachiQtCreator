@@ -19,20 +19,11 @@ Triad::operator std::string( ) {
          std::to_string( second_ ) + ":" + std::to_string( third_ );
 }
 
-void Triad::setFirst(int first)
-{
-    first_ = first;
-}
+void Triad::setFirst( int first ) { first_ = first; }
 
-void Triad::setSecond(int second)
-{
-    second_ = second;
-}
+void Triad::setSecond( int second ) { second_ = second; }
 
-void Triad::setThird(int third)
-{
-    third_ = third;
-}
+void Triad::setThird( int third ) { third_ = third; }
 
 int Triad::FirstNext( ) { return ++first_; }
 int Triad::SecondNext( ) { return ++second_; }
