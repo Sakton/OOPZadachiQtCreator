@@ -10,10 +10,12 @@ SUBDIRS += \
 	Pair_3 \
 	Pair_5 \
 	Pair_Complex_18 \
+	Pair_Long_19 \
 	Pair_Rational_17 \
 	Real_13 \
 	Triad_7 \
 	Triad_Date_14 \
 	Triad_Time \
+	Triad_Vector3D_20 \
 	Triangle_8 \
 	Triangle_9
