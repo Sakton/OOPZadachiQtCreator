@@ -14,4 +14,10 @@ int main( ) {
   Display( vi -= vi1 );
   Display( vi *= vi1 );
   Display( vi *= 2 );
+
+  Vector3DBase *vec = new Vector3DInh( 3, 3, 3 );
+
+  Display( *vec );
+
+  delete vec;
 }
