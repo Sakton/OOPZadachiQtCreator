@@ -8,6 +8,7 @@ SUBDIRS += \
 	Date_29 \
 	FazzyNumber_31 \
 	Fraction_35 \
+	Goods_36 \
 	ModelWindow \
 	Money_24 \
 	Money_33 \
