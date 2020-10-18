@@ -5,9 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-        time30.cpp \
-        time30b.cpp
+        time30.cpp
 
 HEADERS += \
-	time30.h \
-	time30b.h
+	time30.h

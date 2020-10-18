@@ -31,8 +31,8 @@ Time30::Time30( int32_t sec ) : Time30( ToTime( sec ) ) {}
 
 Time30::Time30( const Time30& dt ) : Time30( dt.h_, dt.m_, dt.s_ ) {}
 
-void Time30::Display( ) const {
-  std::cout << static_cast< std::string >( *this ) << std::endl;
+void Display( const Time30& dt ) {
+  std::cout << static_cast< std::string >( dt ) << std::endl;
 }
 
 Time30::operator std::string( ) const {
@@ -48,48 +48,54 @@ Time30::operator std::string( ) const {
 }
 
 int32_t operator-( const Time30& t1, const Time30& t2 ) {
-  return std::abs( t1.ToMinut( ) - t2.ToMinut( ) );
+  return std::abs( ToMinut( t1 ) - ToMinut( t2 ) );
 }
 
-// int32_t Time30::DeltaMoment( const Time30& other ) const {
-//  return std::abs( ToMinut( ) - other.ToMinut( ) );
-//}
-
-Time30 Time30::AddSec( int32_t sec ) const {
-  if ( ToSecond( ) + sec > SEC_IN_DAY ) {
+Time30 operator+( const Time30& other, int32_t sec ) {
+  if ( ToSecond( other ) + sec > Time30::SEC_IN_DAY ) {
     std::cout << "ERROR ADD SEC";
     exit( 1 );
   }
-  return ToTime( ToSecond( ) + sec );
+  return Time30( ( ToSecond( other ) + sec ) );
 }
 
-Time30 Time30::SubSec( int32_t sec ) const {
-  if ( ToSecond( ) + sec < SEC_IN_DAY ) {
+Time30 operator+( int32_t sec, const Time30& other ) {
+  if ( ToSecond( other ) + sec > Time30::SEC_IN_DAY ) {
+    std::cout << "ERROR ADD SEC";
+    exit( 1 );
+  }
+  return Time30( ( ToSecond( other ) + sec ) );
+}
+
+Time30 operator-( const Time30& other, int32_t sec ) {
+  if ( ToSecond( other ) + sec < Time30::SEC_IN_DAY ) {
     std::cout << "ERROR SUB SEC";
     exit( 1 );
   }
-  return ToTime( ToSecond( ) - sec );
+  return Time30( ToSecond( other ) - sec );
 }
 
-bool Time30::Eq( const Time30& other ) {
-  return ToSecond( ) == other.ToSecond( );
+bool operator==( const Time30& t1, const Time30& t2 ) {
+  return ToSecond( t1 ) == ToSecond( t2 );
 }
 
-bool Time30::Less( const Time30& other ) {
-  return ToSecond( ) < other.ToSecond( );
+bool operator<( const Time30& t1, const Time30& t2 ) {
+  return ToSecond( t1 ) < ToSecond( t2 );
 }
 
-bool Time30::Great( const Time30& other ) { return !Less( other ); }
+bool operator>( const Time30& t1, const Time30& t2 ) { return !( t1 < t2 ); }
 
-int32_t Time30::ToSecond( ) const { return ( h_ * 60 + m_ ) * 60 + s_; }
+int32_t ToSecond( const Time30& t1 ) {
+  return ( t1.h_ * 60 + t1.m_ ) * 60 + t1.s_;
+}
 
-int32_t Time30::ToMinut( ) const {
+int32_t ToMinut( const Time30& t1 ) {
   //округлить вверх, кастуем в дабл + 0,5 кастуем обратно в инт
-  return ( s_ > 30 ) ? m_ + 1 : m_;
+  return ( t1.s_ > 30 ) ? t1.m_ + 1 : t1.m_;
 }
 
-Time30 Time30::ToTime( int32_t sec ) const {
-  if ( sec > SEC_IN_DAY ) {
+Time30 Time30::ToTime( int32_t sec ) {
+  if ( sec > Time30::SEC_IN_DAY ) {
     std::cout << "ERROR SEC";
     exit( 1 );
   }
