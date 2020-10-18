@@ -6,10 +6,9 @@ CONFIG -= qt
 
 SOURCES += \
         bankomat34.cpp \
-        bankomat34b.cpp \
         main.cpp
 
 HEADERS += \
-	bankomat34.h \
-	bankomat34b.h
+	bankomat34.h
+
 
