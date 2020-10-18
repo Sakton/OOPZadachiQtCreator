@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
 	Account_32 \
 	Angle_26 \
+	Bankomat_34 \
 	Complex_21 \
 	Date_29 \
 	FazzyNumber_31 \
