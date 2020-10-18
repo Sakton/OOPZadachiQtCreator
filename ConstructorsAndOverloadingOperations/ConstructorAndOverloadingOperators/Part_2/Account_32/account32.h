@@ -21,9 +21,9 @@ class Account32 {
   friend std::string ToChislitelnoe( const Account32& ac );
 
   // private:
-  friend std::string Sotni( const Account32&, int chislo );
-  friend std::string Desyatki( const Account32&, int chislo );
-  friend std::string Edinitsy( const Account32&, int chislo );
+  friend std::string Sotni( int chislo );
+  friend std::string Desyatki( int chislo );
+  friend std::string Edinitsy( int chislo );
   friend std::string ParseSotni( const Account32&, int chislo );
   friend std::string ParseThousand( const Account32&, int chislo );
   friend std::string ParseMillion( const Account32&, int chislo );

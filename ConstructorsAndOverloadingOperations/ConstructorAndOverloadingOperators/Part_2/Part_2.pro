@@ -8,6 +8,7 @@ SUBDIRS += \
 	FazzyNumber_31 \
 	ModelWindow \
 	Money_24 \
+	Money_33 \
 	Point_27 \
 	Rational_28 \
 	Time_30 \

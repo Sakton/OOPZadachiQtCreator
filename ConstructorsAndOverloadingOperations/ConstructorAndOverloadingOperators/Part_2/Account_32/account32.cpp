@@ -189,9 +189,9 @@ std::string ParseSotni( const Account32&, int chislo ) {
   return res;
 }
 
-std::string ParseThousand( const Account32& acc, int chislo ) {
+std::string ParseThousand( const Account32& ac, int chislo ) {
   if ( chislo < 1000 ) return { };
-  std::string res = ParseSotni( acc, chislo / 1000 );
+  std::string res = ParseSotni( ac, chislo / 1000 );
   if ( ( chislo / 1000 ) % 10 == 1 ) {
     auto it = res.find( "один" );
     res.replace( it, it + 3, "одна" );
