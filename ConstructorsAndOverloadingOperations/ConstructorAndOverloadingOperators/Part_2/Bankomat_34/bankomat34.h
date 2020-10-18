@@ -37,5 +37,6 @@ class Bankomat34 {
   int32_t max_;
   SpecArray cash_ { 0 };
 };
+//lslslslslsl
 
 #endif // BANKOMAT34_H
