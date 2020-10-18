@@ -4,14 +4,18 @@ SUBDIRS += \
 	Account_32 \
 	Angle_26 \
 	Bankomat_34 \
+	Bitstring_37 \
 	Complex_21 \
+	Cursor_40 \
 	Date_29 \
 	FazzyNumber_31 \
 	Fraction_35 \
 	Goods_36 \
+	LongLong_38 \
 	ModelWindow \
 	Money_24 \
 	Money_33 \
+	Payment_39 \
 	Point_27 \
 	Rational_28 \
 	Time_30 \
