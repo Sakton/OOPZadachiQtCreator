@@ -2,7 +2,7 @@
 #define ACCOUNT32_H
 #include <string>
 
-#include "money33.h"
+#include "money24.h"
 
 class Account32 {
  public:
@@ -40,7 +40,7 @@ class Account32 {
   std::string accountNum_;
   double procent_;
   // double summa_;
-  Money33 summa_;
+  Money24 summa_;
 };
 
 #endif // ACCOUNT32_H

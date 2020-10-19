@@ -12,7 +12,7 @@ Account32::Account32( const std::string& name, const std::string& acc,
   name_ = name;
   accountNum_ = acc;
   procent_ = proc;
-  summa_ = Money33( summ );
+  summa_ = Money24( summ );
 }
 
 Account32::operator std::string( ) const {
@@ -37,7 +37,7 @@ Account32& Account32::operator+=( double sm ) {
     std::cout << "ERROR ADDING SUM < 0";
     exit( 1 );
   }
-  summa_ += Money33( sm );
+  summa_ += Money24( sm );
   return *this;
 }
 
@@ -46,7 +46,7 @@ Account32& Account32::operator-=( double sm ) {
     std::cout << "ERROR SUB SUM < 0";
     exit( 1 );
   }
-  summa_ -= Money33( sm );
+  summa_ -= Money24( sm );
   return *this;
 }
 

@@ -6,8 +6,8 @@ CONFIG -= qt
 SOURCES += \
         account32.cpp \
         main.cpp \
-        money33.cpp
+        money24.cpp
 
 HEADERS += \
 	account32.h \
-	money33.h
+	money24.h

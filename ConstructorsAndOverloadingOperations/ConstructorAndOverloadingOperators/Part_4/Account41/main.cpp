@@ -4,8 +4,6 @@
 #include <clocale>
 #include <iostream>
 
-// WARNING ЭТО ЗАДАНИЕ 41 ОШИБОЧКА ВЫШЛА
-
 int main( )
 {
     setlocale( LC_ALL, "ru" );
