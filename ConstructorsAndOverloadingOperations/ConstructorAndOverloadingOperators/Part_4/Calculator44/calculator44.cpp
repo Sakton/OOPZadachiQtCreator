@@ -141,7 +141,7 @@ Fraction35B Calculator44::Raschet( const std::string &expr ) {
       Fraction35B a = st.top( );
       st.pop( );
 
-      if ( *it == '-' && st.empty( ) ) {
+      if ( *it == '-' && st.empty( ) ) {  //унарный минус перед выражением
         res = -a;
       } else {
         Fraction35B b = st.top( );
