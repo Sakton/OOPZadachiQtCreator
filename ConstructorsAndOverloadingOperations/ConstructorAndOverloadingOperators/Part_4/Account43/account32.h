@@ -2,10 +2,12 @@
 #define ACCOUNT32_H
 #include <string>
 
+#include "date29.h"
+
 class Account32 {
  public:
   Account32( const std::string& name, const std::string& acc, double proc,
-             double summ );
+             double summ, const Date29& date_open );
   void Display( );
   operator std::string( ) const;
 
@@ -25,6 +27,8 @@ class Account32 {
   double ToEuro( double cours ) const;
   std::string ToChislitelnoe( ) const;
 
+  void AddingProcentToDayCount( const Date29& dt );
+
  private:
   std::string Sotni( int chislo ) const;
   std::string Desyatki( int chislo ) const;
@@ -38,6 +42,7 @@ class Account32 {
   std::string accountNum_;
   double procent_;
   double summa_;
+  Date29 date_open_;
 };
 
 #endif // ACCOUNT32_H

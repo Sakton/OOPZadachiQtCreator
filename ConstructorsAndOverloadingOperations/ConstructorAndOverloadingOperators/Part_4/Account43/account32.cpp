@@ -6,9 +6,13 @@
 #include <stack>
 
 Account32::Account32( const std::string& name, const std::string& acc,
-                      double proc, double summ )
-    : name_ { }, accountNum_ { }, procent_ { 0 }, summa_ { 0 } {
-  //проверки всех данных
+                      double proc, double summ, const Date29& date_open )
+    : name_ { },
+      accountNum_ { },
+      procent_ { 0 },
+      summa_ { 0 },
+      date_open_( date_open ) {
+  //РїСЂРѕРІРµСЂРєРё РІСЃРµС… РґР°РЅРЅС‹С…
   name_ = name;
   accountNum_ = acc;
   procent_ = proc;
@@ -92,36 +96,43 @@ std::string Account32::ToChislitelnoe( ) const {
   res += ParseSotni( rur );
 
   if ( cop ) {
-    res += " рублей, ";
+    res += " СЂСѓР±Р»РµР№, ";
     res += ParseSotni( cop );
-    res += " копеек";
+    res += " РєРѕРїРµРµРє";
   } else {
-    res += " рублей";
+    res += " СЂСѓР±Р»РµР№";
   }
 
   return res;
 }
 
+void Account32::AddingProcentToDayCount( const Date29& dt ) {
+  int day = date_open_.Interval( dt );
+  for ( int i = 0; i < day; ++i ) {
+    summa_ += summa_ * 0.0001;
+  }
+}
+
 std::string Account32::Sotni( int chislo ) const {
   switch ( chislo ) {
     case 100:
-      return "сто";
+      return "СЃС‚Рѕ";
     case 200:
-      return "двести";
+      return "РґРІРµСЃС‚Рё";
     case 300:
-      return "триста";
+      return "С‚СЂРёСЃС‚Р°";
     case 400:
-      return "четыреста";
+      return "С‡РµС‚С‹СЂРµСЃС‚Р°";
     case 500:
-      return "пЯтьсот";
+      return "РїРЇС‚СЊСЃРѕС‚";
     case 600:
-      return "шестьсот";
+      return "С€РµСЃС‚СЊСЃРѕС‚";
     case 700:
-      return "семьсот";
+      return "СЃРµРјСЊСЃРѕС‚";
     case 800:
-      return "восемьсот";
+      return "РІРѕСЃРµРјСЊСЃРѕС‚";
     case 900:
-      return "девЯтьсот";
+      return "РґРµРІРЇС‚СЊСЃРѕС‚";
     default:
       return "";
   }
@@ -130,41 +141,41 @@ std::string Account32::Sotni( int chislo ) const {
 std::string Account32::Desyatki( int chislo ) const {
   switch ( chislo ) {
     case 10:
-      return "десЯть";
+      return "РґРµСЃРЇС‚СЊ";
     case 11:
-      return "одиннадцать";
+      return "РѕРґРёРЅРЅР°РґС†Р°С‚СЊ";
     case 12:
-      return "двенадцать";
+      return "РґРІРµРЅР°РґС†Р°С‚СЊ";
     case 13:
-      return "тринадцать";
+      return "С‚СЂРёРЅР°РґС†Р°С‚СЊ";
     case 14:
-      return "четырнадцать";
+      return "С‡РµС‚С‹СЂРЅР°РґС†Р°С‚СЊ";
     case 15:
-      return "пЯтнадцать";
+      return "РїРЇС‚РЅР°РґС†Р°С‚СЊ";
     case 16:
-      return "шестнадцать";
+      return "С€РµСЃС‚РЅР°РґС†Р°С‚СЊ";
     case 17:
-      return "семьнадцать";
+      return "СЃРµРјСЊРЅР°РґС†Р°С‚СЊ";
     case 18:
-      return "восемьнадцать";
+      return "РІРѕСЃРµРјСЊРЅР°РґС†Р°С‚СЊ";
     case 19:
-      return "девЯтнадцать";
+      return "РґРµРІРЇС‚РЅР°РґС†Р°С‚СЊ";
     case 20:
-      return "двадцать";
+      return "РґРІР°РґС†Р°С‚СЊ";
     case 30:
-      return "тридцать";
+      return "С‚СЂРёРґС†Р°С‚СЊ";
     case 40:
-      return "сорок";
+      return "СЃРѕСЂРѕРє";
     case 50:
-      return "пЯтьдесЯт";
+      return "РїРЇС‚СЊРґРµСЃРЇС‚";
     case 60:
-      return "шестьдесЯт";
+      return "С€РµСЃС‚СЊРґРµСЃРЇС‚";
     case 70:
-      return "семьдесЯт";
+      return "СЃРµРјСЊРґРµСЃРЇС‚";
     case 80:
-      return "восемдесЯт";
+      return "РІРѕСЃРµРјРґРµСЃРЇС‚";
     case 90:
-      return "девЯносто";
+      return "РґРµРІРЇРЅРѕСЃС‚Рѕ";
     default:
       return "";
   }
@@ -173,23 +184,23 @@ std::string Account32::Desyatki( int chislo ) const {
 std::string Account32::Edinitsy( int chislo ) const {
   switch ( chislo ) {
     case 1:
-      return "один";
+      return "РѕРґРёРЅ";
     case 2:
-      return "два";
+      return "РґРІР°";
     case 3:
-      return "три";
+      return "С‚СЂРё";
     case 4:
-      return "четыре";
+      return "С‡РµС‚С‹СЂРµ";
     case 5:
-      return "пЯть";
+      return "РїРЇС‚СЊ";
     case 6:
-      return "шесть";
+      return "С€РµСЃС‚СЊ";
     case 7:
-      return "семь";
+      return "СЃРµРјСЊ";
     case 8:
-      return "восемь";
+      return "РІРѕСЃРµРјСЊ";
     case 9:
-      return "девЯть";
+      return "РґРµРІРЇС‚СЊ";
     default:
       return "";
   }
@@ -220,22 +231,22 @@ std::string Account32::ParseThousand( int chislo ) const {
   if ( chislo < 1000 ) return { };
   std::string res = ParseSotni( chislo / 1000 );
   if ( ( chislo / 1000 ) % 10 == 1 ) {
-    auto it = res.find( "один" );
-    res.replace( it, it + 3, "одна" );
+    auto it = res.find( "РѕРґРёРЅ" );
+    res.replace( it, it + 3, "РѕРґРЅР°" );
   }
   if ( ( chislo / 1000 ) % 10 == 2 ) {
-    auto it = res.find( "два" );
-    res.replace( it, it + 3, "две " );
+    auto it = res.find( "РґРІР°" );
+    res.replace( it, it + 3, "РґРІРµ " );
   }
   if ( 1000 <= chislo && chislo < 1000000 ) {
     switch ( ( chislo / 1000 ) % 10 ) {
       case 1:
-        res += "тысЯча ";
+        res += "С‚С‹СЃРЇС‡Р° ";
         break;
       case 2:
       case 3:
       case 4:
-        res += "тысЯчи ";
+        res += "С‚С‹СЃРЇС‡Рё ";
         break;
       case 5:
       case 6:
@@ -243,7 +254,7 @@ std::string Account32::ParseThousand( int chislo ) const {
       case 8:
       case 9:
       case 0:
-        res += "тысЯч ";
+        res += "С‚С‹СЃРЇС‡ ";
         break;
     }
   }
