@@ -3,35 +3,33 @@
 #include "complex21.h"
 
 int main( ) {
-  // Methods demonstration
-  ComplexA a, b;
-  Init( a, 1.1, 2.2 );
-  Init( b, 3.3, 4.4 );
-  Display( a );
+  //*** Methods demonstration
+  Complex21 a( 1.1, 2.2 ), b( 3.3, 4.4 );
+  a.Display( );
   std::cout << std::endl;
-  Display( b );
+  b.Display( );
   std::cout << std::endl;
 
-  ComplexA c = Add( a, b );
-  ComplexA d = Sub( a, b );
-  ComplexA e = Div( a, b );
-  ComplexA f = Mul( a, b );
+  Complex21 c = a + b;
+  Complex21 d = a - b;
+  Complex21 e = a / b;
+  Complex21 f = a * b;
 
-  Display( c );
+  c.Display( );
   std::cout << std::endl;
-  Display( d );
+  d.Display( );
   std::cout << std::endl;
-  Display( e );
+  e.Display( );
   std::cout << std::endl;
-  Display( f );
+  f.Display( );
   std::cout << std::endl;
 
-  ComplexA l = Conj( a );
-  ComplexA m = Conj( b );
+  Complex21 l = -a;
+  Complex21 m = -b;
 
-  Display( l );
+  l.Display( );
   std::cout << std::endl;
-  Display( m );
+  m.Display( );
   std::cout << std::endl;
 
   //    ComplexA aa;
@@ -39,13 +37,13 @@ int main( ) {
   //    Display( aa );
   //    std::cout << std::endl;
 
-  // arrays
-  ComplexA arr[ 10 ];
+  //*** arrays
+  Complex21 arr[ 10 ];
   for ( int i = 0; i < 10; ++i ) {
-    Init( arr[ i ], i + 1, -i - 1 );
+    arr[ i ] = Complex21( i + 1, -i - 1 );
   }
   for ( int i = 0; i < 10; ++i ) {
-    Display( arr[ i ] );
+    arr[ i ].Display( );
     std::cout << std::endl;
   }
 }

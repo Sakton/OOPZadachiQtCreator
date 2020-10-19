@@ -5,8 +5,9 @@
 class PairCmplx {
  public:
   PairCmplx( double a = 0, double b = 0 );
-  operator std::string( );
-  friend void Data( const PairCmplx& pc );
+  operator std::string( ) const;
+  // /*friend */ void Display( /*const PairCmplx& pc*/ ) const;
+  friend void Display( const PairCmplx& pc );
 
   double a( ) const;
   void setA( double a );
