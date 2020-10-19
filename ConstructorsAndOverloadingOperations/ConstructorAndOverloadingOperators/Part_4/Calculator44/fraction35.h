@@ -22,6 +22,7 @@ class Fraction35B {
   void Display( ) const;
   explicit operator std::string( ) const;
   // void Read(  );
+  Fraction35B& operator-( );  // Adding
 
   //  Fraction35B& operator+=( const Fraction35B& b );
   //  Fraction35B& operator-=( const Fraction35B& b );

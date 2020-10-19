@@ -64,6 +64,11 @@ void Fraction35B::Display( ) const {
   std::cout << static_cast< std::string >( *this ) << std::endl;
 }
 
+Fraction35B& Fraction35B::operator-( ) {
+  whole_ = -whole_;
+  return *this;
+}
+
 Fraction35B operator+( const Fraction35B& a, const Fraction35B& b ) {
   Fraction35B loc = a;
   if ( a.negative && !b.negative ) {

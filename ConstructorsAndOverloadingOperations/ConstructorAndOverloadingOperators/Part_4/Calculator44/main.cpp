@@ -61,5 +61,10 @@ int main( ) {
   //  dblefr.Display( );
 
   Calculator44 calc;
-  calc( "( ( ( 11 + 22 ) * 33 ) + ( 44 / 55 ) )" );
+  calc( "- ( ( ( 11 + 22 ) * 33 ) + ( 44 / 55 ) )" ).Display( );
+  //  std::cout << calc.Postfix( ( "- ( ( ( 1 + 2 ) * 3 ) + ( 4 / 5 ) )" ) )
+  //            << std::endl;
+  //  calc.Raschet( calc.Postfix( ( "- ( ( ( 11 + 22 ) * 33 ) + ( 44 / 55 ) )" )
+  //  ) )
+  //      .Display( );
 }
