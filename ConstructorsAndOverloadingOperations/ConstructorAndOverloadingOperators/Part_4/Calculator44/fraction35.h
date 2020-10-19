@@ -10,13 +10,17 @@ int16_t - 65536 - макс число для ushort
 Поэтому максимальная точность числа - 4 порядка
 
 TODO какйто тугой код получился
+или переписывать но целиком, или ничего не трогать ....2
 */
 
 class Fraction35B {
  public:
-  Fraction35B( int64_t w = 0, int16_t f = 0 );
-  friend void Display( const Fraction35B& b );
-  friend std::string ToString( const Fraction35B& b );
+  explicit Fraction35B( int64_t w = 0, int16_t f = 0 );
+  explicit Fraction35B( const std::string& s_num );
+  explicit Fraction35B( double num );
+
+  void Display( ) const;
+  explicit operator std::string( ) const;
   // void Read(  );
 
   //  Fraction35B& operator+=( const Fraction35B& b );
@@ -56,6 +60,7 @@ class Fraction35B {
   int64_t whole_;
   int16_t fractional_;
   //при whole == 0 знак числа теряется
+  //если рассматривать whole как число зо знаком и тащить его
   bool negative;
 };
 

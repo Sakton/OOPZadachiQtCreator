@@ -13,88 +13,56 @@ Fraction35B::Fraction35B( int64_t w, int16_t f ) {
   fractional_ = std::abs( f );
 }
 
-void Display( const Fraction35B& b ) {
-  std::cout << ToString( b ) << std::endl;
+Fraction35B::Fraction35B( const std::string& s_num ) : Fraction35B( 0, 0 ) {
+  int16_t frac = 0;
+  int64_t whole = 0;
+  int64_t tmp = 0;
+  bool negative = false;
+  for ( std::string::const_iterator it = s_num.cbegin( ); it != s_num.cend( );
+        ++it ) {
+    if ( *it == '-' ) negative = true;
+    if ( std::isdigit( *it ) ) tmp = ( tmp * 10 + ( *it - '0' ) );
+    if ( *it == ',' || *it == '.' ) {
+      whole = ( negative ) ? -tmp : tmp;
+      tmp = 0;
+    }
+  }
+
+  if ( 0 <= tmp && tmp < 10 ) {
+    frac = static_cast< int16_t >( tmp ) * 1000;
+  } else if ( 10 <= tmp && tmp < 100 ) {
+    frac = static_cast< int16_t >( tmp ) * 100;
+  } else if ( 100 <= tmp && tmp < 1000 ) {
+    frac = static_cast< int16_t >( tmp ) * 10;
+  } else {
+    frac = static_cast< int16_t >( tmp );
+  }
+
+  *this = Fraction35B( whole, frac );
 }
 
-std::string ToString( const Fraction35B& b ) {
+Fraction35B::Fraction35B( double num )
+    : Fraction35B( num,
+                   std::abs( num - static_cast< int64_t >( num ) ) * 10000 ) {}
+
+Fraction35B::operator std::string( ) const {
   std::stringstream ss;
-  if ( b.negative ) ss << '-';
-  ss << b.whole_ << ",";
-  if ( 0 <= b.fractional_ && b.fractional_ < 10 ) {
+  if ( negative ) ss << '-';
+  ss << whole_ << ",";
+  if ( 0 <= fractional_ && fractional_ < 10 ) {
     ss << "000";
-  } else if ( 10 <= b.fractional_ && b.fractional_ < 100 ) {
+  } else if ( 10 <= fractional_ && fractional_ < 100 ) {
     ss << "00";
-  } else if ( 100 <= b.fractional_ && b.fractional_ < 1000 ) {
+  } else if ( 100 <= fractional_ && fractional_ < 1000 ) {
     ss << "0";
   }
-  ss << b.fractional_;
+  ss << fractional_;
   return ss.str( );
 }
 
-// Fraction35B& Fraction35B::operator+=( const Fraction35B& b ) {
-//  Fraction35B loc = a;
-//  if ( a.negative && !b.negative ) {
-//    if ( Modul( a ).Less( Modul( b ) ) ) {
-//      loc = SubModul( Modul( b ), Modul( b ) );
-//    } else if ( !Modul( a ).Less( Modul( b ) ) ) {
-//      loc = SubModul( Modul( a ), Modul( b ) );
-//      loc.negative = true;
-//    } else {
-//      loc.whole_ = 0;
-//      loc.fractional_ = 0;
-//    }
-//  } else if ( !a.negative && b.negative ) {
-//    if ( Modul( a ).Less( Modul( b ) ) ) {
-//      loc = SubModul( Modul( a ), Modul( b ) );
-//    } else if ( !Modul( a ).Less( Modul( b ) ) ) {
-//      loc = SubModul( Modul( b ), Modul( a ) );
-//      loc.negative = true;
-//    } else {
-//      loc.whole_ = 0;
-//      loc.fractional_ = 0;
-//    }
-//  } else {
-//    loc = AddModul( Modul( a ), Modul( b ) );
-//    loc.negative = a.negative;
-//  }
-//  return loc;
-//}
-
-// Fraction35B& Fraction35B::operator-=( const Fraction35B& b ) {
-//  //  Fraction35B loc = a;
-//  if ( !negative && !b.negative ) {  //оба положительные
-//    if ( *this < b ) {
-//      *this = b.SubModul( *this );
-//      negative = true;
-//    } else {
-//      *this = this->SubModul( b );
-//    }
-//  } else if ( negative && b.negative ) {  //оба отрицательные
-//    if ( *this < b ) {
-//      *this = b.Modul( ).SubModul( this->Modul( ) );
-//    } else if ( !this->LessMod( b ) ) {
-//      *this = this->Modul( ).SubModul( b.Modul( ) );
-//      negative = true;
-//    }
-//  } else {  //знаки разные
-//    if ( negative && !b.negative ) {
-//      *this = this->Modul( ).AddModul( b.Modul( ) );
-//      negative = true;
-//    } else if ( !negative && b.negative ) {
-//      *this = this->Modul( ).AddModul( b.Modul( ) );
-//    }
-//  }
-//  return *this;
-//}
-// Fraction35B& Fraction35B::operator*=( const Fraction35B& a );
-// Fraction35B& Fraction35B::operator/=( const Fraction35B& a );
-
-// Fraction35B operator+( const Fraction35B& a, const Fraction35B& b ) {
-//  Fraction35B loc = a;
-//  loc += b;
-//  return loc;
-//}
+void Fraction35B::Display( ) const {
+  std::cout << static_cast< std::string >( *this ) << std::endl;
+}
 
 Fraction35B operator+( const Fraction35B& a, const Fraction35B& b ) {
   Fraction35B loc = a;
