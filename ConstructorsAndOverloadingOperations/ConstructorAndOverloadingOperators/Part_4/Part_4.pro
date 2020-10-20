@@ -4,4 +4,5 @@ SUBDIRS += \
 	Account41 \
 	Account42 \
 	Account43 \
+	Bankomat45 \
 	Calculator44
