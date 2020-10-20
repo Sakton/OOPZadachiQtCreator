@@ -6,4 +6,5 @@ SUBDIRS += \
 	Account43 \
 	Bankomat45 \
 	Calculator44 \
+	Calculator47 \
 	Fraction46
