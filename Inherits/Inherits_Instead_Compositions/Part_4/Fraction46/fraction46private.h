@@ -2,11 +2,9 @@
 #define FRACTION46PRIVATE_H
 #include "longlong38b.h"
 
-class Fraction46private
-{
+class Fraction46private : private LongLong38B {
  public:
-  explicit Fraction46private( const LongLong38B& w = LongLong38B( ),
-                              double f = 0 );
+  explicit Fraction46private( int64_t w = 0, double f = 0 );
   void Display( ) const;
   explicit operator std::string( ) const;
 
@@ -54,7 +52,7 @@ class Fraction46private
   friend bool EqModul( const Fraction46private& a, const Fraction46private& b );
 
  private:
-  LongLong38B whole_;
+  //  LongLong38B whole_;
   double fractional_;
   bool negative;
 };

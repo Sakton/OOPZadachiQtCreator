@@ -3,14 +3,13 @@
 #include <iostream>
 #include <sstream>
 
-Fraction46private::Fraction46private( const LongLong38B& w, double f )
-    : whole_( w ), fractional_ { f } {
+Fraction46private::Fraction46private( int64_t w, double f )
+    : LongLong38B( w ), fractional_ { f } {
   if ( f < 0 || f >= 10000 ) {
     std::cout << "ERROR ARG FRACTIONAL < 0 || >= 10000";
     exit( 1 );
   }
-  whole_ = LongLong38B( w );
-  negative = ( w < LongLong38B( 0 ) ) ? true : false;
+  negative = ( w < 0 ) ? true : false;
   fractional_ = std::abs( f );
 }
 
@@ -21,7 +20,7 @@ void Fraction46private::Display( ) const {
 Fraction46private::operator std::string( ) const {
   std::stringstream ss;
   if ( negative ) ss << '-';
-  ss << static_cast< std::string >( whole_ ) << ",";
+  ss << LongLong38B::operator std::string( ) << ",";
   if ( 0 <= fractional_ && fractional_ < 10 ) {
     ss << "000";
   } else if ( 10 <= fractional_ && fractional_ < 100 ) {
@@ -41,7 +40,7 @@ Fraction46private& Fraction46private::operator+=( const Fraction46private& b ) {
       *this = SubModul( Modul( *this ), Modul( b ) );
       negative = true;
     } else {
-      whole_ = LongLong38B( 0 );
+      static_cast< LongLong38B& >( *this ) = LongLong38B( 0 );
       fractional_ = 0;
     }
   } else if ( !negative && b.negative ) {
@@ -51,7 +50,7 @@ Fraction46private& Fraction46private::operator+=( const Fraction46private& b ) {
       *this = SubModul( Modul( b ), Modul( *this ) );
       negative = true;
     } else {
-      whole_ = LongLong38B( 0 );
+      static_cast< LongLong38B& >( *this ) = LongLong38B( 0 );
       fractional_ = 0;
     }
   } else {
@@ -129,11 +128,11 @@ Fraction46private& Fraction46private::operator/=( const Fraction46private& b ) {
   //  **
 
   //или тупо через дабл
-  double x = static_cast< int64_t >( whole_ ) + fractional_ / 1000;
-  double y = static_cast< int64_t >( b.whole_ ) + b.fractional_ / 1000;
+  double x = static_cast< int64_t >( *this ) + fractional_ / 1000;
+  double y = static_cast< int64_t >( b ) + b.fractional_ / 1000;
   double res = x / y;
-  *this = Fraction46private( LongLong38B( res ),
-                             ( res - static_cast< int64_t >( res ) ) * 10000 );
+  *this =
+      Fraction46private( res, ( res - static_cast< int64_t >( res ) ) * 10000 );
   return *this;
 }
 
@@ -150,7 +149,8 @@ bool operator<( const Fraction46private& a, const Fraction46private& b ) {
   } else if ( !a.negative && !b.negative ) {
     return LessMod( a, b );
   } else {
-    return ( a.whole_ < b.whole_ );
+    return ( static_cast< LongLong38B >( a ) <
+             static_cast< LongLong38B >( b ) );
   }
 }
 
@@ -167,7 +167,8 @@ bool operator>=( const Fraction46private& a, const Fraction46private& b ) {
 }
 
 bool operator==( const Fraction46private& a, const Fraction46private& b ) {
-  return ( a.negative == b.negative && a.whole_ == b.whole_ &&
+  return ( a.negative == b.negative &&
+           static_cast< LongLong38B >( a ) == static_cast< LongLong38B >( b ) &&
            a.fractional_ == b.fractional_ );
 }
 
@@ -178,11 +179,12 @@ bool operator!=( const Fraction46private& a, const Fraction46private& b ) {
 Fraction46private Fraction46private::AddModul( const Fraction46private& a,
                                                const Fraction46private& b ) {
   Fraction46private loc = a;
-  loc.whole_ = a.whole_ + b.whole_;
+  static_cast< LongLong38B& >( loc ) =
+      static_cast< LongLong38B >( a ) + static_cast< LongLong38B >( b );
   loc.fractional_ = a.fractional_ + b.fractional_;
   if ( loc.fractional_ > 10000 ) {
     loc.fractional_ -= 10000;
-    loc.whole_ += 1;
+    static_cast< LongLong38B& >( loc ) += 1;
   }
   return loc;
 }
@@ -190,9 +192,10 @@ Fraction46private Fraction46private::AddModul( const Fraction46private& a,
 Fraction46private Fraction46private::SubModul( const Fraction46private& a,
                                                const Fraction46private& b ) {
   Fraction46private loc;
-  loc.whole_ = a.whole_ - b.whole_;
+  static_cast< LongLong38B& >( loc ) =
+      static_cast< LongLong38B >( a ) - static_cast< LongLong38B >( b );
   if ( a.fractional_ < b.fractional_ ) {
-    loc.whole_ -= 1;
+    static_cast< LongLong38B& >( loc ) -= 1;
     loc.fractional_ = a.fractional_ + 10000 - b.fractional_;
   } else {
     loc.fractional_ = a.fractional_ - b.fractional_;
@@ -203,30 +206,31 @@ Fraction46private Fraction46private::SubModul( const Fraction46private& a,
 Fraction46private Fraction46private::MulModul( const Fraction46private& a,
                                                const Fraction46private& b ) {
   //(a + b)*(c + d)
-  int64_t ac_t =
-      static_cast< int64_t >( a.whole_ ) * static_cast< int64_t >( b.whole_ );
-  double ad_t = static_cast< int64_t >( a.whole_ ) * ( b.fractional_ / 10000 );
-  double bc_t = ( a.fractional_ / 10000 ) * static_cast< int64_t >( b.whole_ );
+  int64_t ac_t = static_cast< int64_t >( a ) * static_cast< int64_t >( b );
+  double ad_t = static_cast< int64_t >( a ) * ( b.fractional_ / 10000 );
+  double bc_t = ( a.fractional_ / 10000 ) * static_cast< int64_t >( b );
   int64_t bd_t = a.fractional_ * b.fractional_;
 
-  Fraction46private ac( LongLong38B( ac_t ), 0 );
-  Fraction46private ad( LongLong38B( ad_t ),
+  Fraction46private ac( ac_t, 0 );
+  Fraction46private ad( ad_t,
                         ( ad_t - static_cast< int64_t >( ad_t ) ) * 10000 );
-  Fraction46private bc( LongLong38B( bc_t ),
+  Fraction46private bc( bc_t,
                         ( bc_t - static_cast< int64_t >( bc_t ) ) * 10000 );
-  Fraction46private bd( LongLong38B( bd_t ) / 100000000,
-                        ( bd_t % 100000000 ) / 10000 );
+  Fraction46private bd( bd_t / 100000000, ( bd_t % 100000000 ) / 10000 );
   Fraction46private res = ac + ad + bc + bd;
   return res;
 }
 
 Fraction46private Fraction46private::Modul( const Fraction46private& a ) {
-  return Fraction46private( a.whole_.Modul( ), a.fractional_ );
+  return Fraction46private( std::abs( static_cast< int64_t >( a ) ),
+                            a.fractional_ );
 }
 
 bool LessMod( const Fraction46private& a, const Fraction46private& b ) {
-  return ( a.whole_.Modul( ) < b.whole_.Modul( ) ) ||
-         ( ( a.whole_.Modul( ) == b.whole_.Modul( ) ) &&
+  return ( static_cast< LongLong38B >( a ).Modul( ) <
+           static_cast< LongLong38B >( b ).Modul( ) ) ||
+         ( ( static_cast< LongLong38B >( a ).Modul( ) ==
+             static_cast< LongLong38B >( b ).Modul( ) ) &&
            ( a.fractional_ < b.fractional_ ) );
 }
 
@@ -234,4 +238,6 @@ bool Fraction46private::GetNegative( ) { return negative; }
 
 int16_t Fraction46private::Fractional( ) { return fractional_; }
 
-LongLong38B Fraction46private::Whole( ) { return whole_; }
+LongLong38B Fraction46private::Whole( ) {
+  return static_cast< LongLong38B >( *this );
+}
