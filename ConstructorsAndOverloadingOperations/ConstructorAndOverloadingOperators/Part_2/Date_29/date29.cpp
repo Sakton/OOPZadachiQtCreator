@@ -120,8 +120,7 @@ int16_t Date29::Interval( const Date29& other ) const {
   int startY = y_;
   int endY = other.y_;
   if ( startY > endY ) std::swap( startY, endY );
-  //    for ( int i = startY;  )
-  int coutYears = endY - startY - 1;
+  int coutYears = endY - startY;
   int countVisokosnyLet = coutYears / 4;
   //крайние года не попадают в интервал
   int res = countVisokosnyLet * 366 + ( coutYears - countVisokosnyLet ) * 365;

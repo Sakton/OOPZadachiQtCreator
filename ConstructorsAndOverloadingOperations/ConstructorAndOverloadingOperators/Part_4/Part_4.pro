@@ -8,4 +8,7 @@ SUBDIRS += \
 	Calculator44 \
 	Calculator47 \
 	Fraction46 \
-	Triangle48
+	Goods49 \
+	Goods50 \
+	Triangle48 \
+	Triangle51

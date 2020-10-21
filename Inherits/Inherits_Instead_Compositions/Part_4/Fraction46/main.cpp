@@ -4,7 +4,7 @@
 #include "fraction46private.h"
 
 int main( ) {
-  std::cout << "***********fraction46 *************\n";
+  std::cout << "*********** fraction46 *************\n";
   Fraction35B fr1( 112233, 0 );
   fr1.Display( );
 

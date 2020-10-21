@@ -10,7 +10,6 @@ class Angle26 {
   void Read( );
   void Display( ) const;
   std::string ToString( ) const;
-  explicit operator double( ) const;  // Adding
 
   double ToRadian( ) const;
   Angle26 Normalise( ) const;

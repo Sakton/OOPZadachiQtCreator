@@ -36,8 +36,8 @@ int main()
     //    std::cout << std::endl;
     //    std::cout << std::endl;
 
-    Date29 dt2( "21.10.2029" );
-    dt2.SubDay( 45 ).Display( );
+    Date29 dt2( "21.10.2020" );
+    // dt2.SubDay( 45 ).Display( );
     //    std::cout << std::endl;
     //    dt2.SubDay( 2 ).Display( );
     //    std::cout << std::endl;
