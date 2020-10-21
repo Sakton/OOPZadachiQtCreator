@@ -12,7 +12,7 @@ public:
     uint8_t getCop( ) const;
     void setCop( const uint8_t & value );
 
-    friend void Display( const MoneyBase & bm );
+    void Display( );
     operator std::string( ) const;
 
 private:

@@ -5,8 +5,8 @@ Complex21::Complex21( double a, double b )
     : a_ { a }
     , b_ { b }
 {
-    ++Object::COUNT;
-    std::cout << "Object::COUNT = " << Object::COUNT << std::endl;
+  //    ++Object::COUNT;
+  //    std::cout << "Object::COUNT = " << Object::COUNT << std::endl;
 }
 
 Complex21 & Complex21::operator+=( const Complex21 & oth )

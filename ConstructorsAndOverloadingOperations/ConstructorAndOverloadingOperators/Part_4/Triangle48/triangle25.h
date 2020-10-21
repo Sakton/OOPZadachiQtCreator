@@ -4,8 +4,6 @@
 
 #include "angle26.h"
 
-// TODO ТУТ
-
 class Triangle25 {
  public:
   enum class TYPE_TRIANGLE {

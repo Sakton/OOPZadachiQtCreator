@@ -2,8 +2,13 @@
 #define OBJECT_H
 
 class Object {
-public:
-    static int COUNT;
+ public:
+  Object( );
+  ~Object( );
+  static int getCOUNT( );
+
+ private:
+  static int COUNT;
 };
 
 #endif // OBJECT_H
