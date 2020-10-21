@@ -2,12 +2,12 @@
 #define ACCOUNT32_H
 #include <string>
 
-#include "money24.h"
+#include "money33.h"
 
-class Account32pub : public Money24 {
+class Account32 : public Money33 {
  public:
-  Account32pub( const std::string& name, const std::string& acc, double proc,
-                double summ );
+  Account32( const std::string& name, const std::string& acc, double proc,
+             double summ );
   void Display( );
   operator std::string( ) const;
 
@@ -31,8 +31,6 @@ class Account32pub : public Money24 {
   std::string name_;
   std::string accountNum_;
   double procent_;
-  // double summa_;
-  // Money24 summa_;
 };
 
 #endif // ACCOUNT32_H

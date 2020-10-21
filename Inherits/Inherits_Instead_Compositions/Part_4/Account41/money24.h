@@ -9,7 +9,9 @@ class Money24 {
   explicit Money24( double sum );  //Добавлено
 
   Money24& operator+=( const Money24& b );
+  Money24& operator+=( double x );  //Добавлено
   Money24& operator-=( const Money24& b );
+  Money24& operator-=( double x );  //Добавлено
   Money24& operator*=( double x );
   Money24& operator/=( double x );
   double operator/=( const Money24& b );

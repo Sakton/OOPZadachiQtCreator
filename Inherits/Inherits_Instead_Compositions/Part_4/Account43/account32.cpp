@@ -5,50 +5,86 @@
 #include <sstream>
 #include <stack>
 
-Account32pub::Account32pub( const std::string& name, const std::string& acc,
-                            double proc, double summ )
-    : Money24( summ, ( summ - static_cast< int16_t >( summ ) ) * 100 ),
-      name_ { },
-      accountNum_ { },
-      procent_ { 0 } {
-  //проверки всех данных
-  name_ = name;
-  accountNum_ = acc;
-  procent_ = proc;
-}
+Account32::Account32( const std::string& name, const std::string& acc,
+                      double proc, double summ, const std::string& dat )
+    : Date29( dat ),
+      name_ { name },
+      accountNum_ { acc },
+      procent_ { proc },
+      summa_ { summ } {}
 
-Account32pub::operator std::string( ) const {
+Account32::operator std::string( ) const {
   std::stringstream ss;
   ss << "   Name: " << name_ << std::endl
      << "Account: " << accountNum_ << std::endl
      << "Procent: " << procent_ << std::endl
-     << Money24::operator std::string( ) << std::endl;
+     << std::fixed << std::setprecision( 2 ) << summa_ << std::endl;
   return ss.str( );
 }
 
-void Account32pub::Display( ) {
+void Account32::Display( ) {
   std::cout << static_cast< std::string >( *this ) << std::endl;
 }
 
-std::string Account32pub::name( ) const { return name_; }
+std::string Account32::name( ) const { return name_; }
 
-void Account32pub::setName( const std::string& name ) { name_ = name; }
+void Account32::setName( const std::string& name ) { name_ = name; }
 
-void Account32pub::AddProcent( ) {
-  Money24::operator+=( ( *this ) * procent_ / 100 );
+Account32& Account32::operator+=( double sm ) {
+  if ( sm < 0 ) {
+    std::cout << "ERROR ADDING SUM < 0";
+    exit( 1 );
+  }
+  summa_ += sm;
+  return *this;
 }
 
-double Account32pub::ToDollar( double cours ) const {
-  return Money24::operator double( ) / cours;
+Account32& Account32::operator-=( double sm ) {
+  if ( sm < 0 ) {
+    std::cout << "ERROR SUB SUM < 0";
+    exit( 1 );
+  }
+  summa_ -= sm;
+  return *this;
 }
 
-double Account32pub::ToEuro( double cours ) const {
-  return Money24::operator double( ) / cours;
+Account32 operator+( const Account32& ac1, double sm ) {
+  Account32 loc = ac1;
+  loc += sm;
+  return loc;
 }
 
-std::string Account32pub::ToChislitelnoe( ) const {
-  int64_t rur = Money24::operator double( );
-  int16_t cop = Money24::operator double( ) * 100;
+Account32 operator+( double sm, const Account32& ac2 ) {
+  Account32 loc = ac2;
+  loc += sm;
+  return loc;
+}
+
+Account32 operator-( const Account32& ac1, double sm ) {
+  Account32 loc = ac1;
+  loc -= sm;
+  return loc;
+}
+
+Account32 operator-( double sm, const Account32& ac2 ) {
+  Account32 loc = ac2;
+  loc -= sm;
+  return loc;
+}
+
+void Account32::AddProcent( ) { summa_ += summa_ * procent_ / 100; }
+
+double Account32::ToDollar( double cours ) const {
+  return static_cast< double >( summa_ / cours );
+}
+
+double Account32::ToEuro( double cours ) const {
+  return static_cast< double >( summa_ / cours );
+}
+
+std::string Account32::ToChislitelnoe( ) const {
+  int64_t rur = static_cast< double >( summa_ );
+  int16_t cop = ( static_cast< double >( summa_ ) - rur ) * 100;
 
   std::string res = ParseThousand( rur );
   res += ParseSotni( rur );
@@ -64,7 +100,14 @@ std::string Account32pub::ToChislitelnoe( ) const {
   return res;
 }
 
-std::string Account32pub::Sotni( int chislo ) const {
+void Account32::AddingProcentToDayCount( const Date29& dt ) {
+  int day = Interval( dt );
+  for ( int i = 0; i < day; ++i ) {
+    summa_ += summa_ * 0.0001;
+  }
+}
+
+std::string Account32::Sotni( int chislo ) const {
   switch ( chislo ) {
     case 100:
       return "сто";
@@ -89,7 +132,7 @@ std::string Account32pub::Sotni( int chislo ) const {
   }
 }
 
-std::string Account32pub::Desyatki( int chislo ) const {
+std::string Account32::Desyatki( int chislo ) const {
   switch ( chislo ) {
     case 10:
       return "десЯть";
@@ -132,7 +175,7 @@ std::string Account32pub::Desyatki( int chislo ) const {
   }
 }
 
-std::string Account32pub::Edinitsy( int chislo ) const {
+std::string Account32::Edinitsy( int chislo ) const {
   switch ( chislo ) {
     case 1:
       return "один";
@@ -157,7 +200,7 @@ std::string Account32pub::Edinitsy( int chislo ) const {
   }
 }
 
-std::string Account32pub::ParseSotni( int chislo ) const {
+std::string Account32::ParseSotni( int chislo ) const {
   chislo %= 1000;
   std::stack< std::string > st;
   if ( 10 <= ( chislo % 100 ) && ( chislo % 100 ) <= 20 ) {
@@ -178,7 +221,7 @@ std::string Account32pub::ParseSotni( int chislo ) const {
   return res;
 }
 
-std::string Account32pub::ParseThousand( int chislo ) const {
+std::string Account32::ParseThousand( int chislo ) const {
   if ( chislo < 1000 ) return { };
   std::string res = ParseSotni( chislo / 1000 );
   if ( ( chislo / 1000 ) % 10 == 1 ) {

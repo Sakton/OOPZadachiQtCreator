@@ -50,6 +50,8 @@ Money24& Money24::operator+=( const Money24& b ) {
   return *this;
 }
 
+Money24& Money24::operator+=( double x ) { return operator+=( Money24( x ) ); }
+
 Money24& Money24::operator-=( const Money24& b ) {
   int64_t rurA = ( rub < 0 ) ? ( rub * 100 - cop ) : ( rub * 100 + cop );
   int64_t rurB =
@@ -59,6 +61,8 @@ Money24& Money24::operator-=( const Money24& b ) {
   cop = std::abs( divide % 100 );
   return *this;
 }
+
+Money24& Money24::operator-=( double x ) { return operator-=( Money24( x ) ); }
 
 Money24& Money24::operator*=( double x ) {
   int64_t rurA = ( rub < 0 ) ? ( rub * 100 - cop ) : ( rub * 100 + cop );

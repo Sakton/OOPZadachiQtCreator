@@ -2,22 +2,32 @@
 #define ACCOUNT32_H
 #include <string>
 
-#include "money24.h"
+#include "date29.h"
 
-class Account32pub : public Money24 {
+class Account32 : public Date29 {
  public:
-  Account32pub( const std::string& name, const std::string& acc, double proc,
-                double summ );
+  Account32( const std::string& name, const std::string& acc, double proc,
+             double summ, const std::string& dat );
   void Display( );
   operator std::string( ) const;
 
   std::string name( ) const;
   void setName( const std::string& name );
 
+  Account32& operator+=( double sm );
+  Account32& operator-=( double sm );
+
+  friend Account32 operator+( const Account32& ac1, double sm );
+  friend Account32 operator+( double sm, const Account32& ac2 );
+  friend Account32 operator-( const Account32& ac1, double sm );
+  friend Account32 operator-( double sm, const Account32& ac2 );
+
   void AddProcent( );
   double ToDollar( double cours ) const;
   double ToEuro( double cours ) const;
   std::string ToChislitelnoe( ) const;
+
+  void AddingProcentToDayCount( const Date29& dt );
 
  private:
   std::string Sotni( int chislo ) const;
@@ -31,8 +41,8 @@ class Account32pub : public Money24 {
   std::string name_;
   std::string accountNum_;
   double procent_;
-  // double summa_;
-  // Money24 summa_;
+  double summa_;
+  //  Date29 date_open_;
 };
 
 #endif // ACCOUNT32_H

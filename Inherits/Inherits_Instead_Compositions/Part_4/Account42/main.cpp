@@ -5,11 +5,13 @@
 #include "account32.h"
 #include "account32private.h"
 
+// WARNING ЭТО ЗАДАНИЕ 41 ОШИБОЧКА ВЫШЛА
+
 int main( )
 {
     setlocale( LC_ALL, "ru" );
 
-    Account32pub acc( "Petrov", "1234252345", 6.9, 123598.59 );
+    Account32 acc( "Petrov", "1234252345", 6.9, 123598.59 );
     acc.Display( );
     std::cout << acc.ToChislitelnoe( ) << std::endl;
 
@@ -21,14 +23,7 @@ int main( )
     acc.AddProcent( );
     acc.Display( );
 
-    Money24 *mn = new Account32pub( "Petrov", "1234252345", 6.9, 123598.59 );
-
-    *mn -= 98;
-    mn->Display( );
-    *mn -= 0.59;
-    mn->Display( );
-
-    std::cout << "XXXXXXXXXXXXXXXXXXprivateXXXXXXXXXXXXXXXXXXXXX" << std::endl;
+    std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << std::endl;
 
     Account32private pacc( "Petrov", "1234252345", 6.9, 123598.59 );
     pacc.Display( );
@@ -39,6 +34,4 @@ int main( )
 
     pacc.AddProcent( );
     pacc.Display( );
-    //    Money24 *mn1 =
-    //        new Account32private( "Petrov", "1234252345", 6.9, 123598.59 );
 }

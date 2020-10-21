@@ -1,18 +1,24 @@
-#ifndef ACCOUNT32_H
-#define ACCOUNT32_H
-#include <string>
-
+#ifndef ACCOUNT32PRIVATE_H
+#define ACCOUNT32PRIVATE_H
 #include "money24.h"
 
-class Account32pub : public Money24 {
+class Account32private : private Money24 {
  public:
-  Account32pub( const std::string& name, const std::string& acc, double proc,
-                double summ );
+  Account32private( const std::string& name, const std::string& acc,
+                    double proc, double summ );
   void Display( );
   operator std::string( ) const;
 
   std::string name( ) const;
   void setName( const std::string& name );
+
+  Account32private& operator+=( double sm );
+  Account32private& operator-=( double sm );
+
+  friend Account32private operator+( const Account32private& ac1, double sm );
+  friend Account32private operator+( double sm, const Account32private& ac2 );
+  friend Account32private operator-( const Account32private& ac1, double sm );
+  friend Account32private operator-( double sm, const Account32private& ac2 );
 
   void AddProcent( );
   double ToDollar( double cours ) const;
@@ -31,8 +37,6 @@ class Account32pub : public Money24 {
   std::string name_;
   std::string accountNum_;
   double procent_;
-  // double summa_;
-  // Money24 summa_;
 };
 
-#endif // ACCOUNT32_H
+#endif // ACCOUNT32PRIVATE_H
