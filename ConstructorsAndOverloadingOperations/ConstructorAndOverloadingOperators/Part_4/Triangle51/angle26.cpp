@@ -36,6 +36,10 @@ std::string Angle26::ToString( ) const {
   return ss.str( );
 }
 
+Angle26::operator double( ) const {
+  return static_cast< double >( grad ) + static_cast< double >( min ) / 60.0;
+}
+
 double Angle26::ToRadian( ) const {
   double grad = static_cast< double >( this->grad ) +
                 static_cast< double >( min ) * 60 / 100;

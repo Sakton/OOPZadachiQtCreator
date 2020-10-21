@@ -12,35 +12,37 @@ Point27::operator std::string( ) const {
   return "( " + std::to_string( x_ ) + " : " + std::to_string( y_ ) + " )";
 }
 
-void Display( const Point27& pt ) {
-  std::cout << static_cast< std::string >( pt ) << std::endl;
+void Point27::Display( ) const {
+  std::cout << static_cast< std::string >( *this ) << std::endl;
 }
 
-void MoveX( Point27& pt, int32_t dx ) { pt.x_ += dx; }
+void Point27::MoveX( int32_t dx ) { x_ += dx; }
 
-void MoveY( Point27& pt, int32_t dy ) { pt.y_ += dy; }
-double DistanceToNullCoordinate( const Point27& pt ) {
-  return std::sqrt( pt.x_ * pt.x_ + pt.y_ * pt.y_ );
+void Point27::MoveY( int32_t dy ) { y_ += dy; }
+
+double Point27::DistanceToNullCoordinate( ) const {
+  return std::sqrt( x_ * x_ + y_ * y_ );
 }
-double Distance( const Point27& a, const Point27& b ) {
-  int32_t dx = a.x_ - b.x_;
-  int32_t dy = a.y_ - b.y_;
+
+double Point27::Distance( const Point27& b ) const {
+  int32_t dx = x_ - b.x_;
+  int32_t dy = y_ - b.y_;
   return std::sqrt( dx * dx + dy * dy );
 }
 
-Point27::Polar ToPolar( const Point27& a ) {
+Point27::Polar Point27::ToPolar( ) const {
   Point27::Polar p;
-  p.radius = DistanceToNullCoordinate( a );
+  p.radius = DistanceToNullCoordinate( );
 
-  if ( a.x_ > 0 && a.y_ >= 0 ) {
-    p.angleFi = std::atan( a.y_ / a.x_ ) * ANG_PI_2 / PI;
-  } else if ( a.x_ > 0 && a.y_ < 0 ) {
-    p.angleFi = ( std::atan( a.y_ / a.x_ ) + 2 * PI ) * ANG_PI_2 / PI;
-  } else if ( a.x_ < 0 ) {
-    p.angleFi = ( std::atan( a.y_ / a.x_ ) + PI ) * ANG_PI_2 / PI;
-  } else if ( a.x_ == 0 && a.y_ > 0 ) {
+  if ( x_ > 0 && y_ >= 0 ) {
+    p.angleFi = std::atan( y_ / x_ ) * ANG_PI_2 / PI;
+  } else if ( x_ > 0 && y_ < 0 ) {
+    p.angleFi = ( std::atan( y_ / x_ ) + 2 * PI ) * ANG_PI_2 / PI;
+  } else if ( x_ < 0 ) {
+    p.angleFi = ( std::atan( y_ / x_ ) + PI ) * ANG_PI_2 / PI;
+  } else if ( x_ == 0 && y_ > 0 ) {
     p.angleFi = 90;
-  } else if ( a.x_ == 0 && a.y_ < 0 ) {
+  } else if ( x_ == 0 && y_ < 0 ) {
     p.angleFi = 270;
   } else {
     std::cout << "ERROR ANGLE" << std::endl;

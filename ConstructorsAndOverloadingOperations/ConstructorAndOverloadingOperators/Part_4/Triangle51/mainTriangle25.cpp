@@ -45,19 +45,19 @@ int main( ) {
   trA1.SetC( 6 );
   trA1.Display( );
 
-  trA1.SetAngleA( 30 );
+  trA1.SetAngleA( Angle26( 30.0 ) );
   trA1.Display( );
-  trA1.SetAngleA( 41.41 );
-  trA1.Display( );
-
-  trA1.SetAngleB( 30 );
-  trA1.Display( );
-  trA1.SetAngleB( 41.41 );
+  trA1.SetAngleA( Angle26( 41.41 ) );
   trA1.Display( );
 
-  trA1.SetAngleC( 70 );
+  trA1.SetAngleB( Angle26( 30.0 ) );
   trA1.Display( );
-  trA1.SetAngleC( 97.18 );
+  trA1.SetAngleB( Angle26( 41.41 ) );
+  trA1.Display( );
+
+  trA1.SetAngleC( Angle26( 70.0 ) );
+  trA1.Display( );
+  trA1.SetAngleC( Angle26( 97.18 ) );
   trA1.Display( );
 
   std::cout << "H AB = " << trA1.HeightToA( ) << std::endl;

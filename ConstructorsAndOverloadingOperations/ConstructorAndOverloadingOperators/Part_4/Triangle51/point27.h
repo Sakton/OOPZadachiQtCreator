@@ -9,16 +9,16 @@ class Point27 {
     double angleFi;
   };
 
-  Point27( int32_t x, int16_t y );
-  operator std::string( ) const;
+  explicit Point27( int32_t x = 0, int16_t y = 0 );
+  explicit operator std::string( ) const;
 
-  friend void Display( const Point27& pt );
+  void Display( ) const;
 
-  friend void MoveX( Point27& pt, int32_t dx );
-  friend void MoveY( Point27& pt, int32_t dy );
-  friend double DistanceToNullCoordinate( const Point27& pt );
-  friend double Distance( const Point27& a, const Point27& b );
-  friend Polar ToPolar( const Point27& a );
+  void MoveX( int32_t dx );
+  void MoveY( int32_t dy );
+  double DistanceToNullCoordinate( ) const;
+  double Distance( const Point27& b ) const;
+  Polar ToPolar( ) const;
 
   friend bool operator==( const Point27& a, const Point27& b );
   friend bool operator!=( const Point27& a, const Point27& b );
