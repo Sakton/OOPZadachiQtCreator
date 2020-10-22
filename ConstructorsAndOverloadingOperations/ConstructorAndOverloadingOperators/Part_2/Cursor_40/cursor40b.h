@@ -3,39 +3,37 @@
 #include <string>
 //TODO доделать
 
-class Cursor40B
-{
-public:
-    enum class VID {
-	HORIZONTAL,
-	VERTICAL
-    };
-    void Init( );
-    void Display( );
-    //void Read( );
-    std::string ToString( );
+class Cursor40B {
+ public:
+  enum class VID { HORIZONTAL, VERTICAL };
 
-    uint16_t x( ) const;
-    void setX( const uint16_t & x );
+  enum class CURSOR_SIZE { SZ1 = 0, SZ2, SZ3 };
 
-    uint16_t y( ) const;
-    void setY( const uint16_t & y );
+  Cursor40B( uint16_t c_x, uint16_t c_y, VID vid, CURSOR_SIZE c_s, bool vsbl );
+  void Display( ) const;
+  std::string ToString( ) const;
 
-    VID vid( ) const;
-    void setVid( const VID & vid );
+  uint16_t x( ) const;
+  void setX( const uint16_t& x );
 
-    int16_t size( ) const;
-    void setSize( const int16_t & size );
+  uint16_t y( ) const;
+  void setY( const uint16_t& y );
 
-    bool visible( ) const;
-    void setVisible( bool visible );
+  VID vid( ) const;
+  void setVid( const VID& vid );
 
-private:
-    uint16_t x_;
-    uint16_t y_;
-    VID vid_;
-    int16_t size_;
-    bool visible_;
+  bool visible( ) const;
+  void setVisible( bool visible );
+
+  CURSOR_SIZE c_size( ) const;
+  void setC_size( const CURSOR_SIZE& c_size );
+
+ private:
+  uint16_t x_;
+  uint16_t y_;
+  VID vid_;
+  CURSOR_SIZE c_size_;
+  bool visible_;
 };
 
 #endif // CURSOR40B_H

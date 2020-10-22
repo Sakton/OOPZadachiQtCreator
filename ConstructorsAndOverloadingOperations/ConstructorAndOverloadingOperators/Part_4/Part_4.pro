@@ -10,6 +10,7 @@ SUBDIRS += \
 	Fraction46 \
 	Goods49 \
 	Goods50 \
+	ModelWindow55 \
 	Money54 \
 	Triangle48 \
 	Triangle51
