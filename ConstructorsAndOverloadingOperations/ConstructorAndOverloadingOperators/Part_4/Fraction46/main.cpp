@@ -13,7 +13,10 @@ int main( ) {
   // fr7.OneDivFrac( fr8 ).Display( );
   // std::cout << ( 1 / 2222.2222 );
 
-  Fraction35B ccc = fr7 / fr8;
+  Fraction35B fr9( LongLong38B( 10 ), 9900 );
+  Fraction35B fr10( LongLong38B( 20 ), 00 );
+
+  Fraction35B ccc = fr9 - fr10;
 
   ccc.Display( );
 }

@@ -126,8 +126,8 @@ Fraction35B& Fraction35B::operator/=( const Fraction35B& b ) {
   //  **
 
   //или тупо через дабл
-  double x = static_cast< int64_t >( whole_ ) + fractional_ / 1000;
-  double y = static_cast< int64_t >( b.whole_ ) + b.fractional_ / 1000;
+  double x = static_cast< int64_t >( whole_ ) + fractional_ / 10000;
+  double y = static_cast< int64_t >( b.whole_ ) + b.fractional_ / 10000;
   double res = x / y;
   *this = Fraction35B( LongLong38B( res ),
                        ( res - static_cast< int64_t >( res ) ) * 10000 );

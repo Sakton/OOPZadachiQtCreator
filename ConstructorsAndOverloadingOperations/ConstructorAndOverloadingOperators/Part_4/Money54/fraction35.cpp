@@ -19,7 +19,7 @@ void Fraction35B::Display( ) const {
 }
 
 Fraction35B::operator double( ) const {
-  return static_cast< int64_t >( Whole( ) ) + double( Fractional( ) ) / 10000.0;
+  return static_cast< int64_t >( Whole( ) ) + double( Fractional( ) ) * 10000.0;
   ;
 }
 

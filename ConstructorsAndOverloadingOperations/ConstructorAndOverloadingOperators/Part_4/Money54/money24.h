@@ -33,12 +33,10 @@ class Money24 {
   friend bool operator<( const Money24& a, const Money24& b );
   friend bool operator>( const Money24& a, const Money24& b );
 
-  int32_t GetRub( ) const;
+  int64_t GetRub( ) const;
   uint8_t GetCop( ) const;
 
  private:
-  //  int32_t rub { 0 };
-  //  uint8_t cop { 0 };
   Fraction35B dengi_;
 };
 
