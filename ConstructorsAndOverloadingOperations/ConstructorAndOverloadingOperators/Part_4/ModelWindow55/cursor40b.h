@@ -1,7 +1,6 @@
 #ifndef CURSOR40B_H
 #define CURSOR40B_H
 #include <string>
-//TODO доделать
 
 class Cursor40B {
  public:

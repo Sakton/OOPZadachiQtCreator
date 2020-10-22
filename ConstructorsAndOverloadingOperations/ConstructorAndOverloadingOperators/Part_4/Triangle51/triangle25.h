@@ -4,8 +4,6 @@
 
 #include "point27.h"
 
-// TODO HERE
-
 class Triangle25 {
   enum class TYPE_INITIALISATION { SSS = 0, SUS, USS, USU, UUS };
   // 2 строны и угол между ними, остальное решение треугольников
