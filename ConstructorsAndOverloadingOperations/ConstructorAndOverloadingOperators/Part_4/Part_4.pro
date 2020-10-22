@@ -10,5 +10,6 @@ SUBDIRS += \
 	Fraction46 \
 	Goods49 \
 	Goods50 \
+	Money54 \
 	Triangle48 \
 	Triangle51
