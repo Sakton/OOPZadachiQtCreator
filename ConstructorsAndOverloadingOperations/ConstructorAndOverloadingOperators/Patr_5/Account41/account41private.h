@@ -2,8 +2,6 @@
 //#define ACCOUNT41PRIVATE_H
 //#include <string>
 
-//// TODO ????
-
 // class Account41Private
 //{
 // private:

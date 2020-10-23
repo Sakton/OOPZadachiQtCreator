@@ -3,7 +3,7 @@
 #include <string>
 
 #include "longlong38b.h"
-//TODO доделать
+// TODO вложенные классы - не сделан
 
 class Cursor40B {
  public:
