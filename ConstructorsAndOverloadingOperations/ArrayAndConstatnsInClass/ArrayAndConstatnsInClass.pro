@@ -8,4 +8,5 @@ SUBDIRS += \
 	Hex_3 \
 	Money_4 \
 	Money_8 \
-	Polinom_5
+	Polinom_5 \
+	Rational_7
