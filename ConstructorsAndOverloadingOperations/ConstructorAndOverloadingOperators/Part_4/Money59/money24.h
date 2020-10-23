@@ -1,6 +1,8 @@
 #ifndef MONEY24_H
 #define MONEY24_H
 #include <string>
+
+#include "longlong38b.h"
 // 1. Приведено к нормальному классу
 
 class Money24 {
@@ -32,11 +34,12 @@ class Money24 {
   friend bool operator<( const Money24& a, const Money24& b );
   friend bool operator>( const Money24& a, const Money24& b );
 
-  int32_t GetRub( ) const;
+  LongLong38B GetRub( ) const;
   uint8_t GetCop( ) const;
 
  private:
-  int32_t rub { 0 };
+  // int32_t rub { 0 };
+  LongLong38B rub { 0 };
   uint8_t cop { 0 };
 };
 
