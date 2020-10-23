@@ -8,6 +8,7 @@ SUBDIRS += \
 	Bill56 \
 	Calculator44 \
 	Calculator47 \
+	Cursor60 \
 	Fraction46 \
 	Goods49 \
 	Goods50 \
