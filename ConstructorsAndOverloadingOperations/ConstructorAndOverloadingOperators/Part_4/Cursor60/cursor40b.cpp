@@ -15,8 +15,8 @@ void Cursor40B::Display( ) const { std::cout << ToString( ) << std::endl; }
 std::string Cursor40B::ToString( ) const {
   std::string res;
   res = "Cursor: \n";
-  res += +"X: " + std::to_string( x_ ) + "\n" + "Y: " + std::to_string( y_ ) +
-         "\n";
+  res += +"X: " + static_cast< std::string >( x_ ) + "\n" +
+         "Y: " + static_cast< std::string >( y_ ) + "\n";
   switch ( vid_ ) {
     case VID::HORIZONTAL:
       res += "Vid: HORIZONTAL \n";
@@ -41,22 +41,13 @@ std::string Cursor40B::ToString( ) const {
   return res;
 }
 
-uint16_t Cursor40B::x( ) const { return x_; }
+LongLong38B Cursor40B::x( ) const { return x_; }
 
-void Cursor40B::setX( const uint16_t & x )
-{
-    x_ = x;
-}
+void Cursor40B::setX( const LongLong38B &x ) { x_ = x; }
 
-uint16_t Cursor40B::y( ) const
-{
-    return y_;
-}
+LongLong38B Cursor40B::y( ) const { return y_; }
 
-void Cursor40B::setY( const uint16_t & y )
-{
-    y_ = y;
-}
+void Cursor40B::setY( const LongLong38B &y ) { y_ = y; }
 
 Cursor40B::VID Cursor40B::vid( ) const
 {

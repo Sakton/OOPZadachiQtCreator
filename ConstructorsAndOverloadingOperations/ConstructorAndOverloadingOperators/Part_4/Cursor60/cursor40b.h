@@ -1,6 +1,8 @@
 #ifndef CURSOR40B_H
 #define CURSOR40B_H
 #include <string>
+
+#include "longlong38b.h"
 //TODO доделать
 
 class Cursor40B {
@@ -13,11 +15,11 @@ class Cursor40B {
   void Display( ) const;
   std::string ToString( ) const;
 
-  uint16_t x( ) const;
-  void setX( const uint16_t& x );
+  LongLong38B x( ) const;
+  void setX( const LongLong38B& x );
 
-  uint16_t y( ) const;
-  void setY( const uint16_t& y );
+  LongLong38B y( ) const;
+  void setY( const LongLong38B& y );
 
   VID vid( ) const;
   void setVid( const VID& vid );
@@ -29,8 +31,8 @@ class Cursor40B {
   void setC_size( const CURSOR_SIZE& c_size );
 
  private:
-  uint16_t x_;
-  uint16_t y_;
+  LongLong38B x_;
+  LongLong38B y_;
   VID vid_;
   CURSOR_SIZE c_size_;
   bool visible_;
