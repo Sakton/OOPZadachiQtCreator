@@ -15,5 +15,6 @@ SUBDIRS += \
 	Money54 \
 	Payment52 \
 	Payment53 \
+	Set57 \
 	Triangle48 \
 	Triangle51
