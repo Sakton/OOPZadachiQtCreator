@@ -13,6 +13,7 @@ SUBDIRS += \
 	Goods50 \
 	ModelWindow55 \
 	Money54 \
+	Money59 \
 	Payment52 \
 	Payment53 \
 	Rational58 \
