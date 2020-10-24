@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+// FIXME НЕ СДЕЛАНО
+
 class Fraction
 {
 public:
