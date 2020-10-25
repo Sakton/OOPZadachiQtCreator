@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-//
+// FIXME operator[]() ??
 
 class Dictionary {
 
