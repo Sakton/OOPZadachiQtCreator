@@ -137,9 +137,6 @@ Fraction& Fraction::operator+=( const Fraction& fr ) {
     }
   }
 
-  if ( tmpDrobn[ 0 ] > OSNOVA ) {
-  }
-
   int tmpSizeCel = std::max( sizeCel_, fr.sizeCel_ ) + 1;
   unsigned char* tmpCel =
       new unsigned char[ std::max( sizeCel_, fr.sizeCel_ ) + 1 ] { 0 };
