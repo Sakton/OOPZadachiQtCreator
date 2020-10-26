@@ -24,7 +24,6 @@ Fraction::Fraction( const std::string& str )
 Fraction::Fraction( long double x ) {
   int64_t cel = x;
   long double drob = x - cel;
-  // FIXME ДЕЛАТЬ ТУТ
 }
 
 Fraction::~Fraction( ) {

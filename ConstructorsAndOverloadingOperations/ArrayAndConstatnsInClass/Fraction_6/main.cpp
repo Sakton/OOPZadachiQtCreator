@@ -1,17 +1,18 @@
-#include "fraction.h"
 #include <iostream>
 
-int main( ) {
-  Fraction f( "100.55" );
-  Fraction ff( "100.99" );
+#include "fractionnew.h"
 
-  std::cout << f << std::endl;
-  std::cout << ff << std::endl;
+int main( ) {
+  FractionNew f( 100000000000000000.9565, 10000 );
+  //  FractionNew ff( 1000000.89L, 10000 );
+
+  //  std::cout << f << std::endl;
+  //  std::cout << ff << std::endl;
   //  std::cout << f.getSizeCel( ) << std::endl;
   //  std::cout << f.getSizeDrobn( ) << std::endl;
 
-  ff += f;
-  std::cout << ff << std::endl;
+  //  ff += f;
+  //  std::cout << ff << std::endl;
 
   //  Fraction ff( "111.999" );
   //  ff += f;

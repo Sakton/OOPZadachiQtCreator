@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         fraction.cpp \
+        fractionnew.cpp \
         main.cpp
 
 HEADERS += \
-	fraction.h
+	fraction.h \
+	fractionnew.h
