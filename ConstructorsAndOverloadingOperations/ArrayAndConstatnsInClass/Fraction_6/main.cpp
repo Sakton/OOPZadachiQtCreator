@@ -2,12 +2,13 @@
 #include <iostream>
 
 int main( ) {
-  Fraction f( "1008.0" );
-  Fraction ff( "100.0" );
+  Fraction f( "100.55" );
+  Fraction ff( "100.99" );
 
   std::cout << f << std::endl;
-  std::cout << f.getSizeCel( ) << std::endl;
-  std::cout << f.getSizeDrobn( ) << std::endl;
+  std::cout << ff << std::endl;
+  //  std::cout << f.getSizeCel( ) << std::endl;
+  //  std::cout << f.getSizeDrobn( ) << std::endl;
 
   ff += f;
   std::cout << ff << std::endl;
