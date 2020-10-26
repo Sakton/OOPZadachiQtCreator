@@ -3,8 +3,23 @@
 #include <string>
 #include <vector>
 
+/*
+Как то не корректно написано задание
+Дибильно
+*/
+
+/*
+Храним в массиве числа по основанию 100, так как unsigned char [0 .. 255]
+тоесть число 999999999999999 будет хранится как 9,99,99,99,99,99,99,99 в массиве
+тогда доступны алгоритмы фюрера и тд.
+
+Проблема решения считывания цифр -> "108" -> "1","08" -> 1; 8
+Решение по основанию 100 не годится
+*/
+
 // FIXME НЕ СДЕЛАНО
 //не знаковое
+
 class Fraction {
  public:
   explicit Fraction( const std::string &str );
@@ -44,6 +59,8 @@ class Fraction {
   friend bool operator==( long double dx, const Fraction &fr1 );
   friend bool operator!=( long double dx, const Fraction &fr1 );
 
+  friend std::ostream &operator<<( std::ostream &out, const Fraction &fr1 );
+
   int16_t getSizeCel( ) const;
   int16_t getSizeDrobn( ) const;
 
@@ -51,11 +68,14 @@ class Fraction {
   std::pair< std::string, std::string > parseString(
       const std::string &str ) const;
 
+  void readChislitel( const std::string &str );
+  void readZnamenatel( const std::string &str );
+
   void debugPrint( unsigned char arr[], int16_t sz );
 
  private:
   static constexpr int MAXSIZE = 100;
-  static constexpr int OSNOVA = 256;
+  static constexpr int OSNOVA = 100;
   unsigned char *cel_;
   unsigned char *drobn_;
   int16_t sizeCel_;
