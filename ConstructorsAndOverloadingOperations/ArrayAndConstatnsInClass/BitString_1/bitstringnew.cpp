@@ -31,6 +31,44 @@ BitstringNew::BitstringNew( int64_t num, bool )
 
 BitstringNew::~BitstringNew( ) { delete[] bitstr_; }
 
+BitstringNew::BitstringNew( const BitstringNew& bs ) {
+  Uch* tmp = new Uch[ bs.count_ ] { 0 };
+  std::copy( bs.bitstr_, bs.bitstr_ + bs.count_, tmp );
+  count_ = bs.count_;
+  delete[] bitstr_;
+  bitstr_ = tmp;
+}
+
+BitstringNew::BitstringNew( BitstringNew&& bs ) noexcept {
+  delete[] bitstr_;
+  bitstr_ = bs.bitstr_;
+  bs.bitstr_ = nullptr;
+  count_ = bs.count_;
+  bs.count_ = 0;
+}
+
+BitstringNew& BitstringNew::operator=( const BitstringNew& bs ) {
+  if ( this != &bs ) {
+    Uch* tmp = new Uch[ bs.count_ ] { 0 };
+    std::copy( bs.bitstr_, bs.bitstr_ + bs.count_, tmp );
+    count_ = bs.count_;
+    delete[] bitstr_;
+    bitstr_ = tmp;
+  }
+  return *this;
+}
+
+BitstringNew& BitstringNew::operator=( BitstringNew&& bs ) {
+  if ( this != &bs ) {
+    delete[] bitstr_;
+    bitstr_ = bs.bitstr_;
+    bs.bitstr_ = nullptr;
+    count_ = bs.count_;
+    bs.count_ = 0;
+  }
+  return *this;
+}
+
 BitstringNew::Uch& BitstringNew::operator[]( int index ) {
   if ( index < 0 || index >= count_ ) {
     std::cerr << "ERROR INDEX []";
@@ -43,7 +81,19 @@ BitstringNew::Uch& BitstringNew::operator[]( int index ) {
   return bitstr_[ index ];
 }
 
-BitstringNew& BitstringNew::operator<<( int n ) {
+const BitstringNew::Uch& BitstringNew::operator[]( int index ) const {
+  if ( index < 0 || index >= count_ ) {
+    std::cerr << "ERROR INDEX []";
+    exit( 1 );
+  }
+  if ( bitstr_ == nullptr ) {
+    std::cerr << "NULLPTR";
+    exit( 1 );
+  }
+  return bitstr_[ index ];
+}
+
+BitstringNew& BitstringNew::operator<<=( int n ) {
   if ( n > count_ ) *this = BitstringNew( count_ );
   for ( int i = n; i < count_; ++i ) {
     ( *this )[ i - n ] = ( *this )[ i ];
@@ -54,7 +104,7 @@ BitstringNew& BitstringNew::operator<<( int n ) {
   return *this;
 }
 
-BitstringNew& BitstringNew::operator>>( int n ) {
+BitstringNew& BitstringNew::operator>>=( int n ) {
   if ( n > count_ ) *this = BitstringNew( count_ );
   for ( int i = count_ - 1; i >= n; --i ) {
     ( *this )[ i ] = ( *this )[ i - n ];
@@ -62,6 +112,33 @@ BitstringNew& BitstringNew::operator>>( int n ) {
   for ( int i = 0; i < n; ++i ) {
     ( *this )[ i ] = 0;
   }
+  return *this;
+}
+
+BitstringNew& BitstringNew::operator|=( const BitstringNew& bs ) {
+  for ( int i = 0; i < std::min( count_, bs.count_ ); ++i ) {
+    ( *this )[ i ] |= bs[ i ];
+  }
+  return *this;
+}
+
+BitstringNew& BitstringNew::operator&=( const BitstringNew& bs ) {
+  for ( int i = 0; i < std::min( count_, bs.count_ ); ++i ) {
+    ( *this )[ i ] &= bs[ i ];
+  }
+  return *this;
+}
+
+BitstringNew& BitstringNew::operator^=( const BitstringNew& bs ) {
+  for ( int i = 0; i < std::min( count_, bs.count_ ); ++i ) {
+    ( *this )[ i ] ^= bs[ i ];
+  }
+  return *this;
+}
+
+BitstringNew& BitstringNew::operator~( ) {
+  for ( int i = 0; i < count_; ++i )
+    ( *this )[ i ] = ( ( *this )[ i ] == 1 ) ? 0 : 1;
   return *this;
 }
 
@@ -89,4 +166,34 @@ std::ostream& operator<<( std::ostream& out, const BitstringNew& bs ) {
   std::copy( bs.bitstr_, bs.bitstr_ + bs.count_,
              std::ostream_iterator< int >( out ) );
   return out;
+}
+
+BitstringNew operator<<( const BitstringNew& bs, int n ) {
+  BitstringNew loc = bs;
+  loc <<= n;
+  return loc;
+}
+
+BitstringNew operator>>( const BitstringNew& bs, int n ) {
+  BitstringNew loc = bs;
+  loc >>= n;
+  return loc;
+}
+
+BitstringNew operator|( const BitstringNew& bs, const BitstringNew& bs1 ) {
+  BitstringNew loc = bs;
+  loc |= bs1;
+  return loc;
+}
+
+BitstringNew operator&( const BitstringNew& bs, const BitstringNew& bs1 ) {
+  BitstringNew loc = bs;
+  loc &= bs1;
+  return loc;
+}
+
+BitstringNew operator^( const BitstringNew& bs, const BitstringNew& bs1 ) {
+  BitstringNew loc = bs;
+  loc ^= bs1;
+  return loc;
 }

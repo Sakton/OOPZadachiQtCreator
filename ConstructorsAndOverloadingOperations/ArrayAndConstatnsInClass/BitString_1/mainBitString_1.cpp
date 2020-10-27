@@ -61,8 +61,17 @@ int main( ) {
   std::cout << std::endl;
 
   BitstringNew bs4( "000001010101" );
-  bs4 << 5;
+  bs4 <<= 5;
   std::cout << bs4 << std::endl;
-  bs4 >> 5;
+  bs4 >>= 5;
   std::cout << bs4 << std::endl;
+
+  bs4 ^= bs1;
+  std::cout << bs4 << std::endl;
+  bs4 ^= bs1;
+  std::cout << bs4 << std::endl;
+  ~bs4;
+  std::cout << bs4 << std::endl;
+
+  // BitstringNew tmp =
 }
