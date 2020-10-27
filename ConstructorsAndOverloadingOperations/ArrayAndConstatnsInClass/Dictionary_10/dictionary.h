@@ -5,6 +5,7 @@
 #include <vector>
 
 // FIXME operator[]() ??
+// TODO РЕШЕНО НЕ ВЕРНО В ТУПУЮ
 
 class Dictionary {
 

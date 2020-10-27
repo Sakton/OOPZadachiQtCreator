@@ -74,37 +74,50 @@ FractionNew& FractionNew::operator=( FractionNew&& fr ) noexcept {
   return *this;
 }
 
+// WARNING bugs indexes
+
 unsigned char& FractionNew::operator[]( int16_t index ) {
   if ( 0 <= index && index < sizeDrobn_ ) {
     return drobn_[ sizeDrobn_ - index - 1 ];
   }
   if ( sizeDrobn_ <= index && index < sizeCel_ + sizeDrobn_ ) {
-    return cel_[ index - sizeCel_ ];
+    return cel_[ index - sizeDrobn_ ];
   } else {
     std::cout << "OIT OF RANGE " << index;
     exit( 1 );
   }
 }
+
+const unsigned char& FractionNew::operator[]( int16_t index ) const {
+  if ( 0 <= index && index < sizeDrobn_ ) {
+    return drobn_[ sizeDrobn_ - index - 1 ];
+  }
+  if ( sizeDrobn_ <= index && index < sizeCel_ + sizeDrobn_ ) {
+    return cel_[ index - sizeDrobn_ ];
+  } else {
+    std::cout << "OIT OF RANGE " << index;
+    exit( 1 );
+  }
+}
+
 //сложение цифр одинаковой размерности
 FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
   FractionNew tmp( std::max( sizeCel_, fr.sizeCel_ ) + 1,
                    std::max( sizeDrobn_, fr.sizeDrobn_ ) );
-  int maxSize = std::max( sizeCel_ + sizeDrobn_, fr.sizeCel_ + fr.sizeDrobn_ );
-  for ( int i = maxSize - 1; i >= 0; --i ) {
-    // tmp[i] =
+  int len = sizeCel_ + sizeDrobn_;
+  int maxSize = tmp.sizeCel_ + tmp.sizeDrobn_;
+  for ( int i = 0; i < len; ++i ) {
+    tmp[ i ] = this->operator[]( i ) + fr[ i ];
   }
-  return *this;
-}
-// for ( int i = ) }
 
-// const unsigned char& FractionNew::operator[]( int16_t index ) const {
-//  if ( 0 <= index && index < sizeDrobn_ ) {
-//    return drobn_[ index ];
-//  }
-//  //  if ( sizeDrobn_ <= index && index < sizeCel_ + sizeDrobn_ ) {
-//  return cel_[ sizeDrobn_ - ( index - sizeDrobn_ ) ];
-//  //  }
-//}
+  for ( int i = 0; i < maxSize; ++i ) {
+    if ( tmp[ i ] >= OSNOVA ) {
+      tmp[ i ] -= OSNOVA;
+      tmp[ i + 1 ]++;
+    }
+  }
+  return *this = tmp;
+}
 
 // FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
 //  int sizeTmpDr = std::max( sizeDrobn_, fr.sizeDrobn_ ) + 1;

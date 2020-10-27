@@ -1,7 +1,8 @@
 #include "BitString.h"
 #include <cstring>
 
-//const size_t BitString::MAX = 100;
+// const size_t BitString::MAX = 100;
+// TODO РЕШЕНО НЕ ВЕРНО В ТУПУЮ
 
 BitString::BitString( size_t n ) : bitStr{ nullptr }, count{ 0 } {
 	std::cout << "ctor1" << std::endl;

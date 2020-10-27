@@ -28,17 +28,20 @@ int main( ) {
   //  for ( int i = 9; i >= 0; --i ) std::cout << ( arr[ i ] ) << ' ';
 
   FractionNew rf( 3, 3 );
-  rf[ 0 ] = 1;
-  rf[ 1 ] = 2;
-  rf[ 2 ] = 3;
-  rf[ 3 ] = 4;
-  rf[ 4 ] = 5;
-  rf[ 5 ] = 6;
+  rf[ 0 ] = 9;
+  rf[ 1 ] = 9;
+  rf[ 2 ] = 9;
+  rf[ 3 ] = 9;
+  rf[ 4 ] = 9;
+  rf[ 5 ] = 9;
   std::cout << rf << std::endl;
 
   FractionNew rf1( 3, 3 );
   for ( int i = 0; i < 6; ++i ) {
-    rf1[ i ] = i + 2;
+    rf1[ i ] = i;
   }
   std::cout << rf1 << std::endl;
+  rf += rf1;
+
+  std::cout << rf << std::endl;
 }

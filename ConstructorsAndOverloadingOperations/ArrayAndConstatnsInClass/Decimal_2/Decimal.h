@@ -13,6 +13,8 @@
 	TODO набраться опыта и исправить!!!
 */
 
+// TODO РЕШЕНО НЕ ВЕРНО В ТУПУЮ
+
 class Decimal {
 	using Type = unsigned char;
 

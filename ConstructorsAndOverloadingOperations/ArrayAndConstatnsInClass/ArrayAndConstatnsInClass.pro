@@ -10,3 +10,6 @@ SUBDIRS += \
 	Money_8 \
 	Polinom_5 \
 	Rational_7
+
+
+
