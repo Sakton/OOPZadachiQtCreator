@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         BitString.cpp \
+        bitstringnew.cpp \
         mainBitString_1.cpp
 
 HEADERS += \
-	BitString.h
+	BitString.h \
+	bitstringnew.h
