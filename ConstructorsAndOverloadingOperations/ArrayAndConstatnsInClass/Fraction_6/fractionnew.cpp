@@ -85,17 +85,17 @@ unsigned char& FractionNew::operator[]( int16_t index ) {
     exit( 1 );
   }
 }
-
+//сложение цифр одинаковой размерности
 FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
   FractionNew tmp( std::max( sizeCel_, fr.sizeCel_ ) + 1,
-                   std::max( sizeDrobn_, fr.sizeDrobn_ ) + 1 );
-  for ( int i = 0; i < std::max( sizeDrobn_, fr.sizeDrobn_ ); ++i ) {
-    if ( i > sizeCel_ ) {
-      tmp[ i ] = fr[ i ];
-      // FIXME!!!!!
-    }
+                   std::max( sizeDrobn_, fr.sizeDrobn_ ) );
+  int maxSize = std::max( sizeCel_ + sizeDrobn_, fr.sizeCel_ + fr.sizeDrobn_ );
+  for ( int i = maxSize - 1; i >= 0; --i ) {
+    // tmp[i] =
   }
+  return *this;
 }
+// for ( int i = ) }
 
 // const unsigned char& FractionNew::operator[]( int16_t index ) const {
 //  if ( 0 <= index && index < sizeDrobn_ ) {
@@ -194,6 +194,10 @@ void FractionNew::fillArray( unsigned char* arr, int64_t x ) {
     arr[ i++ ] = x % 10;
     x /= 10;
   }
+}
+
+bool FractionNew::IndexIsValid( int index ) {
+  return ( 0 <= index && index < ( sizeCel_ + sizeDrobn_ ) );
 }
 
 int16_t FractionNew::getSizeDrobn( ) const { return sizeDrobn_; }

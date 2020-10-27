@@ -53,6 +53,7 @@ class FractionNew {
   void debugPrint( unsigned char arr[], int16_t sz );
   int countNums( int64_t cel );
   void fillArray( unsigned char *arr, int64_t x );
+  bool IndexIsValid( int index );
 
  private:
   static constexpr int MAXSIZE = 100;
