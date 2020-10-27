@@ -5,9 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
         Decimal.cpp \
+        decimalnew.cpp \
         main.cpp \
         mainDecimal_2.cpp \
         test.cpp
 
 HEADERS += \
-	Decimal.h
+	Decimal.h \
+	decimalnew.h
