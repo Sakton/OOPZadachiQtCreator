@@ -3,19 +3,17 @@
 #include <iostream>
 #include <iterator>
 
-FractionNew::FractionNew( long double x, int precisionDrobn )
+FractionNew::FractionNew( int szCel, int szDrob )
     : cel_ { nullptr }, drobn_ { nullptr }, sizeCel_ { 0 }, sizeDrobn_ { 0 } {
-  int64_t cel = x;
-  int64_t drob = ( x - cel ) * precisionDrobn;
-  sizeCel_ = countNums( cel );
-  sizeDrobn_ = countNums( drob );
-  cel_ = new unsigned char[ sizeCel_ ] { 0 };
-  drobn_ = new unsigned char[ sizeDrobn_ ] { 0 };
-  fillArray( cel_, cel );
-  fillArray( drobn_, drob );
-  std::reverse( drobn_, drobn_ + sizeDrobn_ );
-  //  debugPrint( cel_, sizeCel_ );
-  //  debugPrint( drobn_, sizeDrobn_ );
+  // cel_ = unsigned char[szC]
+  if ( szCel >= MAXSIZE || szDrob >= MAXSIZE || szCel < 0 || szDrob < 0 ) {
+    std::cout << "ERROR SIZE CTOR";
+    exit( 1 );
+  }
+  cel_ = new unsigned char[ szCel ] { 0 };
+  drobn_ = new unsigned char[ szDrob ] { 0 };
+  sizeCel_ = szCel;
+  sizeDrobn_ = szDrob;
 }
 
 FractionNew::~FractionNew( ) {
@@ -76,71 +74,103 @@ FractionNew& FractionNew::operator=( FractionNew&& fr ) noexcept {
   return *this;
 }
 
-FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
-  int sizeTmpDr = std::max( sizeDrobn_, fr.sizeDrobn_ ) + 1;
-  unsigned char* tmpDrob = new unsigned char[ sizeTmpDr ] { 0 };
-  for ( int i = std::max( sizeDrobn_, fr.sizeDrobn_ ) - 1; i >= 0; --i ) {
-    if ( i > sizeDrobn_ ) {
-      tmpDrob[ i + 1 ] = fr.drobn_[ i ];
-    } else if ( i > fr.sizeDrobn_ ) {
-      tmpDrob[ i + 1 ] = drobn_[ i ];
-    } else {
-      tmpDrob[ i + 1 ] = drobn_[ i ] + fr.drobn_[ i ];
-    }
+unsigned char& FractionNew::operator[]( int16_t index ) {
+  if ( 0 <= index && index < sizeDrobn_ ) {
+    return drobn_[ sizeDrobn_ - index - 1 ];
   }
-
-  for ( int i = sizeTmpDr - 1; i > 0; --i ) {
-    if ( tmpDrob[ i ] > OSNOVA ) {
-      tmpDrob[ i ] %= OSNOVA;
-      tmpDrob[ i - 1 ]++;
-    }
+  if ( sizeDrobn_ <= index && index < sizeCel_ + sizeDrobn_ ) {
+    return cel_[ index - sizeCel_ ];
+  } else {
+    std::cout << "OIT OF RANGE " << index;
+    exit( 1 );
   }
-
-  int perenos = tmpDrob[ 0 ];
-  //убрать переносный символ
-  for ( int i = 0; i < sizeTmpDr - 1; ++i ) {
-    tmpDrob[ i ] = tmpDrob[ i + 1 ];
-  }
-  --sizeTmpDr;
-
-  // debugPrint( tmpDrob, sizeTmpDr );
-
-  //*****
-  int sizeTmpCel = std::max( sizeCel_, fr.sizeCel_ ) + 1;
-  unsigned char* tmpCel = new unsigned char[ sizeTmpCel ] { 0 };
-  for ( int i = 0; i < std::max( sizeCel_, fr.sizeCel_ ); ++i ) {
-    if ( i > fr.sizeCel_ ) {
-      tmpCel[ i ] = cel_[ i ];
-    } else if ( i > sizeCel_ ) {
-      tmpCel[ i ] = fr.cel_[ i ];
-    } else {
-      tmpCel[ i ] = cel_[ i ] + fr.cel_[ i ];
-    }
-    if ( i == 0 && perenos ) {
-      tmpCel[ i ] += perenos;
-    }
-  }
-
-  for ( int i = 0; i < sizeTmpCel - 1; ++i ) {
-    if ( tmpCel[ i ] > OSNOVA ) {
-      tmpCel[ i ] %= OSNOVA;
-      tmpCel[ i + 1 ]++;
-    }
-  }
-  //оставим нулевой симвл чтобы не копировать
-  if ( tmpCel[ sizeTmpCel - 1 ] == 0 ) --sizeTmpCel;
-  // debugPrint( tmpCel, sizeTmpCel );
-
-  delete[] cel_;
-  cel_ = tmpCel;
-  sizeCel_ = sizeTmpCel;
-
-  delete[] drobn_;
-  drobn_ = tmpDrob;
-  sizeDrobn_ = sizeTmpDr;
-
-  return *this;
 }
+
+FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
+  FractionNew tmp( std::max( sizeCel_, fr.sizeCel_ ) + 1,
+                   std::max( sizeDrobn_, fr.sizeDrobn_ ) + 1 );
+  for ( int i = 0; i < std::max( sizeDrobn_, fr.sizeDrobn_ ); ++i ) {
+    if ( i > sizeCel_ ) {
+      tmp[ i ] = fr[ i ];
+      // FIXME!!!!!
+    }
+  }
+}
+
+// const unsigned char& FractionNew::operator[]( int16_t index ) const {
+//  if ( 0 <= index && index < sizeDrobn_ ) {
+//    return drobn_[ index ];
+//  }
+//  //  if ( sizeDrobn_ <= index && index < sizeCel_ + sizeDrobn_ ) {
+//  return cel_[ sizeDrobn_ - ( index - sizeDrobn_ ) ];
+//  //  }
+//}
+
+// FractionNew& FractionNew::operator+=( const FractionNew& fr ) {
+//  int sizeTmpDr = std::max( sizeDrobn_, fr.sizeDrobn_ ) + 1;
+//  unsigned char* tmpDrob = new unsigned char[ sizeTmpDr ] { 0 };
+//  for ( int i = std::max( sizeDrobn_, fr.sizeDrobn_ ) - 1; i >= 0; --i ) {
+//    if ( i > sizeDrobn_ ) {
+//      tmpDrob[ i + 1 ] = fr.drobn_[ i ];
+//    } else if ( i > fr.sizeDrobn_ ) {
+//      tmpDrob[ i + 1 ] = drobn_[ i ];
+//    } else {
+//      tmpDrob[ i + 1 ] = drobn_[ i ] + fr.drobn_[ i ];
+//    }
+//  }
+
+//  for ( int i = sizeTmpDr - 1; i > 0; --i ) {
+//    if ( tmpDrob[ i ] > OSNOVA ) {
+//      tmpDrob[ i ] %= OSNOVA;
+//      tmpDrob[ i - 1 ]++;
+//    }
+//  }
+
+//  int perenos = tmpDrob[ 0 ];
+//  //убрать переносный символ
+//  for ( int i = 0; i < sizeTmpDr - 1; ++i ) {
+//    tmpDrob[ i ] = tmpDrob[ i + 1 ];
+//  }
+//  --sizeTmpDr;
+
+//  // debugPrint( tmpDrob, sizeTmpDr );
+
+//  //*****
+//  int sizeTmpCel = std::max( sizeCel_, fr.sizeCel_ ) + 1;
+//  unsigned char* tmpCel = new unsigned char[ sizeTmpCel ] { 0 };
+//  for ( int i = 0; i < std::max( sizeCel_, fr.sizeCel_ ); ++i ) {
+//    if ( i > fr.sizeCel_ ) {
+//      tmpCel[ i ] = cel_[ i ];
+//    } else if ( i > sizeCel_ ) {
+//      tmpCel[ i ] = fr.cel_[ i ];
+//    } else {
+//      tmpCel[ i ] = cel_[ i ] + fr.cel_[ i ];
+//    }
+//    if ( i == 0 && perenos ) {
+//      tmpCel[ i ] += perenos;
+//    }
+//  }
+
+//  for ( int i = 0; i < sizeTmpCel - 1; ++i ) {
+//    if ( tmpCel[ i ] > OSNOVA ) {
+//      tmpCel[ i ] %= OSNOVA;
+//      tmpCel[ i + 1 ]++;
+//    }
+//  }
+//  //оставим нулевой симвл чтобы не копировать
+//  if ( tmpCel[ sizeTmpCel - 1 ] == 0 ) --sizeTmpCel;
+//  // debugPrint( tmpCel, sizeTmpCel );
+
+//  delete[] cel_;
+//  cel_ = tmpCel;
+//  sizeCel_ = sizeTmpCel;
+
+//  delete[] drobn_;
+//  drobn_ = tmpDrob;
+//  sizeDrobn_ = sizeTmpDr;
+
+//  return *this;
+//}
 
 void FractionNew::debugPrint( unsigned char arr[], int16_t sz ) {
   std::cout << "debug " << std::endl;

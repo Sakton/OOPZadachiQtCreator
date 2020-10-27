@@ -9,7 +9,7 @@ unsicned char  - как число с основанием 256
 
 class FractionNew {
  public:
-  explicit FractionNew( long double x, int precisionDrobn );
+  explicit FractionNew( int szCel, int szDrob );
   ~FractionNew( );
   FractionNew( const FractionNew &fr );
   FractionNew( FractionNew &&fr ) noexcept;
