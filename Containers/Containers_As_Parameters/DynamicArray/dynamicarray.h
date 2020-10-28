@@ -21,15 +21,30 @@ class DynamicArray
   DynamicArray& operator=( const DynamicArray& da );
   DynamicArray& operator=( DynamicArray&& da );
   // итераторы
-  inline iterator begin( ) { return elem_; };
-  inline const_iterator begin( ) const { return elem_; };
-  inline iterator end( ) { return elem_ + count_; }
-  inline const_iterator end( ) const { return elem_ + count_; };
+  iterator begin( );
+  const_iterator begin( ) const;
+  iterator end( );
+  const_iterator end( ) const;
   // размеры
-  size_type size( );
-  bool empty( );
-  size_type capacity( );
+  size_type size( ) const;
+  bool empty( ) const;
+  size_type capacity( ) const;
   void resize( size_type new_size );
+  //доступ к элементам
+  reference operator[]( size_type idx );
+  const_reference operator[]( size_type idx ) const;
+  reference front( );
+  const_reference front( ) const;
+  // reference back( ) { return elem_[ size( ) - 1 ]; }
+  reference back( );
+  // const_reference back( ) const { return elem_[ size( ) - 1 ]; }
+  const_reference back( ) const;
+  //методы-модификаторы
+  void push_back( const value_type& v );
+  void pop_back( );
+  void clear( );
+  void swap( DynamicArray& da );
+  void assign( const value_type& v );  //заполнить массив
 
  private:
   static const int MINSIZE = 10;
