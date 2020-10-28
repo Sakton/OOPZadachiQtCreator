@@ -23,9 +23,9 @@ class DecimalNew
   DecimalNew &operator+=( const DecimalNew &dm );
   DecimalNew &operator-=( const DecimalNew &dm );
   DecimalNew &operator*=( const DecimalNew &dm );
-  DecimalNew &operator/=( const DecimalNew &dm );
+  //  DecimalNew &operator/=( const DecimalNew &dm );
 
-  // FIXME ТУТ
+  //сравнение: или по длине, или по первой большей цифре
 
   friend std::ostream &operator<<( std::ostream &out, const DecimalNew &dm );
 

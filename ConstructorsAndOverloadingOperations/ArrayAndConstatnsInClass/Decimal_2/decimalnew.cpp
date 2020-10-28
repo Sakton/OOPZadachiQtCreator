@@ -10,7 +10,7 @@ DecimalNew::DecimalNew( int n ) : number_ { nullptr }, count_ { 0 } {
 
 DecimalNew::DecimalNew( int64_t num, bool ) : DecimalNew( ) {
   count_ = lenNumber( num );
-  number_ = new Uch[ count_ ];
+  number_ = new Uch[ count_ ] { 0 };
   int i = 0;
   while ( num ) {
     ( *this )[ i++ ] = num % 10;
@@ -21,7 +21,7 @@ DecimalNew::DecimalNew( int64_t num, bool ) : DecimalNew( ) {
 
 DecimalNew::DecimalNew( const std::string& str ) : DecimalNew( ) {
   count_ = str.size( );
-  number_ = new Uch[ count_ ];
+  number_ = new Uch[ count_ ] { 0 };
   int i = 0;
   for ( char el : str ) {
     ( *this )[ i++ ] = el - '0';
@@ -31,7 +31,7 @@ DecimalNew::DecimalNew( const std::string& str ) : DecimalNew( ) {
 DecimalNew::~DecimalNew( ) { delete[] number_; }
 
 DecimalNew::DecimalNew( const DecimalNew& dm ) {
-  Uch* t = new Uch[ dm.count_ ];
+  Uch* t = new Uch[ dm.count_ ] { 0 };
   std::copy( dm.number_, dm.number_ + dm.count_, t );
   delete[] number_;
   number_ = t;
@@ -40,7 +40,7 @@ DecimalNew::DecimalNew( const DecimalNew& dm ) {
 
 DecimalNew& DecimalNew::operator=( const DecimalNew& dm ) {
   if ( this != &dm ) {
-    Uch* t = new Uch[ dm.count_ ];
+    Uch* t = new Uch[ dm.count_ ] { 0 };
     std::copy( dm.number_, dm.number_ + dm.count_, t );
     delete[] number_;
     number_ = t;
@@ -117,7 +117,8 @@ DecimalNew& DecimalNew::operator-=( const DecimalNew& dm ) {
 }
 
 DecimalNew& DecimalNew::operator*=( const DecimalNew& dm ) {
-  DecimalNew loc( count_ + dm.count_ + 1 );
+  //последнее число в одной ячейке(2-значное)
+  DecimalNew loc( count_ + dm.count_ - 1 );
   for ( int i = 0; i < std::max( count_, dm.count_ ); ++i ) {
     for ( int j = 0; j < std::min( count_, dm.count_ ); ++j ) {
       if ( count_ > dm.count_ ) {
@@ -127,9 +128,9 @@ DecimalNew& DecimalNew::operator*=( const DecimalNew& dm ) {
       }
     }
   }
-
+  //переполнение по unsigned char в этом алгоритме !!!
   for ( int i = loc.count_ - 1; i > 0; --i ) {
-    loc[ i - 1 ] += loc[ i ] / 10;
+    loc[ i - 1 ] += ( loc[ i ] / 10 );
     loc[ i ] %= OSNOVA;
   }
   //уборка лидирующих нулей

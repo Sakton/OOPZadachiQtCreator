@@ -1,4 +1,4 @@
-﻿#include "Hex.h"
+#include "Hex.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -366,7 +366,6 @@ Hex Hex::Mult( const Hex & a, const Hex & b )const { //a > b
 }
 
 Hex Hex::PickOutPodchislo( const Hex & delimoe, const Hex & delitel )const {
-	//TODO доделать тут
 	std::string loc;
 	int i = delimoe.m_count - 1;
 	int j = delitel.m_count - 1;
