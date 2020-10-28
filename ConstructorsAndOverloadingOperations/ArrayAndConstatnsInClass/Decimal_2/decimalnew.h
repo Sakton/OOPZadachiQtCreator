@@ -12,6 +12,8 @@ class DecimalNew
   explicit DecimalNew( int64_t num, bool );
   explicit DecimalNew( const std::string &str );
   ~DecimalNew( );
+  DecimalNew( const DecimalNew &dm );
+  DecimalNew &operator=( const DecimalNew &dm );
 
   // NUMBER 1
   Uch &operator[]( int index );
@@ -34,6 +36,7 @@ class DecimalNew
 
  private:
   static const int SIZE = 100;
+  static const int OSNOVA = 10;
 
   Uch *number_;
   int count_;

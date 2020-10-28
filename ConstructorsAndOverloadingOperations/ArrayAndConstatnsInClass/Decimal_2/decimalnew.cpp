@@ -30,13 +30,32 @@ DecimalNew::DecimalNew( const std::string& str ) : DecimalNew( ) {
 
 DecimalNew::~DecimalNew( ) { delete[] number_; }
 
+DecimalNew::DecimalNew( const DecimalNew& dm ) {
+  Uch* t = new Uch[ dm.count_ ];
+  std::copy( dm.number_, dm.number_ + dm.count_, t );
+  delete[] number_;
+  number_ = t;
+  count_ = dm.count_;
+}
+
+DecimalNew& DecimalNew::operator=( const DecimalNew& dm ) {
+  if ( this != &dm ) {
+    Uch* t = new Uch[ dm.count_ ];
+    std::copy( dm.number_, dm.number_ + dm.count_, t );
+    delete[] number_;
+    number_ = t;
+    count_ = dm.count_;
+  }
+  return *this;
+}
+
 DecimalNew::Uch& DecimalNew::operator[]( int index ) {
   if ( !number_ ) {
     std::cerr << "ERROR [] NULLPTR";
     exit( 1 );
   }
   if ( index < 0 || index >= count_ ) {
-    std::cerr << "ERROR OUT OF RANGE INDEX";
+    std::cerr << "ERROR OUT OF RANGE INDEX = " << index;
     exit( 1 );
   }
   return number_[ count_ - 1 - index ];
@@ -48,10 +67,73 @@ const DecimalNew::Uch& DecimalNew::operator[]( int index ) const {
     exit( 1 );
   }
   if ( index < 0 || index >= count_ ) {
-    std::cerr << "ERROR OUT OF RANGE INDEX";
+    std::cerr << "ERROR OUT OF RANGE INDEX = " << index;
     exit( 1 );
   }
   return number_[ count_ - 1 - index ];
+}
+
+DecimalNew& DecimalNew::operator+=( const DecimalNew& dm ) {
+  DecimalNew loc( std::max( count_, dm.count_ ) + 1 );
+  for ( int i = 0; i < std::min( count_, dm.count_ ); ++i ) {
+    if ( i > count_ )
+      loc[ i ] = dm[ i ];
+    else if ( i > dm.count_ )
+      loc[ i ] = ( *this )[ i ];
+    else
+      loc[ i + 1 ] = ( *this )[ i ] + dm[ i ];
+  }
+  for ( int i = loc.count_ - 1; i > 0; --i ) {
+    if ( loc[ i ] > OSNOVA ) {
+      loc[ i ] -= OSNOVA;
+      loc[ i - 1 ]++;
+    }
+  }
+  if ( loc[ 0 ] == 0 ) --loc.count_;
+  return *this = loc;
+}
+
+DecimalNew& DecimalNew::operator-=( const DecimalNew& dm ) {
+  DecimalNew loc( std::max( count_, dm.count_ ) );
+  for ( int i = 0; i < std::min( count_, dm.count_ ); ++i ) {
+    if ( i > count_ )
+      loc[ i ] = dm[ i ];
+    else if ( i > dm.count_ )
+      loc[ i ] = ( *this )[ i ];
+    else
+      loc[ i ] = ( *this )[ i ] - dm[ i ];
+  }
+  for ( int i = loc.count_ - 1; i > 0; --i ) {
+    if ( loc[ i ] > OSNOVA ) {
+      loc[ i ] += OSNOVA;
+      loc[ i - 1 ]--;
+    }
+  }
+  //уборка лидирующих нулей
+  while ( loc.count_ > 1 && loc[ 0 ] == 0 ) {
+    --loc.count_;
+  }
+  return *this = loc;
+}
+
+DecimalNew& DecimalNew::operator*=( const DecimalNew& dm ) {
+  DecimalNew loc( count_ + dm.count_ + 1 );
+  for ( int i = 0; i < std::max( count_, dm.count_ ); ++i ) {
+    for ( int j = 0; j < std::min( count_, dm.count_ ); ++j ) {
+      if ( count_ > dm.count_ ) {
+        loc[ i + j ] += ( *this )[ i ] * dm[ j ];
+      } else {
+        loc[ i + j ] += dm[ i ] * ( *this )[ j ];
+      }
+    }
+  }
+
+  for ( int i = loc.count_ - 1; i > 0; --i ) {
+    loc[ i - 1 ] += loc[ i ] / 10;
+    loc[ i ] %= OSNOVA;
+  }
+  //уборка лидирующих нулей
+  return *this = loc;
 }
 
 int DecimalNew::getSize( ) { return SIZE; }
