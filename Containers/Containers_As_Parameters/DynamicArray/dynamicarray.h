@@ -30,7 +30,8 @@ class DynamicArray
   bool empty( ) const;
   size_type capacity( ) const;
   void resize( size_type new_size );
-  //доступ к элементам
+  void reserve( size_type new_size );
+  // доступ к элементам
   reference operator[]( size_type idx );
   const_reference operator[]( size_type idx ) const;
   reference front( );
@@ -39,18 +40,18 @@ class DynamicArray
   reference back( );
   // const_reference back( ) const { return elem_[ size( ) - 1 ]; }
   const_reference back( ) const;
-  //методы-модификаторы
+  // методы-модификаторы
   void push_back( const value_type& v );
   void pop_back( );
   void clear( );
   void swap( DynamicArray& da );
-  void assign( const value_type& v );  //заполнить массив
+  void assign( const value_type& v );  // заполнить массив
 
  private:
   static const int MINSIZE = 10;
-  size_type size_;
-  size_type count_;
-  value_type* elem_;
+  size_type size_;    // отвечает за текущий размер
+  size_type count_;   // отвечает за весь размер
+  value_type* elem_;  // сами данные
 };
 
 #endif // DYNAMICARRAY_H
