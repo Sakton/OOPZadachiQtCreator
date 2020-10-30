@@ -46,18 +46,24 @@ DynamicList::Iterator DynamicList::Iterator::operator--( int ) {
 }
 
 DynamicList::DynamicList( )
-    : count_ { 0 }, tail_ { nullptr }, head_ { nullptr } {}
+    : count_ { 0 }, tail_ { new Node }, head_ { tail_ } {}
 
 DynamicList::DynamicList( const DynamicList::value_type& v,
                           DynamicList::size_type n )
     : DynamicList( ) {
   for ( size_type i = 0; i < n; ++i ) {
+    push_back( v );
   }
 }
 
 DynamicList::DynamicList( DynamicList::Iterator first,
                           DynamicList::Iterator last )
-    : DynamicList { } {}
+    : DynamicList { } {
+  while ( first != last ) {
+    push_back( first->item_ );
+    ++first;
+  }
+}
 
 DynamicList::~DynamicList( ) {
   std::cout << "destructor" << std::endl;
@@ -72,6 +78,32 @@ DynamicList::~DynamicList( ) {
   delete delNode;
 }
 
+DynamicList::DynamicList( const DynamicList& dl ) {
+  DynamicList tmp( dl.begin( ), dl.end( ) );
+  *this = tmp;
+}
+
+DynamicList::DynamicList( DynamicList&& dl ) : DynamicList( ) {
+  delete tail_;
+  head_ = dl.head_;
+  tail_ = dl.tail_;
+  count_ = dl.count_;
+  dl.head_ = dl.tail_ = nullptr;
+  dl.count_ = 0;
+}
+
+DynamicList& DynamicList::operator=( const DynamicList& dl ) {
+  //  if ( this != &dl ) {
+  //    clear( );
+  //    for ( Iterator it = dl.begin( ); it != dl.end( ); ++it ) {
+  //      push_back( it->item_ );
+  //    }
+  //  }
+  DynamicList tmp( dl );
+  swap( tmp );
+  return *this;
+}
+
 DynamicList::Iterator DynamicList::begin( ) {
   if ( !head_ ) throw NullNodeException( "begin( )" );
   return Iterator( head_ );
@@ -82,11 +114,9 @@ DynamicList::Iterator DynamicList::begin( ) const {
   return Iterator( head_ );
 }
 
-DynamicList::Iterator DynamicList::end( ) { return Iterator( tail_->next_ ); }
+DynamicList::Iterator DynamicList::end( ) { return Iterator( tail_ ); }
 
-DynamicList::Iterator DynamicList::end( ) const {
-  return Iterator( tail_->next_ );
-}
+DynamicList::Iterator DynamicList::end( ) const { return Iterator( tail_ ); }
 
 DynamicList::size_type DynamicList::size( ) const { return count_; }
 
@@ -102,27 +132,50 @@ DynamicList::value_type& DynamicList::back( ) {
 
 void DynamicList::push_back( const DynamicList::value_type& v ) {
   Node* t = new Node( v );
-  if ( head_ == nullptr && tail_ == nullptr ) {
-    head_ = tail_ = t;
-  } else {
-    tail_->next_ = t;
-    t->prev_ = tail_;
-    tail_ = t;
+  //вставка первого элемента - отдельная задача
+  if ( head_ == tail_ ) {
+    head_ = t;
+    head_->next_ = head_->prev_ = tail_;
+    tail_->prev_ = head_;
+  } else {  //если уже что то есть вставляем в конец (перед tail)
+    t->next_ = tail_;
+    t->prev_ = tail_->prev_;
+    tail_->prev_ = t;
+    t->prev_->next_ = t;
   }
   ++count_;
 }
 
 void DynamicList::pop_back( ) {
-  Node* dlt = tail_;
-  if ( !tail_ ) throw NullNodeException( "pop_back( )" );
-  if ( tail_->prev_ ) {  //пока есть предыдущий элемент
-    tail_->prev_->next_ = tail_->next_;
-    tail_ = tail_->prev_;
-  } else if ( tail_->prev_ == nullptr ) {  //элемент последний, тогда он же и
-                                           //головной, его надо обнулить
-    head_ = nullptr;
-    tail_ = nullptr;
+  if ( !empty( ) ) {
+    Node* delNode = tail_->prev_;
+    if ( delNode == head_ ) {
+      tail_->prev_ = head_->prev_;
+      head_ = tail_;
+    } else {
+      tail_->prev_ = delNode->prev_;
+      delNode->prev_->next_ = tail_;
+    }
+    delete delNode;
+    --count_;
   }
-  --count_;
-  delete dlt;
+}
+
+void DynamicList::swap( DynamicList& dl ) {
+  std::swap( head_, dl.head_ );
+  std::swap( tail_, dl.tail_ );
+  std::swap( count_, dl.count_ );
+}
+
+void DynamicList::clear( ) {
+  Node* delNode = nullptr;
+  Node* p = head_;
+  while ( p != tail_ ) {
+    delNode = p;
+    p = p->next_;
+    delete delNode;
+    delNode = p;
+    --count_;
+  }
+  head_ = tail_;
 }

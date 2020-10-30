@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         dynamiclist.cpp \
+        listiteratorasmethod.cpp \
         main.cpp
 
 HEADERS += \
-	dynamiclist.h
+	dynamiclist.h \
+	listiteratorasmethod.h

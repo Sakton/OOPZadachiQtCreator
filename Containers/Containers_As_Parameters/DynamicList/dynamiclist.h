@@ -45,7 +45,6 @@ class DynamicList {
   // класс итератор
   class Iterator {
    public:
-    friend class DynamicList;
     // ctor
     Iterator( Node* el ) : elem_ { el } { };
     Iterator( const Iterator& oit ) : elem_ { oit.elem_ } {}
