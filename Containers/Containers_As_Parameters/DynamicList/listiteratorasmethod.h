@@ -30,10 +30,17 @@ class ListIteratorAsMethod
   ~ListIteratorAsMethod( );
 
   //итераторы
+  // очень неудобно иметь встроенный итератор, нужно помнить много деталей
+  // операторы ++ -- и тд, оператор == применяются к объекту, а на самом деле к
+  // итератору. Сам итератор организован как отдельное поле с модификатором
+  // mutable для изменения при константности обьекта
+  // лучше организовать итератор как простто набор методов без перегрузок
+  // операций
+
   iterator begin( );
-  const_iterator begin( ) const;
+  //  const_iterator begin( ) const;
   iterator end( );
-  const_iterator end( ) const;
+  //  const_iterator end( ) const;
   iterator operator++( );
   const_iterator operator++( ) const;
   iterator operator++( int );
@@ -44,6 +51,16 @@ class ListIteratorAsMethod
   const_iterator operator--( int ) const;
   reference operator*( );
   const_reference operator*( ) const;
+  bool operator==(iterator it)const;
+  bool operator==(const_iterator it) const;
+  bool operator!=(const_iterator it)const;
+  bool operator!=( iterator it ) const;
+
+  iterator next( );
+  const_iterator next( ) const;
+  iterator prev( );
+  const_iterator prev( ) const;
+
   //размер
   size_type size( ) const;
   bool empty( ) const;

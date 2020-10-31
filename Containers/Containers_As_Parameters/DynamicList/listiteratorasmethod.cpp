@@ -20,25 +20,27 @@ ListIteratorAsMethod::~ListIteratorAsMethod( ) {
 // FIXME проверки добавить
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::begin( ) {
-  return curIteration_;
+  return curIteration_ = head_;
 }
 
-ListIteratorAsMethod::const_iterator ListIteratorAsMethod::begin( ) const {
-  return curIteration_;
-}
+// ListIteratorAsMethod::const_iterator ListIteratorAsMethod::begin( ) const {
+//  return curIteration_ = head_;
+//}
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::end( ) { return tail_; }
 
-ListIteratorAsMethod::const_iterator ListIteratorAsMethod::end( ) const {
-  return tail_;
-}
+// ListIteratorAsMethod::const_iterator ListIteratorAsMethod::end( ) const {
+//  return curIteration_ = tail_;
+//}
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator++( ) {
-  return curIteration_ = curIteration_->next_;
+curIteration_ = curIteration_->next_;
+    return curIteration_;
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++( ) const {
-  return curIteration_ = curIteration_->next_;
+    curIteration_ = curIteration_->next_;
+    return curIteration_;
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++(
@@ -81,6 +83,42 @@ ListIteratorAsMethod::reference ListIteratorAsMethod::operator*( ) {
 
 ListIteratorAsMethod::const_reference ListIteratorAsMethod::operator*( ) const {
   return curIteration_->item_;
+}
+
+bool ListIteratorAsMethod::operator==(
+    ListIteratorAsMethod::iterator it ) const {
+  return curIteration_ == it;
+}
+
+bool ListIteratorAsMethod::operator==(
+    ListIteratorAsMethod::const_iterator it ) const {
+  return curIteration_ == it;
+}
+
+bool ListIteratorAsMethod::operator!=(
+    ListIteratorAsMethod::const_iterator it ) const {
+  return !( curIteration_ == it );
+}
+
+bool ListIteratorAsMethod::operator!=(
+    ListIteratorAsMethod::iterator it ) const {
+  return !( curIteration_ == it );
+}
+
+ListIteratorAsMethod::iterator ListIteratorAsMethod::next( ) {
+  return curIteration_ = curIteration_->next_;
+}
+
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::next( ) const {
+  return curIteration_ = curIteration_->next_;
+}
+
+ListIteratorAsMethod::iterator ListIteratorAsMethod::prev( ) {
+  return curIteration_ = curIteration_->prev_;
+}
+
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::prev( ) const {
+  return curIteration_ = curIteration_->prev_;
 }
 
 ListIteratorAsMethod::size_type ListIteratorAsMethod::size( ) const {

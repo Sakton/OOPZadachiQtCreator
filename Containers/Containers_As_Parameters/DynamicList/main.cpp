@@ -5,14 +5,15 @@
 #include "listiteratorasmethod.h"
 
 void printList( const DynamicList &dl );
-void printList( const ListIteratorAsMethod &dl );
+void printList( ListIteratorAsMethod &dl );
 
 void fillArray( int arr[], int n );
 void fillList( ListIteratorAsMethod &list, int n );
 void printArr( int arr[], int n );
 
 //***functions
-ListIteratorAsMethod::const_iterator foo1( const ListIteratorAsMethod &list );
+ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list );
+//остальные примеры решаются аналогично
 //**
 
 int main( ) {
@@ -45,21 +46,27 @@ int main( ) {
   //    li.push_back( 40 );
   //    li.push_back( 50 );
   //    li.push_back( 60 );
-  //    //    printList( li );
+  //    printList( li );
   //  }
 
   {
     // driver for tasks
-    using func = ListIteratorAsMethod::const_iterator ( * )(
-        const ListIteratorAsMethod &list );
-    func f = foo1;
-    std::srand( std::time( nullptr ) );
-    const std::size_t N = 100;
-    int *arr = new int[ N ] { 0 };
-    fillArray( arr, N );
-    printArr( arr, N );
-
-    delete[] arr;
+    try {
+      using func = ListIteratorAsMethod::const_iterator ( * )(
+          ListIteratorAsMethod & list );
+      //тут меняем функции
+      func f = foo1;
+      std::srand( std::time( nullptr ) );
+      const std::size_t N = 2;
+      // int *arr = new int[ N ] { 0 };
+      ListIteratorAsMethod list;
+      fillList( list, N );
+      printList( list );
+      f( list );
+      printList( list );
+    } catch ( ... ) {
+      std::cerr << "ERROR";
+    }
   }
 
   return 0;
@@ -72,8 +79,9 @@ void printList( const DynamicList &dl ) {
   std::cout << std::endl;
 }
 
-void printList( const ListIteratorAsMethod &dl ) {
-  for ( auto it = dl.begin( ); it != dl.end( ); it = ++dl ) {
+void printList( ListIteratorAsMethod &dl ) {
+  auto it = dl.begin( );
+  for ( ; it != dl.end( ); it = ++dl ) {
     std::cout << it->item_ << " ";
   }
   std::cout << std::endl;
@@ -100,6 +108,44 @@ void printArr( int arr[], int n ) {
 }
 
 //***
-ListIteratorAsMethod::const_iterator foo1( const ListIteratorAsMethod &list ) {
+// ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list ) {
+//  double max = 0;
+//  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+//        it = ++list ) {
+//    if ( max < it->item_ ) {
+//      max = it->item_;
+//    }
+//  }
+
+//  ListIteratorAsMethod::const_iterator endIt = list.end( );
+//  endIt = --list;
+//  double endEl = endIt->item_;
+
+//  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+//        it = ++list ) {
+//    it->item_ *= std::sqrt( std::abs( max * endEl ) );
+//  }
+
+//  return list.begin( );
+//}
+
+ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list ) {
+  double max = 0;
+  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+        it = list.next( ) ) {
+    if ( max < it->item_ ) {
+      max = it->item_;
+    }
+  }
+
+  ListIteratorAsMethod::const_iterator endIt = list.end( );
+  endIt = list.prev( );
+  double endEl = endIt->item_;
+
+  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+        it = list.next( ) ) {
+    it->item_ *= std::sqrt( std::abs( max * endEl ) );
+  }
+
   return list.begin( );
 }
