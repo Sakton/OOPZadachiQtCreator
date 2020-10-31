@@ -6,7 +6,16 @@ ListIteratorAsMethod::ListIteratorAsMethod( )
       curIteration_ { head_ },
       count_ { 0 } {}
 
-ListIteratorAsMethod::~ListIteratorAsMethod( ) {}
+ListIteratorAsMethod::~ListIteratorAsMethod( ) {
+  Node *del = head_;
+  head_ = head_->next_;
+  while ( head_ != tail_ ) {
+    delete del;
+    del = head_;
+    head_ = head_->next_;
+  }
+  delete tail_;
+}
 
 // FIXME проверки добавить
 
@@ -25,10 +34,21 @@ ListIteratorAsMethod::const_iterator ListIteratorAsMethod::end( ) const {
 }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator++( ) {
-  return ( curIteration_ = curIteration_->next_ );
+  return curIteration_ = curIteration_->next_;
 }
 
-ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++( int ) {
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++( ) const {
+  return curIteration_ = curIteration_->next_;
+}
+
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++(
+    int ) const {
+  Node *t = curIteration_;
+  curIteration_ = curIteration_->next_;
+  return t;
+}
+
+ListIteratorAsMethod::iterator ListIteratorAsMethod::operator++( int ) {
   Node *t = curIteration_;
   curIteration_ = curIteration_->next_;
   return t;
@@ -38,7 +58,18 @@ ListIteratorAsMethod::iterator ListIteratorAsMethod::operator--( ) {
   return ( curIteration_ = curIteration_->prev_ );
 }
 
-ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--( int ) {
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--( ) const {
+  return ( curIteration_ = curIteration_->prev_ );
+}
+
+ListIteratorAsMethod::iterator ListIteratorAsMethod::operator--( int ) {
+  Node *t = curIteration_;
+  curIteration_ = curIteration_->prev_;
+  return t;
+}
+
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--(
+    int ) const {
   Node *t = curIteration_;
   curIteration_ = curIteration_->prev_;
   return t;
@@ -51,6 +82,12 @@ ListIteratorAsMethod::reference ListIteratorAsMethod::operator*( ) {
 ListIteratorAsMethod::const_reference ListIteratorAsMethod::operator*( ) const {
   return curIteration_->item_;
 }
+
+ListIteratorAsMethod::size_type ListIteratorAsMethod::size( ) const {
+  return count_;
+}
+
+bool ListIteratorAsMethod::empty( ) const { return head_ == tail_; }
 
 void ListIteratorAsMethod::push_back( const value_type &v ) {
   Node *t = new Node( v );

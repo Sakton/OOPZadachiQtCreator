@@ -1,3 +1,4 @@
+#include <ctime>
 #include <iostream>
 
 #include "dynamiclist.h"
@@ -5,6 +6,14 @@
 
 void printList( const DynamicList &dl );
 void printList( const ListIteratorAsMethod &dl );
+
+void fillArray( int arr[], int n );
+void fillList( ListIteratorAsMethod &list, int n );
+void printArr( int arr[], int n );
+
+//***functions
+ListIteratorAsMethod::const_iterator foo1( const ListIteratorAsMethod &list );
+//**
 
 int main( ) {
   //  {
@@ -28,15 +37,29 @@ int main( ) {
   //    }
   //  }
 
+  //  {
+  //    ListIteratorAsMethod li;
+  //    li.push_back( 10 );
+  //    li.push_back( 20 );
+  //    li.push_back( 30 );
+  //    li.push_back( 40 );
+  //    li.push_back( 50 );
+  //    li.push_back( 60 );
+  //    //    printList( li );
+  //  }
+
   {
-    ListIteratorAsMethod li;
-    li.push_back( 10 );
-    li.push_back( 20 );
-    li.push_back( 30 );
-    li.push_back( 40 );
-    li.push_back( 50 );
-    li.push_back( 60 );
-    printList( li );
+    // driver for tasks
+    using func = ListIteratorAsMethod::const_iterator ( * )(
+        const ListIteratorAsMethod &list );
+    func f = foo1;
+    std::srand( std::time( nullptr ) );
+    const std::size_t N = 100;
+    int *arr = new int[ N ] { 0 };
+    fillArray( arr, N );
+    printArr( arr, N );
+
+    delete[] arr;
   }
 
   return 0;
@@ -50,8 +73,33 @@ void printList( const DynamicList &dl ) {
 }
 
 void printList( const ListIteratorAsMethod &dl ) {
-  for ( auto it = dl.begin( ); it != dl.end( ); ++it ) {
+  for ( auto it = dl.begin( ); it != dl.end( ); it = ++dl ) {
     std::cout << it->item_ << " ";
   }
   std::cout << std::endl;
+}
+
+void fillArray( int arr[], int n ) {
+  for ( int i = 0; i < n; ++i ) {
+    int r = rand( ) % 50;
+    arr[ i ] = r * ( ( r % 2 ) ? -1 : 1 );
+  }
+}
+
+void fillList( ListIteratorAsMethod &list, int n ) {
+  for ( int i = 0; i < n; ++i ) {
+    int r = rand( ) % 50;
+    list.push_back( r * ( ( r % 2 ) ? -1 : 1 ) );
+  }
+}
+
+void printArr( int arr[], int n ) {
+  for ( int i = 0; i < n; ++i ) {
+    std::cout << arr[ i ] << ' ';
+  }
+}
+
+//***
+ListIteratorAsMethod::const_iterator foo1( const ListIteratorAsMethod &list ) {
+  return list.begin( );
 }

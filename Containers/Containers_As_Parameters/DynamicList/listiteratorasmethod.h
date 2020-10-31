@@ -35,12 +35,15 @@ class ListIteratorAsMethod
   iterator end( );
   const_iterator end( ) const;
   iterator operator++( );
-  const_iterator operator++( int );
+  const_iterator operator++( ) const;
+  iterator operator++( int );
+  const_iterator operator++( int ) const;
   iterator operator--( );
-  const_iterator operator--( int );
+  const_iterator operator--( ) const;
+  iterator operator--( int );
+  const_iterator operator--( int ) const;
   reference operator*( );
   const_reference operator*( ) const;
-
   //размер
   size_type size( ) const;
   bool empty( ) const;
@@ -52,7 +55,11 @@ class ListIteratorAsMethod
  private:
   Node *head_;
   Node *tail_;
-  Node *curIteration_;
+  //переменная указатель для итерирования
+  mutable Node *
+      curIteration_;  //ВАЖНО!!! переменная инкремента не может (не должна) быть
+                      // const в константном обьекте, при реализации итератора
+                      // через методы класса
   size_type count_;
 };
 
