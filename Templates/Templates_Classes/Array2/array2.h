@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdexcept>
 
+// WARNING Оператор чтения из потока не сделано. Не ясно как
+
 // forvard rpe-definition
 template < typename T, std::int32_t N >
 class Array2;
@@ -32,7 +34,7 @@ template < typename T, std::int32_t N >
 bool operator!=( const Array2< T, N > &ar1, const Array2< T, N > &ar2 );
 
 // class
-template < typename T, std::int32_t N >
+template < typename T, std::int32_t N = 10 >
 class Array2 {
  public:
   // types definition
@@ -76,6 +78,7 @@ class Array2 {
   friend std::ostream &operator<<< T, N >( std::ostream &out,
                                            const Array2< T, N > &ar );
 
+  // TODO ???????? operator>> ? не работает
   friend std::istream &operator>>
       < T, N >( std::istream &in, const Array2< T, N > &ar );
 
@@ -94,7 +97,7 @@ class Array2 {
                           const Array2< T, N > &ar2 );
 
  private:
-  void rangeCheck( size_type ind );
+  void rangeCheck( size_type ind ) const;
 
  private:
   T *elements_;
@@ -102,25 +105,23 @@ class Array2 {
 
 //************realization
 template < typename T, std::int32_t N >
-Array2< T, N >::Array2( ) : elements_ { new T[ SIZE ] { T( ) } } {
-  if ( !elements_ ) throw bad_alloc( "BAD_ALLOCATION" );
-}
+Array2< T, N >::Array2( ) : elements_ { new T[ SIZE ] { T( ) } } {}
 
 template < typename T, std::int32_t N >
 Array2< T, N >::Array2( Array2::iterator first, Array2::iterator second )
-    : elements_ { new T[ SIZE ] } {
+    : elements_ { new T[ SIZE ] { T( ) } } {
   std::copy( first, second, elements_ );
 }
 
 template < typename T, std::int32_t N >
-Array2< T, N >::Array2( const Array2< T, N > &ar ) {
+Array2< T, N >::Array2( const Array2< T, N > &ar )
+    : elements_ { new T[ SIZE ] { T( ) } } {
   std::copy( ar.begin( ), ar.end( ), elements_ );
 }
 
 template < typename T, std::int32_t N >
-Array2< T, N >::Array2( Array2< T, N > &&ar ) {
-  delete[] elements_;
-  elements_ = ar.elements_;
+Array2< T, N >::Array2( Array2< T, N > &&ar ) : elements_ { nullptr } {
+  elements_ = std::move( ar.elements_ );
   ar.elements_ = nullptr;
 }
 
@@ -218,7 +219,7 @@ typename Array2< T, N >::const_iterator Array2< T, N >::end( ) const {
 }
 
 template < typename T, std::int32_t N >
-void Array2< T, N >::rangeCheck( Array2::size_type ind ) {
+void Array2< T, N >::rangeCheck( Array2::size_type ind ) const {
   if ( !( 0 <= ind && ind < SIZE ) ) throw std::range_error( "OUT OF RANGE " );
 }
 
@@ -229,10 +230,20 @@ std::ostream &operator<<( std::ostream &out, const Array2< T, N > &ar ) {
   return out;
 }
 
+// WARNING доделать как будет решение
 template < typename T, std::int32_t N >
 std::istream &operator>>( std::istream &in, const Array2< T, N > &ar ) {
-  std::copy( std::istream_iterator< T >( in ), std::istream_iterator< T >( ),
-             std::back_insert_iterator< T >( ar ) );
+  //  std::copy(
+  //      std::istream_iterator< T >( in ), std::istream_iterator< T >( ),
+  //      std::back_insert_iterator< typename Array2< T, N >::value_type >( ar )
+  //      );
+  std::cout << "enter i = " << N << " ;" << std::endl;
+  for ( int i = 0; i < N; ++i ) {
+    in >> ar[ i ];
+    std::cout << "enter i = " << N - i << " ;" << std::endl;
+  }
+  //  std::copy( ar.begin( ), ar.end( ), std::istream_iterator< T >( in ) );
+  return in;
 }
 
 template < typename T, std::int32_t N >
