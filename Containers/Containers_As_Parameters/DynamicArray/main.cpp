@@ -59,6 +59,9 @@ int main( ) {
     DynamicArray darr = funk( arr, N );
     printArr( darr );
     //******************************************************
+
+    std::cin >> darr;
+    //******
     delete[] arr;
   } catch ( std::out_of_range &e ) {
     std::cerr << e.what( );

@@ -9,7 +9,8 @@ int main( ) {
     std::cout << arr << std::endl;
     for ( int i = arr.LEFT; i < arr.RIGHT; ++i ) arr[ i ] = 100 + i + 10;
     std::cout << arr << std::endl;
-    // std::cin >> arr;
+    std::cin >> arr;
+    std::cout << arr << std::endl;
   } catch ( std::range_error e ) {
     std::cerr << e.what( ) << std::endl;
   }

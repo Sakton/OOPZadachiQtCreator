@@ -13,7 +13,7 @@ class Array2;
 template < typename T, std::int32_t N >
 std::ostream &operator<<( std::ostream &out, const Array2< T, N > &ar );
 template < typename T, std::int32_t N >
-std::istream &operator>>( std::istream &in, const Array2< T, N > &ar );
+std::istream &operator>>( std::istream &in, Array2< T, N > &ar );
 
 template < typename T, std::int32_t N >
 Array2< T, N > operator+( const Array2< T, N > &ar1,
@@ -78,9 +78,9 @@ class Array2 {
   friend std::ostream &operator<<< T, N >( std::ostream &out,
                                            const Array2< T, N > &ar );
 
-  // TODO ???????? operator>> ? не работает
+  // WARNING Array2< T, N > &ar NON CONST OBJECT!!!!!!!!!!!!!!
   friend std::istream &operator>>
-      < T, N >( std::istream &in, const Array2< T, N > &ar );
+      < T, N >( std::istream &in, Array2< T, N > &ar );
 
   friend Array2< T, N > operator+
       < T, N >( const Array2< T, N > &ar1, const Array2< T, N > &ar2 );
@@ -232,7 +232,7 @@ std::ostream &operator<<( std::ostream &out, const Array2< T, N > &ar ) {
 
 // WARNING доделать как будет решение
 template < typename T, std::int32_t N >
-std::istream &operator>>( std::istream &in, const Array2< T, N > &ar ) {
+std::istream &operator>>( std::istream &in, Array2< T, N > &ar ) {
   //  std::copy(
   //      std::istream_iterator< T >( in ), std::istream_iterator< T >( ),
   //      std::back_insert_iterator< typename Array2< T, N >::value_type >( ar )

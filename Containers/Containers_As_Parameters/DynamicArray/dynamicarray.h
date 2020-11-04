@@ -1,6 +1,7 @@
 #ifndef DYNAMICARRAY_H
 #define DYNAMICARRAY_H
 #include <cstdlib>
+#include <iostream>
 
 class DynamicArray
 {
@@ -46,6 +47,8 @@ class DynamicArray
   void clear( );
   void swap( DynamicArray& da );
   void assign( const value_type& v );  // заполнить массив
+
+  friend std::istream& operator>>( std::istream& in, DynamicArray& ar );
 
  private:
   static const int MINSIZE = 10;

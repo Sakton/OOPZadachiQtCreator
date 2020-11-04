@@ -12,7 +12,7 @@ template < typename T, std::int32_t F, std::int32_t S >
 std::ostream &operator<<( std::ostream &out, const Array3< T, F, S > &ar );
 
 template < typename T, std::int32_t F, std::int32_t S >
-std::istream &operator>>( std::istream &in, const Array3< T, F, S > &ar );
+std::istream &operator>>( std::istream &in, Array3< T, F, S > &ar );
 
 template < typename T, std::int32_t F, std::int32_t S >
 class Array3 {
@@ -52,7 +52,7 @@ class Array3 {
   friend std::ostream &operator<<< T, F, S >( std::ostream &out,
                                               const Array3< T, F, S > &ar );
   friend std::istream &operator>>
-      < T, F, S >( std::istream &in, const Array3< T, F, S > &ar );
+      < T, F, S >( std::istream &in, Array3< T, F, S > &ar );
 
  private:
   void rangeChek( size_type ind );
@@ -124,8 +124,9 @@ std::ostream &operator<<( std::ostream &out, const Array3< T, F, S > &ar ) {
 
 // TODO снова
 template < typename T, std::int32_t F, std::int32_t S >
-std::istream &operator>>( std::istream &in, const Array3< T, F, S > &ar ) {
+std::istream &operator>>( std::istream &in, Array3< T, F, S > &ar ) {
   for ( auto i = ar.begin( ); i != ar.end( ); ++i ) {
-    in >> static_cast< T >( *i );
+    in >> *i;
   }
+  return in;
 }

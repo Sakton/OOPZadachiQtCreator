@@ -144,3 +144,10 @@ void DynamicArray::push_back( const DynamicArray::value_type &v ) {
 void DynamicArray::pop_back( ) { --size_; }
 
 void DynamicArray::clear( ) { size_ = 0; }
+
+std::istream &operator>>( std::istream &in, DynamicArray &ar ) {
+  for ( DynamicArray::size_type i = 0; i < ar.size( ); ++i ) {
+    in >> ar[ i ];
+  }
+  return in;
+}
