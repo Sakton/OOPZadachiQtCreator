@@ -23,8 +23,13 @@ int main( ) {
              std::ostream_iterator< int >( std::cout, "+" ) );
   std::cout << std::endl;
 
-  Array4< int, -10, -5 > ar2;
-  std::cin >> ar2;
-  std::copy( ar2.begin( ), ar2.end( ),
-             std::ostream_iterator< int >( std::cout, "*" ) );
+  //  Array4< int, -10, -5 > ar2;
+  //  std::cin >> ar2;
+  //  std::copy( ar2.begin( ), ar2.end( ),
+  //             std::ostream_iterator< int >( std::cout, "*" ) );
+
+  Array4< int, 0, 10 > tmp = ar1;
+  std::cout << "****************" << std::endl;
+  std::copy( tmp.begin( ), tmp.end( ),
+             std::ostream_iterator< int >( std::cout, "x" ) );
 }

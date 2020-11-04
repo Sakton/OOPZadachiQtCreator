@@ -28,6 +28,14 @@ class Array4 {
 
   // ctor
   Array4( );
+  ~Array4( );
+  Array4( const Array4 &rhs );
+  Array4( Array4 &&rhs );
+
+  Array4 &operator=( const Array4 &rhs );
+  Array4 &operator=( Array4 &rhs );
+
+  size_type size( ) const;
 
   // iterators
   iterator begin( );
@@ -53,6 +61,50 @@ class Array4 {
 
 template < typename T, int L, int R >
 Array4< T, L, R >::Array4( ) : elements_ { new value_type[ SIZE ] { T {} } } {}
+
+template < typename T, int L, int R >
+Array4< T, L, R >::~Array4( ) {
+  delete[] elements_;
+}
+
+template < typename T, int L, int R >
+typename Array4< T, L, R >::size_type Array4< T, L, R >::size( ) const {
+  return SIZE;
+}
+
+template < typename T, int L, int R >
+Array4< T, L, R >::Array4( const Array4 &rhs )
+    : elements_ { new value_type[ rhs.size( ) ] } {
+  std::copy( rhs.begin( ), rhs.end( ), elements_ );
+}
+
+template < typename T, int L, int R >
+Array4< T, L, R >::Array4( Array4 &&rhs ) {
+  std::swap( elements_, rhs.elements_ );
+  delete[] rhs.elements_;
+  rhs.elements_ = nullptr;
+}
+
+template < typename T, int L, int R >
+Array4< T, L, R > &Array4< T, L, R >::operator=( const Array4 &rhs ) {
+  if ( static_cast< void * >( this ) != static_cast< void * >( rhs ) ) {
+    value_type *t = new value_type[ rhs.size( ) ];
+    std::copy( rhs.begin( ), rhs.end( ), t );
+    delete[] elements_;
+    elements_ = t;
+  }
+  return *this;
+}
+
+template < typename T, int L, int R >
+Array4< T, L, R > &Array4< T, L, R >::operator=( Array4 &rhs ) {
+  if ( static_cast< void * >( this ) != static_cast< void * >( rhs ) ) {
+    std::swap( elements_, rhs.elements_ );
+    delete[] rhs.elements_;
+    rhs.elements_ = nullptr;
+  }
+  return *this;
+}
 
 template < typename T, int L, int R >
 typename Array4< T, L, R >::iterator Array4< T, L, R >::begin( ) {
