@@ -84,7 +84,8 @@ class Array5 {
   Array5 &operator/=( const Array5 &ar );
 
   // friends
-  friend Array5 operator+< T >( const Array5 &ar1, const Array5 &ar2 );
+  friend Array5 operator+
+      < T >( const Array5< T > &ar1, const Array5< T > &ar2 );
   friend Array5 operator-< T >( const Array5 &ar1, const Array5 &ar2 );
   friend Array5 operator*< T >( const Array5 &ar1, const Array5 &ar2 );
   friend Array5 operator/< T >( const Array5 &ar1, const Array5 &ar2 );
@@ -98,7 +99,7 @@ class Array5 {
   friend std::istream &operator>>< T >( std::istream &in, Array5 &ar );
 
  private:
-  void rangecheck( size_type idx );
+  void rangecheck( size_type idx ) const;
 
  private:
   value_type *elem_;
@@ -114,7 +115,11 @@ Array5< T >::Array5( Array5::size_type sz )
 
 template < typename T >
 Array5< T >::Array5( Array5::const_iterator f, Array5::const_iterator s )
-    : elem_ { new value_type[ s - f ] }, count_ { s - f }, capacity_ { s - f } {
+/*: elem_ { nullptr }, count_ { 0 }, capacity_ { 0 }*/ {
+  int sz = s - f;
+  elem_ = new value_type[ sz ];
+  count_ = sz;
+  capacity_ = sz;
   std::copy( f, s, elem_ );
 }
 
@@ -124,9 +129,34 @@ Array5< T >::~Array5( ) {
 }
 
 template < typename T >
-Array5< T >::Array5( const Array5 &ar ) {
+Array5< T >::Array5( const Array5 &ar )
+    : elem_ { nullptr }, count_ { 0 }, capacity_ { 0 } {
   Array5 tmp( ar.begin( ), ar.end( ) );
   swap( tmp );
+}
+
+template < typename T >
+Array5< T >::Array5( Array5 &&ar ) {
+  swap( ar );
+  ar.elem_ = nullptr;
+}
+
+template < typename T >
+Array5< T > &Array5< T >::operator=( const Array5 &ar ) {
+  if ( static_cast< void * >( this ) != static_cast< void * >( ar ) ) {
+    Array5< T > tmp( ar );
+    swap( tmp );
+  }
+  return *this;
+}
+
+template < typename T >
+Array5< T > &Array5< T >::operator=( Array5 &&ar ) {
+  if ( static_cast< void * >( this ) != static_cast< void * >( ar ) ) {
+    swap( ar );
+    delete[] ar.elem_;
+    ar.elem_ = nullptr;
+  }
 }
 
 template < typename T >
@@ -223,7 +253,7 @@ void Array5< T >::swap( Array5 &oth ) {
 
 template < typename T >
 Array5< T > &Array5< T >::operator+=( const Array5 &ar ) {
-  for ( int i = 0; i < count_; ++i ) {
+  for ( int i = 0; i < std::min( count_, ar.count_ ); ++i ) {
     ( *this )[ i ] += ar[ i ];
   }
   return *this;
@@ -231,7 +261,7 @@ Array5< T > &Array5< T >::operator+=( const Array5 &ar ) {
 
 template < typename T >
 Array5< T > &Array5< T >::operator-=( const Array5 &ar ) {
-  for ( int i = 0; i < count_; ++i ) {
+  for ( int i = 0; i < std::min( count_, ar.count_ ); ++i ) {
     ( *this )[ i ] -= ar[ i ];
   }
   return *this;
@@ -239,7 +269,7 @@ Array5< T > &Array5< T >::operator-=( const Array5 &ar ) {
 
 template < typename T >
 Array5< T > &Array5< T >::operator*=( const Array5 &ar ) {
-  for ( int i = 0; i < count_; ++i ) {
+  for ( int i = 0; i < std::min( count_, ar.count_ ); ++i ) {
     ( *this )[ i ] *= ar[ i ];
   }
   return *this;
@@ -247,14 +277,14 @@ Array5< T > &Array5< T >::operator*=( const Array5 &ar ) {
 
 template < typename T >
 Array5< T > &Array5< T >::operator/=( const Array5 &ar ) {
-  for ( int i = 0; i < count_; ++i ) {
+  for ( int i = 0; i < std::min( count_, ar.count_ ); ++i ) {
     ( *this )[ i ] /= ar[ i ];
   }
   return *this;
 }
 
 template < typename T >
-void Array5< T >::rangecheck( Array5::size_type idx ) {
+void Array5< T >::rangecheck( Array5::size_type idx ) const {
   if ( !( 0 <= idx && idx < count_ ) )
     throw std::out_of_range( "OUT OF RANGE" );
 }
@@ -297,4 +327,21 @@ std::istream &operator>>( std::istream &in, Array5< T > &ar ) {
   in >> t;
   ar.push_back( t );
   return in;
+}
+
+template < typename T >
+bool operator==( const Array5< T > &ar1, const Array5< T > &ar2 ) {
+  if ( ar1.count_ != ar2.count_ )
+    return false;
+  else {
+    for ( int i = 0; i < ar1.count_; ++i ) {
+      if ( ar1[ i ] != ar2[ i ] ) return false;
+    }
+  }
+  return true;
+}
+
+template < typename T >
+bool operator!=( const Array5< T > &ar1, const Array5< T > &ar2 ) {
+  return !( ar1 == ar2 );
 }
