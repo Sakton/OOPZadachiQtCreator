@@ -13,6 +13,7 @@ class Stack7 {
 
   // ctor
   Stack7( );
+  ~Stack7( );
 
   // sizes
   bool empty( ) const;
@@ -43,13 +44,18 @@ Stack7< T >::Stack7( )
       elem_ { new value_type[ MIN_ELEMENTS ] } {}
 
 template < typename T >
+Stack7< T >::~Stack7( ) {
+  delete[] elem_;
+}
+
+template < typename T >
 bool Stack7< T >::empty( ) const {
   return top_ == 0;
 }
 
 template < typename T >
 typename Stack7< T >::reference Stack7< T >::top( ) {
-  return elem_[ top_ ];
+  return elem_[ top_ - 1 ];
 }
 
 template < typename T >
