@@ -5,6 +5,7 @@ SUBDIRS += \
 	Date_11 \
 	Liquid_4 \
 	Man_6 \
+	Money_21 \
 	Number_Real \
 	Pair_10 \
 	Pair_3 \

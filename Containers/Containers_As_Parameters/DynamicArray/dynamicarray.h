@@ -6,7 +6,7 @@
 class DynamicArray
 {
  public:
-  // usings
+  // type defines
   using value_type = double;
   using iterator = value_type*;
   using const_iterator = const value_type*;

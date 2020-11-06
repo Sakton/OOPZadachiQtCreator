@@ -160,3 +160,5 @@ DynamicArray foo3( value_type arr[], int n ) {
                  [ &max ]( value_type &el ) { el -= max; } );
   return res;
 }
+
+DynamicArray foo4( value_type arr[], int n ) {}
