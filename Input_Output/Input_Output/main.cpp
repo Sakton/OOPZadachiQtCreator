@@ -34,6 +34,10 @@ void tasks3( const std::string& in_f, const std::string& out_f );
 void tasks4( const std::string& in_f, const std::string& out_f );
 void tasks5( const std::string& in_f, const std::string& out_f );
 void tasks6( const std::string& in_f, const std::string& out_f );
+void tasks7( const std::string& in_f, const std::string& out_f );
+void tasks8( const std::string& in_f, const std::string& out_f );
+void tasks9( const std::string& in_f, const std::string& out_f );
+void tasks10( const std::string& in_f, const std::string& out_f );
 
 // ********************** main
 int main( ) {
@@ -42,7 +46,7 @@ int main( ) {
     std::string file_in = PATH_FILE_ + "1.txt";
     std::string file_out = PATH_FILE_ + "2.txt";
     using task = void ( * )( const std::string&, const std::string& );
-    task foo = tasks5;
+    task foo = tasks9;
     std::srand( std::time( nullptr ) );
     // *********  driver *********
     fillFile( file_in );
@@ -184,4 +188,105 @@ void tasks5( const std::string& in_f, const std::string& out_f ) {
   ofile.close( );
 }
 
-void tasks6( const std::string& in_f, const std::string& out_f ) {}
+void tasks6( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  int tmp = 0;
+  int sum = 0;
+  while ( ifile ) {
+    ifile >> std::skipws >> tmp;
+    if ( !ifile.eof( ) ) sum += tmp;
+  }
+  ifile.clear( );                // clear bad or eof state;
+  ifile.seekg( std::ios::beg );  // pointer on start
+  std::ofstream ofile( out_f );
+  std::cout << "summ = " << sum;
+  while ( ifile ) {
+    ifile >> std::skipws >> tmp;
+    if ( !ifile.eof( ) ) {
+      ofile << ( tmp - sum ) << '\n';
+    }
+  }
+  ofile.close( );
+  ifile.close( );
+}
+
+void tasks7( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream in_file( in_f );
+  if ( !in_file.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
+  int res = 0;
+  int t = 0;
+  while ( in_file ) {
+    in_file >> std::skipws >> t;
+    if ( t < 0 ) {
+      res = t;
+      break;
+    }
+  }
+  int iback = 1;
+  while ( in_file ) {
+    in_file.seekg( -( sizeof( int ) + sizeof( char ) ) * iback, std::ios::end );
+    in_file >> std::skipws >> t;
+    if ( t < 0 ) {
+      res += t;
+      break;
+    }
+    ++iback;
+  }
+  std::cout << "res = " << res;
+  in_file.clear( );
+  in_file.seekg( std::ios::beg );
+  std::ofstream ofile( out_f );
+  int everyThird = 1;
+  while ( in_file ) {
+    in_file >> std::skipws >> t;
+    if ( !in_file.eof( ) ) {
+      if ( !( everyThird % 3 ) )
+        ofile << ( t * res ) << '\n';
+      else
+        ofile << t << '\n';
+      ++everyThird;
+    }
+  }
+}
+
+void tasks8( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream inFile( in_f );
+  if ( !inFile.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
+  int t = 0;
+  while ( inFile ) {
+    inFile >> std::skipws >> t;
+    if ( std::abs( t ) % 2 ) break;
+  }
+  inFile.seekg( std::ios::beg );
+  std::ofstream outFile( out_f );
+  if ( !outFile.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
+  int tt = t;
+  while ( inFile ) {
+    inFile >> std::skipws >> t;
+    if ( !inFile.eof( ) ) {
+      outFile << ( t + tt ) << '\n';
+    }
+  }
+}
+
+void tasks9( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  if ( !ifile.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
+  int first_negative = 0;
+  while ( ifile ) {
+    ifile >> std::skipws >> first_negative;
+    if ( first_negative < 0 ) break;
+  }
+  ifile.clear( );
+  ifile.seekg( std::ifstream::beg );
+  std::ofstream outfile( out_f );
+  int t = 0;
+  while ( ifile ) {
+    ifile >> std::skipws >> t;
+    if ( !ifile.eof( ) ) {
+      outfile << ( t * first_negative ) << '\n';
+    }
+  }
+}
+
+void tasks10( const std::string& in_f, const std::string& out_f ) {}
