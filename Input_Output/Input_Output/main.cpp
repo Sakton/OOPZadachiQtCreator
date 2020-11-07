@@ -3,12 +3,14 @@
 #include <iostream>
 #include <string>
 
-static const std::string PATH_FILE_ = "../../Files/";
+// static const std::string PATH_FILE_ = "../../Files/";
+static const std::string PATH_FILE_ = "../Input_Output/Files/";
 static const int32_t N = 5;
 
 // utilities
 void fillFile( const std::string& name_f ) {
   std::ofstream file( name_f );
+  if ( !file.is_open( ) ) throw std::runtime_error( "NO OPEN FILE" );
   if ( file.is_open( ) ) {
     for ( int i = 0; i < N; ++i ) {
       int x = rand( ) % 50;
@@ -36,18 +38,22 @@ void tasks6( const std::string& in_f, const std::string& out_f );
 // ********************** main
 int main( ) {
   // types and constants
-  std::string file_in = PATH_FILE_ + "1.txt";
-  std::string file_out = PATH_FILE_ + "2.txt";
-  using task = void ( * )( const std::string&, const std::string& );
-  task foo = tasks5;
-  std::srand( std::time( nullptr ) );
-  // *********  driver *********
-  fillFile( file_in );
-  std::cout << "---------original data------------" << std::endl;
-  displayFile( file_in );  // original
-  foo( file_in, file_out );
-  std::cout << "----------result data-------------" << std::endl;
-  displayFile( file_out );  // result
+  try {
+    std::string file_in = PATH_FILE_ + "1.txt";
+    std::string file_out = PATH_FILE_ + "2.txt";
+    using task = void ( * )( const std::string&, const std::string& );
+    task foo = tasks5;
+    std::srand( std::time( nullptr ) );
+    // *********  driver *********
+    fillFile( file_in );
+    std::cout << "---------original data------------" << std::endl;
+    displayFile( file_in );  // original
+    foo( file_in, file_out );
+    std::cout << "----------result data-------------" << std::endl;
+    displayFile( file_out );  // result
+  } catch ( std::runtime_error& e ) {
+    std::cerr << e.what( ) << std::endl;
+  }
 }
 // ************************
 

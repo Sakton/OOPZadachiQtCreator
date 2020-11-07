@@ -7,6 +7,7 @@ SUBDIRS += \
 	Complex21 \
 	Date_29 \
 	FazzyNumber_31 \
+	Fraction_35 \
 	ModelWindow \
 	Money_24 \
 	Money_33 \
