@@ -6,16 +6,16 @@
 
 static std::string PATH = "../../stringText1/";
 // WARNING PROBLEM
-//
-
-// c-str
-void c_stringText1( const std::string& inFile, const std::string& outFile );
 
 // string
 void stringText1( const std::string& inFile, const std::string& outFile );
 
 // wstring
 void wstringText1( const std::string& inFile, const std::string& outFile );
+
+// c-str
+void c_stringText1( const std::string& inFile, const std::string& outFile );
+
 
 int main()
 {
@@ -28,36 +28,6 @@ int main()
   }
 
   return 0;
-}
-
-void wstringText1( const std::string& inFile, const std::string& outFile ) {
-  // std::locale( );
-  std::wifstream ifile( inFile );
-  std::wstring strFile( ( std::istreambuf_iterator< wchar_t >( ) ),
-                        std::istreambuf_iterator< wchar_t >( ) );
-
-  // std::wcout << strFile;
-  std::wcout << ifile.rdbuf( );
-}
-
-void c_stringText1( const std::string& inFile, const std::string& outFile ) {
-  std::ifstream ifile( inFile );
-  if ( !ifile.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
-  ifile.seekg( 0, std::ios::end );
-  ifile.clear( );
-  int64_t len = ifile.tellg( );
-  ifile.seekg( 0, std::ios::beg );
-
-  char* buf = new char[ len + 1 ] { '\0' };
-  ifile.read( buf, len );
-  ifile.close( );
-  buf[ len ] = '\0';
-  //  std::cout << buf;
-
-  char* s = strchr( buf, 'a' );
-  std::cout << s;
-
-  delete[] buf;
 }
 
 void stringText1( const std::string& inFile, const std::string& outFile ) {
@@ -84,4 +54,45 @@ void stringText1( const std::string& inFile, const std::string& outFile ) {
   ofile << strFile;
   ofile.close( );
   std::cout << strFile;
+}
+
+void wstringText1( const std::string& inFile, const std::string& outFile ) {
+  // std::locale( );
+  std::wifstream ifile( inFile );
+
+  std::wstring strFile( ( std::istreambuf_iterator< wchar_t >( ifile ) ),
+                        std::istreambuf_iterator< wchar_t >( ) );
+  std::wcout << strFile;
+  std::wcout << "*******************************" << std::endl;
+  std::wstring::size_type idx = 0;
+  while ( idx != std::wstring::npos ) {
+    idx = strFile.find( L"a", idx );
+    if ( idx != std::wstring::npos ) {
+      if ( strFile[ idx - 1 ] == L' ' && strFile[ idx + 1 ] == L' ' ) {
+        strFile.replace( idx, 1, L"the" );
+      }
+      ++idx;
+    }
+  }
+  std::wcout << strFile;
+}
+
+void c_stringText1( const std::string& inFile, const std::string& outFile ) {
+  std::ifstream ifile( inFile );
+  if ( !ifile.is_open( ) ) throw std::runtime_error( "ERROR OPEN FILE" );
+  ifile.seekg( 0, std::ios::end );
+  ifile.clear( );
+  int64_t len = ifile.tellg( );
+  ifile.seekg( 0, std::ios::beg );
+
+  char* buf = new char[ len + 1 ] { '\0' };
+  ifile.read( buf, len );
+  ifile.close( );
+  buf[ len ] = '\0';
+  //  std::cout << buf;
+
+  char* s = strchr( buf, 'a' );
+  std::cout << s;
+
+  delete[] buf;
 }

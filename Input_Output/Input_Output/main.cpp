@@ -11,12 +11,10 @@ static const int32_t N = 5;
 void fillFile( const std::string& name_f ) {
   std::ofstream file( name_f );
   if ( !file.is_open( ) ) throw std::runtime_error( "NO OPEN FILE" );
-  if ( file.is_open( ) ) {
-    for ( int i = 0; i < N; ++i ) {
-      int x = rand( ) % 50;
-      x *= ( x % 2 ) ? -1 : 1;
-      file << x << '\n';
-    }
+  for ( int i = 0; i < N; ++i ) {
+    int x = rand( ) % 50;
+    x *= ( x % 2 ) ? -1 : 1;
+    file << x << '\n';
   }
   file.close( );
 }
