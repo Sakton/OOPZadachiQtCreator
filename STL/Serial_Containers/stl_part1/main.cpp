@@ -1,7 +1,9 @@
 #include <algorithm>
 #include <ctime>
+#include <deque>
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -10,7 +12,9 @@ static const std::string PATH = "../../stl_part1/Files/";
 static constexpr int N = 6;
 
 using type = int32_t;
-using type_container = std::vector< type >;
+using type_container = std::deque< type >;
+// using type_container = std::list< type >;
+// using type_container = std::vector< type >;
 using reference_container = type_container &;
 using const_reference_container = const type_container &;
 
