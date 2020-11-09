@@ -39,23 +39,23 @@ void modify6( container_iterator beg_it, container_iterator end_it );
 void modify7( container_iterator beg_it, container_iterator end_it );
 void modify8( container_iterator beg_it, container_iterator end_it );
 void modify9( container_iterator beg_it, container_iterator end_it );
-reference_container modify10( reference_container c );
-reference_container modify11( reference_container c );
-reference_container modify12( reference_container c );
-reference_container modify13( reference_container c );
-reference_container modify14( reference_container c );
-reference_container modify15( reference_container c );
-reference_container modify16( reference_container c );
-reference_container modify17( reference_container c );
-reference_container modify18( reference_container c );
-reference_container modify19( reference_container c );
-reference_container modify20( reference_container c );
+void modify10( container_iterator beg_it, container_iterator end_it );
+void modify11( container_iterator beg_it, container_iterator end_it );
+void modify12( container_iterator beg_it, container_iterator end_it );
+void modify13( container_iterator beg_it, container_iterator end_it );
+void modify14( container_iterator beg_it, container_iterator end_it );
+void modify15( container_iterator beg_it, container_iterator end_it );
+void modify16( container_iterator beg_it, container_iterator end_it );
+void modify17( container_iterator beg_it, container_iterator end_it );
+void modify18( container_iterator beg_it, container_iterator end_it );
+void modify19( container_iterator beg_it, container_iterator end_it );
+void modify20( container_iterator beg_it, container_iterator end_it );
 
 int main( ) {
   using modify =
       void ( * )( container_iterator beg_it, container_iterator end_it );
   // change this
-  modify modificator = modify9;
+  modify modificator = modify20;
   //***
   try {
     tasks( modificator );
@@ -242,119 +242,110 @@ void modify9( container_iterator beg_it, container_iterator end_it ) {
   }
 }
 
-reference_container modify10( reference_container c ) {
+void modify10( container_iterator beg_it, container_iterator end_it ) {
   auto mnog = 0;
-  for ( auto it = c.crbegin( ); it != c.crend( ); ++it ) {
+  for ( auto it = beg_it; it != end_it; ++it ) {
     if ( *it < 0 ) {
       mnog = *it / 2;
       break;
     };
   }
-  for ( auto &el : c ) {
-    el += mnog;
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    *it += mnog;
   }
-  return c;
 }
 
-reference_container modify11( reference_container c ) {
-  auto half_max = *std::max_element( c.cbegin( ), c.cend( ) ) / 2;
+void modify11( container_iterator beg_it, container_iterator end_it ) {
+  auto half_max = *std::max_element( beg_it, end_it ) / 2;
   if ( half_max == 0 ) throw std::runtime_error( "DIVIDE ZERO" );
-  for ( auto &el : c ) {
-    el /= half_max;
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    *it /= half_max;
   }
-  return c;
 }
 
-reference_container modify12( reference_container c ) {
+void modify12( container_iterator beg_it, container_iterator end_it ) {
   auto middle_arifmetic = 0;
-  for ( auto &el : c ) middle_arifmetic += el;
+  for ( auto it = beg_it; it != end_it; ++it ) middle_arifmetic += *it;
   middle_arifmetic /= N;
   std::cout << "middle_arifmetic = " << middle_arifmetic << std::endl;
-  for ( auto &el : c ) el = ( el != 0 ) ? el : middle_arifmetic;
-  return c;
+  for ( auto it = beg_it; it != end_it; ++it )
+    *it = ( *it != 0 ) ? *it : middle_arifmetic;
 }
 
-reference_container modify13( reference_container c ) {
-  auto sqr_min_elem =
-      std::pow( *std::min_element( c.cbegin( ), c.cend( ) ), 2 );
-  for ( auto &el : c ) el = ( el > 0 ) ? sqr_min_elem : el;
-  return c;
+void modify13( container_iterator beg_it, container_iterator end_it ) {
+  auto sqr_min_elem = std::pow( *std::min_element( beg_it, end_it ), 2 );
+  for ( auto it = beg_it; it != end_it; ++it )
+    *it = ( *it > 0 ) ? sqr_min_elem : *it;
 }
 
-reference_container modify14( reference_container c ) {
+void modify14( container_iterator beg_it, container_iterator end_it ) {
   auto half_nagative = 0;
-  for ( auto &el : c ) {
-    if ( el < 0 ) half_nagative += el;
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    if ( *it < 0 ) half_nagative += *it;
   };
   half_nagative >>= 1;
   std::cout << "half_nagative = " << half_nagative << std::endl;
-  for ( auto &el : c ) el += half_nagative;
-  return c;
+  for ( auto it = beg_it; it != end_it; ++it ) *it += half_nagative;
 }
 
-reference_container modify15( reference_container c ) {
+void modify15( container_iterator beg_it, container_iterator end_it ) {
   std::pair< type, type > para_min_max { 0, 0 };
-  for ( auto &el : c ) {
-    if ( para_min_max.first < std::abs( el ) )
-      para_min_max.first = std::abs( el );
-    if ( para_min_max.second > std::abs( el ) )
-      para_min_max.second = std::abs( el );
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    if ( para_min_max.first < std::abs( *it ) )
+      para_min_max.first = std::abs( *it );
+    if ( para_min_max.second > std::abs( *it ) )
+      para_min_max.second = std::abs( *it );
   }
   auto middle_min_max = ( para_min_max.first + para_min_max.second ) / 2;
   std::cout << "middle_min_max = " << middle_min_max << std::endl;
-  for ( auto &el : c ) el += middle_min_max;
-  return c;
+  for ( auto it = beg_it; it != end_it; ++it ) *it += middle_min_max;
 }
 
-reference_container modify16( reference_container c ) {
-  auto pair = std::minmax_element( c.cbegin( ), c.cend( ) );
+void modify16( container_iterator beg_it, container_iterator end_it ) {
+  auto pair = std::minmax_element( beg_it, end_it );
   auto pair_min_max = std::make_pair( *pair.first, *pair.second );
-  for ( auto &el : c ) el = ( el / pair_min_max.first ) + pair_min_max.second;
-  return c;
+  for ( auto it = beg_it; it != end_it; ++it )
+    *it = ( *it / pair_min_max.first ) + pair_min_max.second;
 }
 
-reference_container modify17( reference_container c ) {
-  auto max_num = *std::max_element( c.cbegin( ), c.cend( ) );
-  for ( auto &el : c )
-    if ( el > 0 ) el = max_num;
-  return c;
+void modify17( container_iterator beg_it, container_iterator end_it ) {
+  auto max_num = *std::max_element( beg_it, end_it );
+  for ( auto it = beg_it; it != end_it; ++it )
+    if ( *it > 0 ) *it = max_num;
 }
 
-reference_container modify18( reference_container c ) {
-  auto pr = std::minmax_element( c.cbegin( ), c.cend( ) );
+void modify18( container_iterator beg_it, container_iterator end_it ) {
+  auto pr = std::minmax_element( beg_it, end_it );
   auto min_max_pair = std::make_pair( *pr.first, *pr.second );
-  for ( auto &el : c )
-    if ( !( std::abs( el ) % 2 ) ) {
-      el = min_max_pair.second - min_max_pair.first;
+  for ( auto it = beg_it; it != end_it; ++it )
+    if ( !( std::abs( *it ) % 2 ) ) {
+      *it = min_max_pair.second - min_max_pair.first;
     }
-  return c;
 }
 
-reference_container modify19( reference_container c ) {
-  auto max = *std::max_element( c.begin( ), c.end( ) );
+void modify19( container_iterator beg_it, container_iterator end_it ) {
+  auto max = *std::max_element( beg_it, end_it );
   int i = 1;
-  for ( auto &el : c ) {
-    if ( el < 0 ) {
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    if ( *it < 0 ) {
       if ( !( i % 2 ) ) {
-        el = max / 2;
+        *it = max / 2;
       }
       ++i;
     }
   }
-  return c;
 }
 
-reference_container modify20( reference_container c ) {
+void modify20( container_iterator beg_it, container_iterator end_it ) {
   auto summ = 0;
-  for ( auto &el : c ) summ += el;
+  for ( auto it = beg_it; it != end_it; ++it ) summ += *it;
   int i = 1;
-  for ( auto &el : c ) {
-    if ( el > 0 ) {
+  for ( auto it = beg_it; it != end_it; ++it ) {
+    if ( *it > 0 ) {
       if ( !( i % 3 ) ) {
-        el = summ / N;
+        *it = summ / N;
       }
       ++i;
     }
   }
-  return c;
 }
