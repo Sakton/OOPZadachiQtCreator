@@ -7,4 +7,5 @@ SOURCES += \
         main.cpp
 
 DISTFILES += \
-	Files/input.txt
+	Files/input.txt \
+	Files/output.txt
