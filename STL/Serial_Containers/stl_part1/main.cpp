@@ -37,10 +37,13 @@ reference_container modify15( reference_container c );
 reference_container modify16( reference_container c );
 reference_container modify17( reference_container c );
 reference_container modify18( reference_container c );
+reference_container modify19( reference_container c );
+reference_container modify20( reference_container c );
+
 int main( ) {
   using modify = reference_container ( * )( reference_container c );
   // change this
-  modify modificator = modify17;
+  modify modificator = modify20;
   //***
   try {
     tasks( modificator );
@@ -286,6 +289,36 @@ reference_container modify18( reference_container c ) {
   auto min_max_pair = std::make_pair( *pr.first, *pr.second );
   for ( auto &el : c )
     if ( !( std::abs( el ) % 2 ) ) {
-      // el =
+      el = min_max_pair.second - min_max_pair.first;
     }
+  return c;
+}
+
+reference_container modify19( reference_container c ) {
+  auto max = *std::max_element( c.begin( ), c.end( ) );
+  int i = 1;
+  for ( auto &el : c ) {
+    if ( el < 0 ) {
+      if ( !( i % 2 ) ) {
+        el = max / 2;
+      }
+      ++i;
+    }
+  }
+  return c;
+}
+
+reference_container modify20( reference_container c ) {
+  auto summ = 0;
+  for ( auto &el : c ) summ += el;
+  int i = 1;
+  for ( auto &el : c ) {
+    if ( el > 0 ) {
+      if ( !( i % 3 ) ) {
+        el = summ / N;
+      }
+      ++i;
+    }
+  }
+  return c;
 }
