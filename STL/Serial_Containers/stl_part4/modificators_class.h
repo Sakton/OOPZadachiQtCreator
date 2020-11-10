@@ -5,6 +5,7 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <numeric>
 #include <vector>
 
 // types defined
@@ -22,7 +23,7 @@ class Modificators {
 
 class Modify1 : public Modificators {
  public:
-  Modify1( const_reference_container cnt ) : factor_ { 0 } {
+  explicit Modify1( const_reference_container cnt ) : factor_ { 0 } {
     factor_ = std::sqrt( std::abs(
         *std::max_element( cnt.begin( ), cnt.end( ) ) * cnt.back( ) ) );
   }
@@ -35,7 +36,7 @@ class Modify1 : public Modificators {
 
 class Modify2 : public Modificators {
  public:
-  Modify2( const_reference_container cnt ) : polusumma_ { 0 } {
+  explicit Modify2( const_reference_container cnt ) : polusumma_ { 0 } {
     auto el =
         std::find_if( cnt.cbegin( ), cnt.cend( ),
                       []( const type &elem ) -> bool { return elem < 0; } );
@@ -57,7 +58,7 @@ class Modify2 : public Modificators {
 
 class Modify3 : public Modificators {
  public:
-  Modify3( const_reference_container cnt ) : max_elem_ { 0 } {
+  explicit Modify3( const_reference_container cnt ) : max_elem_ { 0 } {
     max_elem_ = *std::max_element( cnt.begin( ), cnt.end( ) );
     std::cout << '\n'
               << "functor3: member max_elem = " << max_elem_ << std::endl;
@@ -71,7 +72,7 @@ class Modify3 : public Modificators {
 
 class Modify4 : public Modificators {
  public:
-  Modify4( const_reference_container cnt ) : min_ { 0 } {
+  explicit Modify4( const_reference_container cnt ) : min_ { 0 } {
     min_ = *std::min_element( cnt.begin( ), cnt.end( ) );
     std::cout << '\n' << "functor4: member min_ = " << min_ << std::endl;
   }
@@ -84,9 +85,8 @@ class Modify4 : public Modificators {
 
 class Modify5 : public Modificators {
  public:
-  Modify5( const_reference_container cnt ) : srednee_arifmet_ { 0 } {
-    for ( auto &el : cnt ) srednee_arifmet_ += el;
-    srednee_arifmet_ /= N;
+  explicit Modify5( const_reference_container cnt ) : srednee_arifmet_ { 0 } {
+    srednee_arifmet_ = std::accumulate( cnt.cbegin( ), cnt.cend( ), 0 ) / N;
     std::cout << '\n'
               << "functor5: member srednee_arifmet_ = " << srednee_arifmet_
               << std::endl;
@@ -102,8 +102,8 @@ class Modify5 : public Modificators {
 
 class Modify6 : public Modificators {
  public:
-  Modify6( const_reference_container cnt ) : summ_ { 0 } {
-    for ( auto &el : cnt ) summ_ += el;
+  explicit Modify6( const_reference_container cnt ) : summ_ { 0 } {
+    summ_ = std::accumulate( cnt.cbegin( ), cnt.cend( ), 0 );
     std::cout << '\n' << "functor6: member summ_ = " << summ_ << std::endl;
   }
   ~Modify6( ) override {}
@@ -115,7 +115,8 @@ class Modify6 : public Modificators {
 
 class Modify7 : public Modificators {
  public:
-  Modify7( const_reference_container cnt ) : summ_first_end_negative_ { 0 } {
+  explicit Modify7( const_reference_container cnt )
+      : summ_first_end_negative_ { 0 } {
     for ( auto it = cnt.cbegin( ); it != cnt.cend( ); ++it ) {
       if ( *it < 0 ) {
         summ_first_end_negative_ += *it;
@@ -150,7 +151,7 @@ class Modify7 : public Modificators {
 
 class Modify8 : public Modificators {
  public:
-  Modify8( const_reference_container cnt )
+  explicit Modify8( const_reference_container cnt )
       : first_nechet_abs_ { std::numeric_limits< type >::min( ) } {
     for ( auto &el : cnt ) {
       if ( std::abs( el ) % 2 != 0 ) {
@@ -173,14 +174,10 @@ class Modify8 : public Modificators {
 
 class Modify9 : public Modificators {
  public:
-  Modify9( const_reference_container cnt )
-      : first_negative_ { std::numeric_limits< type >::max( ) } {
-    for ( auto &el : cnt ) {
-      if ( el < 0 ) {
-        first_negative_ = el;
-        break;
-      }
-    }
+  explicit Modify9( const_reference_container cnt )
+      : first_negative_ {
+            *std::find_if( cnt.cbegin( ), cnt.cend( ),
+                           []( const type &el ) -> bool { return el < 0; } ) } {
     std::cout << '\n'
               << "functor9: member first_negative_ = " << first_negative_
               << std::endl;
@@ -196,7 +193,7 @@ class Modify9 : public Modificators {
 
 class Modify10 : public Modificators {
  public:
-  Modify10( const_reference_container cnt )
+  explicit Modify10( const_reference_container cnt )
       : half_last_negative_ { std::numeric_limits< type >::min( ) } {
     for ( auto it = cnt.crbegin( ); it != cnt.crend( ); ++it ) {
       if ( *it < 0 ) {
@@ -219,7 +216,7 @@ class Modify10 : public Modificators {
 
 class Modify11 : public Modificators {
  public:
-  Modify11( const_reference_container cnt )
+  explicit Modify11( const_reference_container cnt )
       : half_max_ { *std::max_element( cnt.cbegin( ), cnt.cend( ) ) / 2 } {
     std::cout << '\n'
               << "functor11: member half_max_ = " << half_max_ << std::endl;
@@ -236,7 +233,7 @@ class Modify11 : public Modificators {
 
 class Modify12 : public Modificators {
  public:
-  Modify12( const_reference_container cnt ) : mid_arifm_ { 0 } {
+  explicit Modify12( const_reference_container cnt ) : mid_arifm_ { 0 } {
     for ( auto it = cnt.begin( ); it != cnt.end( ); ++it ) {
       mid_arifm_ += *it;
     }
@@ -252,7 +249,7 @@ class Modify12 : public Modificators {
 
 class Modify13 : public Modificators {
  public:
-  Modify13( const_reference_container cnt )
+  explicit Modify13( const_reference_container cnt )
       : quadrat_min_ { static_cast< type >(
             std::pow( *std::min_element( cnt.begin( ), cnt.end( ) ), 2 ) ) } {
     std::cout << '\n'
@@ -268,16 +265,22 @@ class Modify13 : public Modificators {
 
 class Modify14 : public Modificators {
  public:
-  Modify14( const_reference_container cnt ) : polusumma_nagative_ { 0 } {
-    for ( auto &el : cnt )
-      if ( el < 0 ) polusumma_nagative_ += el;
+  explicit Modify14( const_reference_container cnt )
+      : polusumma_nagative_ { 0 } {
+    //    for ( auto &el : cnt )
+    //      if ( el < 0 ) polusumma_nagative_ += el;
+    polusumma_nagative_ = std::accumulate( cnt.cbegin( ), cnt.cend( ), 0,
+                                           []( type el1, type el2 ) {
+                                             el2 = ( el2 < 0 ) ? el2 : 0;
+                                             return ( el1 + el2 );
+                                           } );
     polusumma_nagative_ >>= 1;
     std::cout << '\n'
               << "functor14: member polusumma_nagative_ = "
               << polusumma_nagative_ << std::endl;
   }
   ~Modify14( ) {}
-  void operator( )( type &el ) { el += polusumma_nagative_; }
+  void operator( )( type &el ) override { el += polusumma_nagative_; }
 
  private:
   type polusumma_nagative_;
@@ -285,7 +288,7 @@ class Modify14 : public Modificators {
 
 class Modify15 : public Modificators {
  public:
-  Modify15( const_reference_container cnt ) : mid_min_max_ { 0 } {
+  explicit Modify15( const_reference_container cnt ) : mid_min_max_ { 0 } {
     auto p = std::minmax_element( cnt.begin( ), cnt.end( ) );
     mid_min_max_ = ( std::abs( *p.first ) + std::abs( *p.second ) ) >> 1;
     std::cout << '\n'
@@ -301,7 +304,7 @@ class Modify15 : public Modificators {
 
 class Modify16 : public Modificators {
  public:
-  Modify16( const_reference_container cnt )
+  explicit Modify16( const_reference_container cnt )
       : min_max_ { std::minmax_element( cnt.cbegin( ), cnt.cend( ) ) } {
     std::cout << '\n'
               << "functor16: member min_max_ = " << *min_max_.first << " : "
@@ -320,7 +323,7 @@ class Modify16 : public Modificators {
 
 class Modify17 : public Modificators {
  public:
-  Modify17( const_reference_container cnt )
+  explicit Modify17( const_reference_container cnt )
       : max_ { *std::max_element( cnt.begin( ), cnt.end( ) ) } {
     std::cout << '\n' << "functor17: member max_ = " << max_ << std::endl;
   }
@@ -333,7 +336,7 @@ class Modify17 : public Modificators {
 
 class Modify18 : public Modificators {
  public:
-  Modify18( const_reference_container cnt )
+  explicit Modify18( const_reference_container cnt )
       : min_max_ { std::minmax_element( cnt.begin( ), cnt.end( ) ) } {
     std::cout << '\n'
               << "functor18: member min_max_ = " << *min_max_.first << " : "
@@ -351,7 +354,7 @@ class Modify18 : public Modificators {
 
 class Modify19 : public Modificators {
  public:
-  Modify19( const_reference_container cnt )
+  explicit Modify19( const_reference_container cnt )
       : half_max_ { *std::max_element( cnt.begin( ), cnt.end( ) ) / 2 } {
     std::cout << '\n'
               << "functor19: member half_max_ = " << half_max_ << std::endl;
@@ -369,11 +372,8 @@ class Modify19 : public Modificators {
 
 class Modify20 : public Modificators {
  public:
-  Modify20( const_reference_container cnt ) : middle_arifmetic_ { 0 } {
-    for ( auto &el : cnt ) {
-      middle_arifmetic_ += el;
-    }
-    middle_arifmetic_ >>= 1;
+  explicit Modify20( const_reference_container cnt ) : middle_arifmetic_ { 0 } {
+    middle_arifmetic_ = std::accumulate( cnt.begin( ), cnt.end( ), 0 ) >> 1;
     std::cout << '\n'
               << "functor20: member middle_arifmetic_ = " << middle_arifmetic_
               << std::endl;
