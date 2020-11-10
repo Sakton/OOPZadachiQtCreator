@@ -8,6 +8,7 @@ SUBDIRS += \
 	Inherits \
 	Input_Output \
 	Multi_Modul_Programms \
+	Qt \
 	STL \
 	Strings \
 	Templates
