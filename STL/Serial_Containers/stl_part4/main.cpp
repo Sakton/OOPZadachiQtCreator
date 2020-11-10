@@ -4,7 +4,6 @@
 #include "modificators_class.h"
 
 static const std::string PATH = "../../stl_part4/Files/";
-static constexpr int N = 6;
 
 struct Generator {
   type operator( )( ) {
@@ -24,7 +23,7 @@ void tasks( ) {
   std::copy( cnt.cbegin( ), cnt.cend( ),
              std::ostream_iterator< type >( std::cout, " " ) );
   //****************************************************
-  Modificators *modificator = new Modify1( cnt );
+  Modificators *modificator = new Modify13( cnt );
   //****************************************************
   std::for_each( cnt.begin( ), cnt.end( ),
                  [ & ]( type &elem ) { modificator->operator( )( elem ); } );
