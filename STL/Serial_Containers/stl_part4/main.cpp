@@ -23,7 +23,7 @@ void tasks( ) {
   std::copy( cnt.cbegin( ), cnt.cend( ),
              std::ostream_iterator< type >( std::cout, " " ) );
   //****************************************************
-  Modificators *modificator = new Modify13( cnt );
+  Modificators *modificator = new Modify20( cnt );
   //****************************************************
   std::for_each( cnt.begin( ), cnt.end( ),
                  [ & ]( type &elem ) { modificator->operator( )( elem ); } );

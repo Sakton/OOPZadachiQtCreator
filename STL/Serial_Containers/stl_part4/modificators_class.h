@@ -283,4 +283,114 @@ class Modify14 : public Modificators {
   type polusumma_nagative_;
 };
 
+class Modify15 : public Modificators {
+ public:
+  Modify15( const_reference_container cnt ) : mid_min_max_ { 0 } {
+    auto p = std::minmax_element( cnt.begin( ), cnt.end( ) );
+    mid_min_max_ = ( std::abs( *p.first ) + std::abs( *p.second ) ) >> 1;
+    std::cout << '\n'
+              << "functor15: member mid_min_max_ = " << mid_min_max_
+              << std::endl;
+  }
+  ~Modify15( ) override {}
+  void operator( )( type &el ) override { el += mid_min_max_; }
+
+ private:
+  type mid_min_max_;
+};
+
+class Modify16 : public Modificators {
+ public:
+  Modify16( const_reference_container cnt )
+      : min_max_ { std::minmax_element( cnt.cbegin( ), cnt.cend( ) ) } {
+    std::cout << '\n'
+              << "functor16: member min_max_ = " << *min_max_.first << " : "
+              << *min_max_.second << std::endl;
+  }
+
+  ~Modify16( ) override {}
+  void operator( )( type &el ) override {
+    el = ( el / ( *min_max_.first ) ) + ( *min_max_.second );
+  }
+
+ private:
+  std::pair< type_container::const_iterator, type_container::const_iterator >
+      min_max_;
+};
+
+class Modify17 : public Modificators {
+ public:
+  Modify17( const_reference_container cnt )
+      : max_ { *std::max_element( cnt.begin( ), cnt.end( ) ) } {
+    std::cout << '\n' << "functor17: member max_ = " << max_ << std::endl;
+  }
+  ~Modify17( ) override {}
+  void operator( )( type &el ) override { el = ( el > 0 ) ? max_ : el; }
+
+ private:
+  type max_;
+};
+
+class Modify18 : public Modificators {
+ public:
+  Modify18( const_reference_container cnt )
+      : min_max_ { std::minmax_element( cnt.begin( ), cnt.end( ) ) } {
+    std::cout << '\n'
+              << "functor18: member min_max_ = " << *min_max_.first << " : "
+              << *min_max_.second << std::endl;
+  }
+  ~Modify18( ) override {}
+  void operator( )( type &el ) override {
+    if ( std::abs( el ) % 2 == 0 ) el = *min_max_.second - *min_max_.first;
+  }
+
+ private:
+  std::pair< type_container::const_iterator, type_container::const_iterator >
+      min_max_;
+};
+
+class Modify19 : public Modificators {
+ public:
+  Modify19( const_reference_container cnt )
+      : half_max_ { *std::max_element( cnt.begin( ), cnt.end( ) ) / 2 } {
+    std::cout << '\n'
+              << "functor19: member half_max_ = " << half_max_ << std::endl;
+  }
+  ~Modify19( ) {}
+  void operator( )( type &el ) override {
+    if ( count % 2 == 0 && el < 0 ) el = half_max_;
+    ++count;
+  }
+
+ private:
+  static int count;
+  type half_max_;
+};
+
+class Modify20 : public Modificators {
+ public:
+  Modify20( const_reference_container cnt ) : middle_arifmetic_ { 0 } {
+    for ( auto &el : cnt ) {
+      middle_arifmetic_ += el;
+    }
+    middle_arifmetic_ >>= 1;
+    std::cout << '\n'
+              << "functor20: member middle_arifmetic_ = " << middle_arifmetic_
+              << std::endl;
+  }
+
+  ~Modify20( ) override {}
+
+  void operator( )( type &el ) override {
+    if ( count % 3 == 0 && el > 0 ) {
+      el = middle_arifmetic_;
+    }
+    ++count;
+  }
+
+ private:
+  static int count;
+  type middle_arifmetic_;
+};
+
 #endif  // MODIFICATORS_CLASS_H
