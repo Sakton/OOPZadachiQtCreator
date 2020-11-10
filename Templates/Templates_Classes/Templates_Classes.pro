@@ -6,4 +6,5 @@ SUBDIRS += \
     Array3 \
     Array4 \
     Array5 \
+    Array8 \
     Stack7

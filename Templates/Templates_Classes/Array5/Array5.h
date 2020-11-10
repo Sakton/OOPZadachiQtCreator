@@ -107,8 +107,6 @@ class Array5 {
   size_type capacity_;
 };
 
-#endif // ARRAY5_H
-
 template < typename T >
 Array5< T >::Array5( Array5::size_type sz )
     : elem_ { new value_type[ sz ] { T( ) } }, count_ { 0 }, capacity_ { sz } {}
@@ -345,3 +343,5 @@ template < typename T >
 bool operator!=( const Array5< T > &ar1, const Array5< T > &ar2 ) {
   return !( ar1 == ar2 );
 }
+
+#endif  // ARRAY5_H
