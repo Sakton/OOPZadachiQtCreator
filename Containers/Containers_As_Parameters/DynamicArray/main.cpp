@@ -139,6 +139,7 @@ DynamicArray foo1( value_type arr[], int n ) {
                  [ &rt ]( value_type &el ) { el += rt; } );
   return res;
 }
+
 DynamicArray foo2( value_type arr[], int n ) {
   value_type firstNegative = 0;
   for ( value_type *it = arr; it != ( arr + n ); ++it ) {
@@ -153,6 +154,7 @@ DynamicArray foo2( value_type arr[], int n ) {
                  [ &dx ]( value_type &el ) { el /= dx; } );
   return res;
 }
+
 DynamicArray foo3( value_type arr[], int n ) {
   value_type max = tMax( arr, n );
   DynamicArray res( arr, arr + n );
@@ -160,5 +162,3 @@ DynamicArray foo3( value_type arr[], int n ) {
                  [ &max ]( value_type &el ) { el -= max; } );
   return res;
 }
-
-DynamicArray foo4( value_type arr[], int n ) {}
