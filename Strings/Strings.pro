@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    stringText1
+    stringText1 \
+    strings2
