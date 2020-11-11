@@ -1,10 +1,15 @@
+#include <algorithm>
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <iterator>
+#include <numeric>
 #include <string>
 
+// FIXME пути файлов тут
 // static const std::string PATH_FILE_ = "../../Files/";
-static const std::string PATH_FILE_ = "../Input_Output/Files/";
+// static const std::string PATH_FILE_ = "../Input_Output/Files/";
+static const std::string PATH_FILE_ = "../../Input_Output/Files/";
 static const int32_t N = 5;
 
 // utilities
@@ -36,6 +41,11 @@ void tasks7( const std::string& in_f, const std::string& out_f );
 void tasks8( const std::string& in_f, const std::string& out_f );
 void tasks9( const std::string& in_f, const std::string& out_f );
 void tasks10( const std::string& in_f, const std::string& out_f );
+void tasks11( const std::string& in_f, const std::string& out_f );  //через algo
+void tasks12( const std::string& in_f, const std::string& out_f );  //через algo
+void tasks13( const std::string& in_f, const std::string& out_f );  //через algo
+void tasks14( const std::string& in_f, const std::string& out_f );  //через algo
+void tasks15( const std::string& in_f, const std::string& out_f );  //через algo
 
 // ********************** main
 int main( ) {
@@ -44,7 +54,7 @@ int main( ) {
     std::string file_in = PATH_FILE_ + "1.txt";
     std::string file_out = PATH_FILE_ + "2.txt";
     using task = void ( * )( const std::string&, const std::string& );
-    task foo = tasks9;
+    task foo = tasks15;
     std::srand( std::time( nullptr ) );
     // *********  driver *********
     fillFile( file_in );
@@ -287,4 +297,98 @@ void tasks9( const std::string& in_f, const std::string& out_f ) {
   }
 }
 
-void tasks10( const std::string& in_f, const std::string& out_f ) {}
+void tasks10( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  int i = 1;
+  ifile.seekg( -( sizeof( int ) + sizeof( char ) ) * i, std::ifstream::end );
+  int x = 0;
+  while ( ifile && ifile.tellg( ) >= 0 ) {
+    ifile >> std::skipws >> x;
+    if ( x < 0 ) break;
+    ++i;
+    ifile.seekg( -( sizeof( int ) + sizeof( char ) ) * i, std::ifstream::end );
+  }
+  int multipler = x / 2;
+  std::cout << "multiplier = " << multipler << std::endl;
+  ifile.seekg( std::ios::beg );
+  std::ofstream ofile( out_f );
+  while ( ifile ) {
+    ifile >> std::skipws >> x;
+    if ( !ifile.eof( ) ) {
+      ofile << ( x * multipler ) << '\n';
+    }
+  }
+}
+
+void tasks11( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  //разбито для понимания
+  std::istream_iterator< int > iiter( ifile /*>> std::skipws */ );
+  std::istream_iterator< int > iiter_end;
+  int max = *std::max_element( iiter, iiter_end );
+  std::cout << "max = " << max << std::endl;
+  std::ofstream ofile( out_f );
+  std::ostream_iterator< int > outfile( ofile, "\n" );
+  ifile.clear( );  //очистка состояния потока после чтения - eof
+  ifile.seekg( std::ios::beg );  //установка на начало
+  std::transform( iiter, iiter_end, outfile,
+                  [ & ]( int el ) { return el * 2 / max; } );
+}
+
+void tasks12( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  int mid_arifm = std::accumulate( std::istream_iterator< int >( ifile ),
+                                   std::istream_iterator< int >( ), 0 );
+  mid_arifm /= N;
+  std::cout << "mid_arifm = " << mid_arifm << std::endl;
+  ifile.clear( );
+  ifile.seekg( std::ios::beg );
+  std::ofstream ofile( out_f );
+  std::transform( std::istream_iterator< int >( ifile ),
+                  std::istream_iterator< int >( ),
+                  std::ostream_iterator< int >( ofile, "\n" ),
+                  [ & ]( int el ) { return ( el == 0 ) ? mid_arifm : el; } );
+}
+
+void tasks13( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  int quadro_min =
+      std::pow( *std::min_element( std::istream_iterator< int >( ifile ),
+                                   std::istream_iterator< int >( ) ),
+                2 );
+  std::cout << "quadro_min = " << quadro_min << std::endl;
+  ifile.clear( );
+  ifile.seekg( std::ios::beg );
+  std::ofstream ofile( out_f );
+  std::transform( std::istream_iterator< int >( ifile ),
+                  std::istream_iterator< int >( ),
+                  std::ostream_iterator< int >( ofile, "\n" ),
+                  [ & ]( int el ) { return ( el > 0 ) ? quadro_min : el; } );
+}
+
+void tasks14( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  int mid_negative = std::accumulate(
+      std::istream_iterator< int >( ifile ), std::istream_iterator< int >( ), 0,
+      []( int initVal, int el ) {
+        return ( el < 0 ) ? initVal + el : initVal;
+      } );
+  mid_negative >>= 1;
+  std::cout << "mid_negative = " << mid_negative << std::endl;
+  ifile.clear( );
+  ifile.seekg( std::ios::beg );
+  std::ofstream ofile( out_f );
+  std::transform( std::istream_iterator< int >( ifile ),
+                  std::istream_iterator< int >( ),
+                  std::ostream_iterator< int >( ofile, "\n" ),
+                  [ & ]( int el ) { return el + mid_negative; } );
+}
+
+void tasks15( const std::string& in_f, const std::string& out_f ) {
+  std::ifstream ifile( in_f );
+  std::pair< std::istream_iterator< int >, std::istream_iterator< int > > res =
+      std::minmax_element( std::istream_iterator< int >( ifile ),
+                           std::istream_iterator< int >( ) );
+  int mid_min_max = ( std::abs( *res.first ) + *res.second ) / 2;
+  std::cout << "mid_min_max = " << mid_min_max << std::endl;
+}
