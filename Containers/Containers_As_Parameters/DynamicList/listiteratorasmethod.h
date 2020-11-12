@@ -2,8 +2,7 @@
 #define LISTITERATORASMETHOD_H
 //элемент tail - концевой элемент, существует всегда, как поплавок
 
-class ListIteratorAsMethod
-{
+class ListIteratorAsMethod {
  public:
   // определения типов
   using value_type = double;
@@ -13,7 +12,7 @@ class ListIteratorAsMethod
 
  private:
   struct Node {
-    Node( ) : item_ { }, next_ { nullptr }, prev_ { nullptr } {}
+    Node( ) : item_ { 0 }, next_ { nullptr }, prev_ { nullptr } {}
     Node( const value_type &v ) : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
 
     const_reference operator*( ) const { return item_; };
@@ -61,10 +60,10 @@ class ListIteratorAsMethod
   bool operator!=( const_iterator it ) const;
   bool operator!=( iterator it ) const;
 
-  iterator next( );
-  const_iterator next( ) const;
-  iterator prev( );
-  const_iterator prev( ) const;
+  //  iterator next( );
+  //  const_iterator next( ) const;
+  //  iterator prev( );
+  //  const_iterator prev( ) const;
 
   //размер
   size_type size( ) const;
@@ -79,9 +78,9 @@ class ListIteratorAsMethod
   iterator tail_;  //пустой элемент
   //переменная указатель для итерирования
   mutable iterator curIteration_;  //ВАЖНО!!! переменная инкремента не может (не должна) быть
-                                   // const в константном обьекте, при реализации итератора
-                                   // через методы класса
+  // const в константном обьекте, при реализации итератора
+  // через методы класса
   size_type count_;
 };
 
-#endif // LISTITERATORASMETHOD_H
+#endif  // LISTITERATORASMETHOD_H

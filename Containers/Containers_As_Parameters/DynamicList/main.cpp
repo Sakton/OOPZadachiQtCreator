@@ -1,5 +1,6 @@
 #include <ctime>
 #include <iostream>
+#include <list>
 
 #include "listiteratorasmethod.h"
 
@@ -8,7 +9,7 @@ const int N = 6;
 void printList( ListIteratorAsMethod &dl );
 void fillList( ListIteratorAsMethod &list, int n );
 
-void testList( const ListIteratorAsMethod &dl );
+void testList( ListIteratorAsMethod &dl );
 
 //***functions
 ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list );
@@ -57,32 +58,40 @@ void fillList( ListIteratorAsMethod &list, int n ) {
   }
 }
 
-ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list ) {
-  double max = 0;
-  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
-        it = list.next( ) ) {
-    if ( max < it->item_ ) {
-      max = it->item_;
-    }
-  }
-  ListIteratorAsMethod::const_iterator endIt = list.end( );
-  endIt = list.prev( );
-  double endEl = endIt->item_;
+// ListIteratorAsMethod::const_iterator foo1( ListIteratorAsMethod &list ) {
+//  double max = 0;
+//  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+//        it = list.next( ) ) {
+//    if ( max < it->item_ ) {
+//      max = it->item_;
+//    }
+//  }
+//  ListIteratorAsMethod::const_iterator endIt = list.end( );
+//  endIt = list.prev( );
+//  double endEl = endIt->item_;
 
-  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
-        it = list.next( ) ) {
-    it->item_ *= std::sqrt( std::abs( max * endEl ) );
-  }
-  return list.begin( );
-}
+//  for ( ListIteratorAsMethod::iterator it = list.begin( ); it != list.end( );
+//        it = list.next( ) ) {
+//    it->item_ *= std::sqrt( std::abs( max * endEl ) );
+//  }
+//  return list.begin( );
+//}
 
 // ListIteratorAsMethod::const_iterator foo2( ListIteratorAsMethod &list ) {
 //  auto fNeg = *std::find_if( list.begin( ), list.end( ), []( int el ) { return el < 0; } );
 //}
 
-void testList( const ListIteratorAsMethod &dl ) {
+void testList( ListIteratorAsMethod &dl ) {
   // std::cout << *dl.begin( );
-  std::cout << "dl = " << *dl.begin( ) << std::endl;
-  ++dl;
   std::cout << "dl = " << *dl << std::endl;
+  //  dl.push_back( 100 );
+  //  dl.push_back( 200 );
+  //  dl.push_back( 300 );
+  //  dl.push_back( 400 );
+  // std::cout << "dl = " << *dl.begin( ) << std::endl;
+  //++dl;
+  // std::cout << "dl = " << *dl << std::endl;
+  std::list< int > s;
+  s.push_back( 111 );
+  std::cout << *s.begin( ) << std::endl;
 }
