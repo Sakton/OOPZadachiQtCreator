@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iomanip>
 #include <iostream>
+#include <numeric>
 
 #include "dynamicarray.h"
 
@@ -28,24 +29,24 @@ DynamicArray foo5( value_type arr[], int n );
 DynamicArray foo6( value_type arr[], int n );
 DynamicArray foo7( value_type arr[], int n );
 DynamicArray foo8( value_type arr[], int n );
-DynamicArray foo9( value_type arr[], int n );
-DynamicArray foo10( value_type arr[], int n );
-DynamicArray foo11( value_type arr[], int n );
-DynamicArray foo12( value_type arr[], int n );
-DynamicArray foo13( value_type arr[], int n );
-DynamicArray foo14( value_type arr[], int n );
-DynamicArray foo15( value_type arr[], int n );
-DynamicArray foo16( value_type arr[], int n );
-DynamicArray foo17( value_type arr[], int n );
-DynamicArray foo18( value_type arr[], int n );
-DynamicArray foo19( value_type arr[], int n );
-DynamicArray foo20( value_type arr[], int n );
+// DynamicArray foo9( value_type arr[], int n );
+// DynamicArray foo10( value_type arr[], int n );
+// DynamicArray foo11( value_type arr[], int n );
+// DynamicArray foo12( value_type arr[], int n );
+// DynamicArray foo13( value_type arr[], int n );
+// DynamicArray foo14( value_type arr[], int n );
+// DynamicArray foo15( value_type arr[], int n );
+// DynamicArray foo16( value_type arr[], int n );
+// DynamicArray foo17( value_type arr[], int n );
+// DynamicArray foo18( value_type arr[], int n );
+// DynamicArray foo19( value_type arr[], int n );
+// DynamicArray foo20( value_type arr[], int n );
 
 int main( ) {
   set_unexpected( f );
 
   try {
-    const int N = 100;
+    const int N = 6;
     value_type *arr = new value_type[ N ];
     std::srand( std::time( nullptr ) );
     generateArr( arr, N );
@@ -54,7 +55,7 @@ int main( ) {
     //****************   program Driver   ******************
     //
     using p_funktion = DynamicArray ( * )( value_type arr[], int n );
-    p_funktion funk = foo3;
+    p_funktion funk = foo7;
     //******************************************************
     DynamicArray darr = funk( arr, N );
     printArr( darr );
@@ -73,7 +74,7 @@ int main( ) {
 void generateArr( value_type arr[], int n ) {
   for ( int i = 0; i < n; ++i ) {
     int rand = std::rand( ) % 50;
-    arr[ i ] = rand * ( ( rand % 2 ) ? -1 : 1 );
+    arr[ i ] = rand * ( ( rand % 3 ) ? -1 : 1 );
   }
 }
 
@@ -162,3 +163,55 @@ DynamicArray foo3( value_type arr[], int n ) {
                  [ &max ]( value_type &el ) { el -= max; } );
   return res;
 }
+
+DynamicArray foo4( value_type arr[], int n ) {
+  int min = *std::min_element( arr, arr + n );
+  std::cout << "min = " << min << std::endl;
+  DynamicArray res( n );
+  std::transform( arr, arr + n, res.begin( ), [ & ]( int el ) { return el * min; } );
+  return res;
+}
+
+DynamicArray foo5( value_type arr[], int n ) {
+  int mid_arif = std::accumulate( arr, arr + n, 0, []( int acc, int el ) { return ( acc + el ); } );
+  mid_arif /= n;
+  std::cout << "mid_arif = " << mid_arif << std::endl;
+  DynamicArray res( n );
+  std::transform( arr, arr + n, res.begin( ), [ = ]( int el ) {
+    if ( std::abs( el ) % 2 ) return el / mid_arif;
+    return el;
+  } );
+  return res;
+}
+
+DynamicArray foo6( value_type arr[], int n ) {
+  int summ = std::accumulate( arr, arr + n, 0, []( int acc, int el ) { return acc + el; } );
+  std::cout << "summ = " << summ << std::endl;
+  DynamicArray res( n );
+  std::transform( arr, arr + n, res.begin( ), [ = ]( int el ) { return el - summ; } );
+  return res;
+}
+
+DynamicArray foo7( value_type arr[], int n ) {
+  int first_neg = *std::find_if( arr, arr + n, []( int el ) { return el < 0; } );
+  int last_neg = 0;
+  for ( auto it = arr + n - 1; it != arr; --it ) {
+    if ( *it < 0 ) {
+      last_neg = *it;
+      break;
+    }
+  }
+  int two_summ = 2 * ( first_neg + last_neg );
+  std::cout << "two_summ = " << two_summ << std::endl;
+  DynamicArray res( n );
+  int count = 1;
+  std::transform( arr, arr + n, res.begin( ), [ & ]( double el ) {
+    if ( !( ( count++ ) % 3 ) ) {
+      return el * two_summ;
+    }
+    return el;
+  } );
+  return res;
+}
+
+// DynamicArray foo8( value_type arr[], int n ) {}
