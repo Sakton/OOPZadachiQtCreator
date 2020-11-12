@@ -5,7 +5,7 @@
 ListIteratorAsMethod::ListIteratorAsMethod( ) : head_ { new Node }, tail_ { head_ }, curIteration_ { head_ }, count_ { 0 } {}
 
 ListIteratorAsMethod::~ListIteratorAsMethod( ) {
-  iterator del = head_;
+  Node *del = head_;
   head_ = head_->next_;
   while ( head_ != tail_ ) {
     delete del;
@@ -19,7 +19,7 @@ ListIteratorAsMethod::~ListIteratorAsMethod( ) {
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::begin( ) {
   if ( empty( ) ) throw std::runtime_error( "LIST EMPTY" );
-  return curIteration_ = head_;
+  return *( curIteration_ = head_ );
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::begin( ) const { return curIteration_ = head_; }
@@ -78,9 +78,9 @@ ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--( int ) con
   return t;
 }
 
-ListIteratorAsMethod::reference ListIteratorAsMethod::operator*( ) { return curIteration_->item_; }
+ListIteratorAsMethod::reference ListIteratorAsMethod::operator*( ) { return *( *curIteration_ ); }
 
-ListIteratorAsMethod::const_reference ListIteratorAsMethod::operator*( ) const { return curIteration_->item_; }
+ListIteratorAsMethod::const_reference ListIteratorAsMethod::operator*( ) const { return *( *curIteration_ ); }
 
 bool ListIteratorAsMethod::operator==( ListIteratorAsMethod::iterator it ) const { return curIteration_ == it; }
 
