@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
 	DynamicArray \
-	DynamicList
+	DynamicList \
+	List
