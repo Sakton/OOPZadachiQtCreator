@@ -7,7 +7,7 @@ ListIteratorAsMethod::ListIteratorAsMethod( )
       count_ { 0 } {}
 
 ListIteratorAsMethod::~ListIteratorAsMethod( ) {
-  Node *del = head_;
+  iterator del = head_;
   head_ = head_->next_;
   while ( head_ != tail_ ) {
     delete del;
@@ -19,61 +19,63 @@ ListIteratorAsMethod::~ListIteratorAsMethod( ) {
 
 // FIXME проверки добавить
 
-ListIteratorAsMethod::iterator ListIteratorAsMethod::begin( ) {
-  return curIteration_ = head_;
-}
+ListIteratorAsMethod::iterator ListIteratorAsMethod::begin( ) { return curIteration_ = head_; }
 
-// ListIteratorAsMethod::const_iterator ListIteratorAsMethod::begin( ) const {
-//  return curIteration_ = head_;
-//}
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::begin( ) const { return curIteration_ = head_; }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::end( ) { return tail_; }
 
-// ListIteratorAsMethod::const_iterator ListIteratorAsMethod::end( ) const {
-//  return curIteration_ = tail_;
-//}
+ListIteratorAsMethod::const_iterator ListIteratorAsMethod::end( ) const { return tail_; }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator++( ) {
-curIteration_ = curIteration_->next_;
-    return curIteration_;
+  //  curIteration_ = curIteration_->next_;
+  //  return curIteration_;
+  return next( );
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++( ) const {
-    curIteration_ = curIteration_->next_;
-    return curIteration_;
+  //  curIteration_ = curIteration_->next_;
+  //  return curIteration_;
+  return next( );
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator++(
     int ) const {
-  Node *t = curIteration_;
-  curIteration_ = curIteration_->next_;
+  iterator t = curIteration_;
+  //  curIteration_ = curIteration_->next_;
+  next( );
   return t;
 }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator++( int ) {
-  Node *t = curIteration_;
-  curIteration_ = curIteration_->next_;
+  iterator t = curIteration_;
+  // curIteration_ = curIteration_->next_;
+  next( );
   return t;
 }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator--( ) {
-  return ( curIteration_ = curIteration_->prev_ );
+  // return ( curIteration_ = curIteration_->prev_ );
+  return prev( );
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--( ) const {
-  return ( curIteration_ = curIteration_->prev_ );
+  // return ( curIteration_ = curIteration_->prev_ );
+  return prev( );
 }
 
 ListIteratorAsMethod::iterator ListIteratorAsMethod::operator--( int ) {
-  Node *t = curIteration_;
-  curIteration_ = curIteration_->prev_;
+  iterator t = curIteration_;
+  // curIteration_ = curIteration_->prev_;
+  prev( );
   return t;
 }
 
 ListIteratorAsMethod::const_iterator ListIteratorAsMethod::operator--(
     int ) const {
-  Node *t = curIteration_;
-  curIteration_ = curIteration_->prev_;
+  iterator t = curIteration_;
+  // curIteration_ = curIteration_->prev_;
+  prev( );
   return t;
 }
 

@@ -11,9 +11,7 @@
 class NullNodeException : public std::exception {
   // exception interface
  public:
-  NullNodeException( const std::string& s = "" ) {
-    s_ = std::string( "NULL_NODE_POINTER " ) + s;
-  }
+  explicit NullNodeException( const std::string& s ) : s_ { "NULL_NODE_POINTER " + s } {}
   const char* what( ) const override { return s_.c_str( ); }
 
  private:
@@ -25,16 +23,19 @@ class NullNodeException : public std::exception {
 class DynamicList {
  public:
   // определения типов
+  class Iterator;
+
   using value_type = double;
   using size_type = size_t;
+  using iterator = Iterator;
+  using const_iterator = const Iterator;
 
   // класс узел
  private:
   struct Node {
     Node( ) : item_ { }, next_ { nullptr }, prev_ { nullptr } {}
 
-    Node( const value_type& v )
-        : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
+    explicit Node( const value_type& v ) : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
 
     value_type item_;
     Node* next_;
@@ -45,7 +46,7 @@ class DynamicList {
   // класс итератор
   class Iterator {
     friend class DynamicList;
-    Iterator( Node* el ) : elem_ { el } { };  // PRIVATE CTOR + FRIEND CLASS
+    explicit Iterator( Node* el ) : elem_ { el } { };  // PRIVATE CTOR + FRIEND CLASS
    public:
     // ctor
     Iterator( ) : elem_ { nullptr } {}
@@ -74,10 +75,10 @@ class DynamicList {
   DynamicList& operator=( const DynamicList& dl );
   DynamicList& operator=( DynamicList&& dl );
   // итераторы
-  Iterator begin( );
-  Iterator begin( ) const;
-  Iterator end( );
-  Iterator end( ) const;
+  iterator begin( );
+  const_iterator begin( ) const;
+  iterator end( );
+  const_iterator end( ) const;
   // размеры
   size_type size( ) const;
   bool empty( ) const;

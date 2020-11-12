@@ -109,14 +109,14 @@ DynamicList::Iterator DynamicList::begin( ) {
   return Iterator( head_ );
 }
 
-DynamicList::Iterator DynamicList::begin( ) const {
+DynamicList::const_iterator DynamicList::begin( ) const {
   if ( !head_ ) throw NullNodeException( "begin( )" );
   return Iterator( head_ );
 }
 
-DynamicList::Iterator DynamicList::end( ) { return Iterator( tail_ ); }
+DynamicList::iterator DynamicList::end( ) { return Iterator( tail_ ); }
 
-DynamicList::Iterator DynamicList::end( ) const { return Iterator( tail_ ); }
+DynamicList::const_iterator DynamicList::end( ) const { return Iterator( tail_ ); }
 
 DynamicList::size_type DynamicList::size( ) const { return count_; }
 

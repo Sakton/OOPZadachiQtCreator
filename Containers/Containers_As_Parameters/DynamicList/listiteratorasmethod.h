@@ -14,8 +14,13 @@ class ListIteratorAsMethod
  private:
   struct Node {
     Node( ) : item_ { }, next_ { nullptr }, prev_ { nullptr } {}
-    Node( const value_type &v )
-        : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
+    Node( const value_type &v ) : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
+
+    const_reference operator*( ) const { return item_; };
+    reference operator*( ) { return item_; };
+
+    // FIXME перетащить методы итератора сюда
+
     value_type item_;
     Node *next_;
     Node *prev_;
@@ -38,9 +43,9 @@ class ListIteratorAsMethod
   // операций
 
   iterator begin( );
-  //  const_iterator begin( ) const;
+  const_iterator begin( ) const;
   iterator end( );
-  //  const_iterator end( ) const;
+  const_iterator end( ) const;
   iterator operator++( );
   const_iterator operator++( ) const;
   iterator operator++( int );
@@ -51,9 +56,9 @@ class ListIteratorAsMethod
   const_iterator operator--( int ) const;
   reference operator*( );
   const_reference operator*( ) const;
-  bool operator==(iterator it)const;
-  bool operator==(const_iterator it) const;
-  bool operator!=(const_iterator it)const;
+  bool operator==( iterator it ) const;
+  bool operator==( const_iterator it ) const;
+  bool operator!=( const_iterator it ) const;
   bool operator!=( iterator it ) const;
 
   iterator next( );
@@ -70,13 +75,12 @@ class ListIteratorAsMethod
   void pop_back( );
 
  private:
-  Node *head_;
-  Node *tail_;
+  iterator head_;
+  iterator tail_;  //пустой элемент
   //переменная указатель для итерирования
-  mutable Node *
-      curIteration_;  //ВАЖНО!!! переменная инкремента не может (не должна) быть
-                      // const в константном обьекте, при реализации итератора
-                      // через методы класса
+  mutable iterator curIteration_;  //ВАЖНО!!! переменная инкремента не может (не должна) быть
+                                   // const в константном обьекте, при реализации итератора
+                                   // через методы класса
   size_type count_;
 };
 
