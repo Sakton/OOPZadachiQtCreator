@@ -5,13 +5,20 @@
 #include <numeric>
 
 MY::Vector::Vector( Vector::size_type n, Vector::value_type k ) : count_ { n }, data_ { nullptr } {
-  if ( n != 0 ) data_ = new value_type[ n ];
+  if ( n == 0 ) throw std::bad_alloc( );
+  data_ = new value_type[ n ];
   for ( size_type i = 0; i < n; ++i ) data_[ i ] = k;
 }
 
-MY::Vector::Vector( const_iterator beg, const_iterator end ) : Vector( static_cast< size_type >( end - beg ), 0 ) {
-  auto it = begin( );
-  while ( beg != end ) *it++ = *beg++;
+MY::Vector::Vector( const_iterator beg, const_iterator end ) : count_ { 0 }, data_ { nullptr } {
+  if ( beg == end ) throw std::bad_alloc( );
+  auto i = beg;
+  while ( i != end ) {
+    ++count_;
+    ++i;
+  }
+  data_ = new value_type[ count_ ];
+  std::copy( beg, end, data_ );
 }
 
 MY::Vector::~Vector( ) { delete[] data_; }
