@@ -16,10 +16,8 @@ class ListIteratorAsMethod {
     Node( ) : item_ { 0 }, next_ { nullptr }, prev_ { nullptr } {}
     Node( const value_type &v ) : item_ { v }, next_ { nullptr }, prev_ { nullptr } {}
 
-    const_reference operator*( ) const { return item_; };
-    reference operator*( ) { return item_; };
-
-    // FIXME перетащить методы итератора сюда
+    //    const_reference operator*( ) const { return item_; };
+    //    reference operator*( ) { return item_; };
 
     value_type item_;
     Node *next_;
@@ -28,15 +26,10 @@ class ListIteratorAsMethod {
 
  public:
   // определения типов
-  // а пусть это сыылки на узлы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // TODO !!!и тогда операторы будут применять к самому объекту!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!!и тогда операторы можно запихнуть в класс нодэээ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  using iterator = Node &;
-  using const_iterator = const Node &;
-  //  using iterator = Node*;
-  //  using const_iterator = const Node*;
-  // а пусть это сыылки на узлы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  using iterator = Node *;
+  using const_iterator = const Node *;
+  //  using iterator = Node&;
+  //  using const_iterator = const Node&;
 
   ListIteratorAsMethod( );
   ~ListIteratorAsMethod( );
@@ -52,25 +45,27 @@ class ListIteratorAsMethod {
   // begin( ) например возвращает *Node, *begin( ) == **Node или чтоб смоделировать хоть примерно правильное
   // поведение *(*begin()) -> тогда оператор * примениться к самому обьекту Node, но это тоже не то поведение
 
-  iterator begin( );
-  const_iterator begin( ) const;
-  iterator end( );
-  const_iterator end( ) const;
-  iterator operator++( );
-  const_iterator operator++( ) const;
-  iterator operator++( int );
-  const_iterator operator++( int ) const;
-  iterator operator--( );
-  const_iterator operator--( ) const;
-  iterator operator--( int );
-  const_iterator operator--( int ) const;
-  //КАК РЕАЛИЗОВАТЬ ПРАВИЛЬНОЕ ПОВЕДЕНИЕ
-  reference operator*( );
-  const_reference operator*( ) const;
-  bool operator==( iterator it ) const;
-  bool operator==( const_iterator it ) const;
-  bool operator!=( const_iterator it ) const;
-  bool operator!=( iterator it ) const;
+  // TODO КАК РЕАЛИЗОВАТЬ ПРАВИЛЬНОЕ ПОВЕДЕНИЕ ???
+  // методами класса
+
+  //  iterator begin( );
+  //  const_iterator begin( ) const;
+  //  iterator end( );
+  //  const_iterator end( ) const;
+  //  iterator operator++( );
+  //  const_iterator operator++( ) const;
+  //  iterator operator++( int );
+  //  const_iterator operator++( int ) const;
+  //  iterator operator--( );
+  //  const_iterator operator--( ) const;
+  //  iterator operator--( int );
+  //  const_iterator operator--( int ) const;
+  //  reference operator*( );
+  //  const_reference operator*( ) const;
+  //  bool operator==( iterator it ) const;
+  //  bool operator==( const_iterator it ) const;
+  //  bool operator!=( const_iterator it ) const;
+  //  bool operator!=( iterator it ) const;
 
   //  iterator next( );
   //  const_iterator next( ) const;

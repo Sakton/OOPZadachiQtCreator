@@ -81,7 +81,7 @@ int main( ) {
 
 void testList( ListIteratorAsMethod &dl ) {
   // std::cout << *dl.begin( );
-  std::cout << "dl = " << *dl.begin( ) << std::endl;
+  // std::cout << "dl = " << *dl << std::endl;
   //  dl.push_back( 100 );
   //  dl.push_back( 200 );
   //  dl.push_back( 300 );

@@ -25,7 +25,7 @@ class DynamicList {
   // определения типов
   class Iterator;
 
-  using value_type = double;
+  using value_type = int;
   using size_type = size_t;
   using iterator = Iterator;
   using const_iterator = const Iterator;
@@ -65,9 +65,10 @@ class DynamicList {
    private:
     Node* elem_;
   };
+
   // кострукторы/деструкторы/копирование/присваивание
   DynamicList( );
-  explicit DynamicList( const value_type& v, size_type n = 1 );
+  explicit DynamicList( size_type n, const value_type& v = 0 );
   DynamicList( Iterator first, Iterator last );
   ~DynamicList( );
   DynamicList( const DynamicList& dl );

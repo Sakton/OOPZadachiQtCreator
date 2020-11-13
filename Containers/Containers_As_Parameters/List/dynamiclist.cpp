@@ -48,17 +48,13 @@ DynamicList::Iterator DynamicList::Iterator::operator--( int ) {
 DynamicList::DynamicList( )
     : count_ { 0 }, tail_ { new Node }, head_ { tail_ } {}
 
-DynamicList::DynamicList( const DynamicList::value_type& v,
-                          DynamicList::size_type n )
-    : DynamicList( ) {
+DynamicList::DynamicList( DynamicList::size_type n, const DynamicList::value_type& v ) : DynamicList { } {
   for ( size_type i = 0; i < n; ++i ) {
     push_back( v );
   }
 }
 
-DynamicList::DynamicList( DynamicList::Iterator first,
-                          DynamicList::Iterator last )
-    : DynamicList { } {
+DynamicList::DynamicList( DynamicList::Iterator first, DynamicList::Iterator last ) : DynamicList { } {
   while ( first != last ) {
     push_back( first->item_ );
     ++first;
@@ -78,12 +74,12 @@ DynamicList::~DynamicList( ) {
   delete delNode;
 }
 
-DynamicList::DynamicList( const DynamicList& dl ) {
+DynamicList::DynamicList( const DynamicList& dl ) : DynamicList { } {
   DynamicList tmp( dl.begin( ), dl.end( ) );
   *this = tmp;
 }
 
-DynamicList::DynamicList( DynamicList&& dl ) : DynamicList( ) {
+DynamicList::DynamicList( DynamicList&& dl ) : DynamicList { } {
   delete tail_;
   head_ = dl.head_;
   tail_ = dl.tail_;
@@ -93,12 +89,6 @@ DynamicList::DynamicList( DynamicList&& dl ) : DynamicList( ) {
 }
 
 DynamicList& DynamicList::operator=( const DynamicList& dl ) {
-  //  if ( this != &dl ) {
-  //    clear( );
-  //    for ( Iterator it = dl.begin( ); it != dl.end( ); ++it ) {
-  //      push_back( it->item_ );
-  //    }
-  //  }
   DynamicList tmp( dl );
   swap( tmp );
   return *this;
