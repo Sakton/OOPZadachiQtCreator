@@ -3,10 +3,14 @@
 #include <cstdlib>
 #include <stdexcept>
 
+class Vector;
+Vector operator+( const Vector &v1, const Vector &v2 );
+
 namespace MY {
 
 class Vector {
  public:
+  // type defines
   using value_type = int;
   using iterator = value_type *;
   using const_iterator = const value_type *;
@@ -27,13 +31,29 @@ class Vector {
 
   reference operator[]( size_type idx );
   const_reference operator[]( size_type idx ) const;
+
   // iteration
   iterator begin( );
   iterator end( );
+  const_iterator begin( ) const;
+  const_iterator end( ) const;
+
+  // modify operations
+  Vector &operator+=( const Vector &v );
+  Vector &operator-=( const Vector &v );
+  Vector &operator*=( const Vector &v );
+  template < typename T >
+  Vector &operator*=( const T &n );
+  template < typename T >
+  Vector &operator/=( const T &n );
+  void swap( Vector &v );
 
   // size
   size_type size( ) const;
   bool empty( ) const;
+
+  // friends
+  friend Vector operator+( const Vector &v1, const Vector &v2 );
 
  private:
   size_type count_;

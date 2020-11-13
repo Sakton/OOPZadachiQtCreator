@@ -48,11 +48,27 @@ MY::Vector::reference MY::Vector::operator[]( MY::Vector::size_type idx ) {
 }
 
 MY::Vector::const_reference MY::Vector::operator[]( MY::Vector::size_type idx ) const {
-  if ( idx >= count_ ) throw std::out_of_range( "op[]" );
+  if ( idx >= count_ ) throw std::out_of_range( "OUT OF RANGE" );
   return data_[ idx ];
 }
 
-MY::Vector::iterator MY::Vector::begin( ) { return data_; }
+MY::Vector::iterator MY::Vector::begin( ) { return const_cast< value_type * >( static_cast< const MY::Vector & >( *this ).begin( ) ); }
+
+MY::Vector::iterator MY::Vector::end( ) { return const_cast< value_type * >( static_cast< const MY::Vector & >( *this ).end( ) ); }
+
+MY::Vector::const_iterator MY::Vector::begin( ) const { return data_; }
+
+MY::Vector::const_iterator MY::Vector::end( ) const { return data_ + count_; }
+
+MY::Vector &MY::Vector::operator+=( const MY::Vector &v ) {
+  if ( size( ) != v.size( ) ) throw std::runtime_error( "ERROR SIZE" );
+  // Vector tmp( );
+}
+
+void MY::Vector::swap( MY::Vector &v ) {
+  std::swap( data_, v.data_ );
+  std::swap( count_, v.count_ );
+}
 
 MY::Vector::size_type MY::Vector::size( ) const { return count_; }
 
