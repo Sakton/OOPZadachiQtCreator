@@ -1,24 +1,45 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <cstdlib>
+#include <stdexcept>
+
+namespace MY {
 
 class Vector {
  public:
-  using type = int;
-  using iterator = type *;
-  using const_iterator = const type *;
-  using reference = type &;
-  using const_reference = const type &;
+  using value_type = int;
+  using iterator = value_type *;
+  using const_iterator = const value_type *;
+  using reference = value_type &;
+  using const_reference = const value_type &;
 
   using size_type = std::size_t;
 
-  explicit Vector( int n = 3, int k = 0 );
+  // ctor/dtor/op=
+  explicit Vector( size_type n, value_type k = 0 );
   Vector( const_iterator beg, const_iterator end );
   ~Vector( );
+  Vector( const Vector &vec );
+  Vector( Vector &&vec );
+
+  Vector &operator=( const Vector &vec );
+  Vector &operator=( Vector &&vec );
+
+  reference operator[]( size_type idx );
+  const_reference operator[]( size_type idx ) const;
+  // iteration
+  iterator begin( );
+  iterator end( );
+
+  // size
+  size_type size( ) const;
+  bool empty( ) const;
 
  private:
   size_type count_;
-  type *data_;
+  value_type *data_;
 };
 
-#endif // VECTOR_H
+}  // namespace MY
+
+#endif  // VECTOR_H
