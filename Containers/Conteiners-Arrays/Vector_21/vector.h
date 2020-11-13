@@ -1,10 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
+#include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <stdexcept>
-
-class Vector;
-Vector operator+( const Vector &v1, const Vector &v2 );
 
 namespace MY {
 
@@ -39,26 +38,67 @@ class Vector {
   const_iterator end( ) const;
 
   // modify operations
-  Vector &operator+=( const Vector &v );
-  Vector &operator-=( const Vector &v );
-  Vector &operator*=( const Vector &v );
+  const Vector &operator+=( const Vector &rhs );
+  const Vector &operator-=( const Vector &rhs );
+  const Vector &operator*=( const Vector &rhs );
   template < typename T >
-  Vector &operator*=( const T &n );
+  const Vector &operator*=( const T &n );
   template < typename T >
-  Vector &operator/=( const T &n );
+  const Vector &operator/=( const T &n );
   void swap( Vector &v );
-
   // size
   size_type size( ) const;
   bool empty( ) const;
 
   // friends
-  friend Vector operator+( const Vector &v1, const Vector &v2 );
+  friend const Vector operator+( const Vector &lhs, const Vector &rhs );
+  friend const Vector operator-( const Vector &lhs, const Vector &rhs );
+
+  template < typename T >
+  friend const Vector operator*( const T &n, const Vector &rhs );
+
+  template < typename T >
+  friend const Vector operator*( const Vector &lhs, const T &n );
+
+  double euclidNorm( ) const;
+
+  friend bool eqEuclidNorn( const Vector &lhs, const Vector &rhs );
+
+ private:
+  void lessCount( const Vector &rhs );
 
  private:
   size_type count_;
   value_type *data_;
 };
+
+template < typename T >
+const Vector &Vector::operator/=( const T &n ) {
+  Vector tmp( size( ) );
+  std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::divides< MY::Vector::value_type >( ), std::placeholders::_1, n ) );
+  swap( tmp );
+  return *this;
+}
+
+template < typename T >
+const Vector &Vector::operator*=( const T &n ) {
+  Vector tmp( size( ) );
+  std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::multiplies< MY::Vector::value_type >( ), std::placeholders::_1, n ) );
+  swap( tmp );
+  return *this;
+}
+
+template < typename T >
+const Vector operator*( const T &n, const Vector &rhs ) {
+  Vector loc = rhs;
+  loc *= n;
+  return loc;
+}
+
+template < typename T >
+const Vector operator*( const Vector &lhs, const T &n ) {
+  return n * lhs;
+}
 
 }  // namespace MY
 

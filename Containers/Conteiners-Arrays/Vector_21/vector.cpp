@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <new>
+#include <numeric>
 
 MY::Vector::Vector( Vector::size_type n, Vector::value_type k ) : count_ { n }, data_ { nullptr } {
   if ( n != 0 ) data_ = new value_type[ n ];
@@ -60,9 +61,28 @@ MY::Vector::const_iterator MY::Vector::begin( ) const { return data_; }
 
 MY::Vector::const_iterator MY::Vector::end( ) const { return data_ + count_; }
 
-MY::Vector &MY::Vector::operator+=( const MY::Vector &v ) {
-  if ( size( ) != v.size( ) ) throw std::runtime_error( "ERROR SIZE" );
-  // Vector tmp( );
+const MY::Vector &MY::Vector::operator+=( const MY::Vector &rhs ) {
+  lessCount( rhs );
+  Vector tmp( size( ) );
+  std::transform( begin( ), end( ), rhs.begin( ), tmp.begin( ), std::plus< MY::Vector::value_type >( ) );
+  swap( tmp );
+  return *this;
+}
+
+const MY::Vector &MY::Vector::operator-=( const MY::Vector &rhs ) {
+  lessCount( rhs );
+  Vector tmp( size( ) );
+  std::transform( begin( ), end( ), rhs.begin( ), tmp.begin( ), std::minus< MY::Vector::value_type >( ) );
+  swap( tmp );
+  return *this;
+}
+
+const MY::Vector &MY::Vector::operator*=( const MY::Vector &rhs ) {
+  lessCount( rhs );
+  Vector tmp( size( ) );
+  std::transform( begin( ), end( ), rhs.begin( ), tmp.begin( ), std::multiplies< MY::Vector::value_type >( ) );
+  swap( tmp );
+  return *this;
 }
 
 void MY::Vector::swap( MY::Vector &v ) {
@@ -73,3 +93,26 @@ void MY::Vector::swap( MY::Vector &v ) {
 MY::Vector::size_type MY::Vector::size( ) const { return count_; }
 
 bool MY::Vector::empty( ) const { return count_ == 0; }
+
+double MY::Vector::euclidNorm( ) const {
+  using namespace std::placeholders;
+  return std::sqrt( std::inner_product( begin( ), end( ), begin( ), 0 ) );
+}
+
+void MY::Vector::lessCount( const MY::Vector &rhs ) {
+  if ( size( ) != rhs.size( ) ) throw std::runtime_error( "ERROR SIZE" );
+}
+
+const MY::Vector MY::operator+( const MY::Vector &lhs, const MY::Vector &rhs ) {
+  MY::Vector loc = lhs;
+  loc += rhs;
+  return loc;
+}
+
+const MY::Vector MY::operator-( const Vector &lhs, const Vector &rhs ) {
+  MY::Vector loc = lhs;
+  loc -= rhs;
+  return loc;
+}
+
+bool MY::eqEuclidNorn( const Vector &lhs, const Vector &rhs ) { return std::fabs( lhs.euclidNorm( ) - rhs.euclidNorm( ) ) < 1e-2; }
