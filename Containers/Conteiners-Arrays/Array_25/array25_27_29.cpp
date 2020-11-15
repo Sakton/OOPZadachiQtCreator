@@ -33,7 +33,7 @@ ArrayGeneral::ArrayGeneral( ArrayGeneral&& oth ) : begIndex_ { 0 }, endIndex_ { 
   swap( oth );
 }
 
-const ArrayGeneral& ArrayGeneral::operator=( const ArrayGeneral& oth ) {
+ArrayGeneral& ArrayGeneral::operator=( const ArrayGeneral& oth ) {
   if ( this != &oth ) {
     ArrayGeneral tmp = oth;
     swap( tmp );
@@ -41,7 +41,7 @@ const ArrayGeneral& ArrayGeneral::operator=( const ArrayGeneral& oth ) {
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator=( ArrayGeneral&& oth ) {
+ArrayGeneral& ArrayGeneral::operator=( ArrayGeneral&& oth ) {
   std::cout << "move_op=" << std::endl;
   if ( this != &oth ) {
     swap( oth );
@@ -95,7 +95,7 @@ void ArrayGeneral::permutation( ) { std::random_shuffle( begin( ), end( ) ); }
 
 ArrayGeneral::size_type ArrayGeneral::size( ) const { return count_; }
 
-const ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral& oth ) {
+ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral& oth ) {
   validSize( oth );
   ArrayGeneral loc( oth );
   std::transform( begin( ), end( ), oth.begin( ), loc.begin( ), std::plus<>( ) );
@@ -103,7 +103,7 @@ const ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral& oth ) {
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral& oth ) {
+ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral& oth ) {
   validSize( oth );
   ArrayGeneral loc( oth );
   std::transform( begin( ), end( ), oth.begin( ), loc.begin( ), std::minus<>( ) );
@@ -111,7 +111,7 @@ const ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral& oth ) {
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral& oth ) {
+ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral& oth ) {
   validSize( oth );
   ArrayGeneral loc( oth );
   std::transform( begin( ), end( ), oth.begin( ), loc.begin( ), std::multiplies<>( ) );
@@ -119,7 +119,7 @@ const ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral& oth ) {
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator/=( const ArrayGeneral& oth ) {
+ArrayGeneral& ArrayGeneral::operator/=( const ArrayGeneral& oth ) {
   validSize( oth );
   ArrayGeneral loc( oth );
   std::transform( begin( ), end( ), oth.begin( ), loc.begin( ), std::divides<>( ) );
@@ -127,7 +127,7 @@ const ArrayGeneral& ArrayGeneral::operator/=( const ArrayGeneral& oth ) {
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral::value_type& num ) {
+ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral::value_type& num ) {
   using namespace std::placeholders;
   ArrayGeneral tmp( begIndex( ), endIndex( ), 0 );
   std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::plus<>( ), _1, num ) );
@@ -135,7 +135,7 @@ const ArrayGeneral& ArrayGeneral::operator+=( const ArrayGeneral::value_type& nu
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral::value_type& num ) {
+ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral::value_type& num ) {
   using namespace std::placeholders;
   ArrayGeneral tmp( begIndex( ), endIndex( ), 0 );
   std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::minus<>( ), _1, num ) );
@@ -143,7 +143,7 @@ const ArrayGeneral& ArrayGeneral::operator-=( const ArrayGeneral::value_type& nu
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral::value_type& num ) {
+ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral::value_type& num ) {
   using namespace std::placeholders;
   ArrayGeneral tmp( begIndex( ), endIndex( ), 0 );
   std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::multiplies<>( ), _1, num ) );
@@ -151,7 +151,7 @@ const ArrayGeneral& ArrayGeneral::operator*=( const ArrayGeneral::value_type& nu
   return *this;
 }
 
-const ArrayGeneral& ArrayGeneral::operator/=( const ArrayGeneral::value_type& num ) {
+ArrayGeneral& ArrayGeneral::operator/=( const ArrayGeneral::value_type& num ) {
   using namespace std::placeholders;
   ArrayGeneral tmp( begIndex( ), endIndex( ), 0 );
   std::transform( begin( ), end( ), tmp.begin( ), std::bind( std::divides<>( ), _1, num ) );

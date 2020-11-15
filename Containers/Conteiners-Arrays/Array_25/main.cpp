@@ -38,6 +38,8 @@ int main( ) {
     std::cout << "mid = " << forsort.midleArifvetic( ) << std::endl;
     forsort.sort( );
     print( forsort );
+    ArrayGeneral g1( 0, 10, 0 ), g2( 0, 10, 0 ), g3( 0, 10, 0 );
+    g1 = g2 = g3 = a_1;
     //************************************************
   } catch ( std::bad_alloc &e ) {
     std::cerr << e.what( );

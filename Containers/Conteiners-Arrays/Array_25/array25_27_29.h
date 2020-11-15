@@ -20,8 +20,8 @@ class ArrayGeneral {
   //~ArrayGeneral( ); не нужен так как unique_ptr
   ArrayGeneral( const ArrayGeneral &oth );
   ArrayGeneral( ArrayGeneral &&oth );
-  const ArrayGeneral &operator=( const ArrayGeneral &oth );
-  const ArrayGeneral &operator=( ArrayGeneral &&oth );
+  ArrayGeneral &operator=( const ArrayGeneral &oth );
+  ArrayGeneral &operator=( ArrayGeneral &&oth );
 
   // iterators
   const_iterator begin( ) const;
@@ -48,15 +48,15 @@ class ArrayGeneral {
   size_type size( ) const;
 
   // operations this
-  const ArrayGeneral &operator+=( const ArrayGeneral &oth );
-  const ArrayGeneral &operator-=( const ArrayGeneral &oth );
-  const ArrayGeneral &operator*=( const ArrayGeneral &oth );
-  const ArrayGeneral &operator/=( const ArrayGeneral &oth );
+  ArrayGeneral &operator+=( const ArrayGeneral &oth );
+  ArrayGeneral &operator-=( const ArrayGeneral &oth );
+  ArrayGeneral &operator*=( const ArrayGeneral &oth );
+  ArrayGeneral &operator/=( const ArrayGeneral &oth );
   // num /const value_type &num - заготовка под шаблон
-  const ArrayGeneral &operator+=( const value_type &num );
-  const ArrayGeneral &operator-=( const value_type &num );
-  const ArrayGeneral &operator*=( const value_type &num );
-  const ArrayGeneral &operator/=( const value_type &num );
+  ArrayGeneral &operator+=( const value_type &num );
+  ArrayGeneral &operator-=( const value_type &num );
+  ArrayGeneral &operator*=( const value_type &num );
+  ArrayGeneral &operator/=( const value_type &num );
 
   // friend
   friend const ArrayGeneral operator+( const ArrayGeneral &lhs, const ArrayGeneral &rhs );
