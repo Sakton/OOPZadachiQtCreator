@@ -24,3 +24,6 @@ HEADERS += \
 	numberaccount.h \
 	procent.h \
 	summaccount.h
+
+DISTFILES += \
+	Files/input
