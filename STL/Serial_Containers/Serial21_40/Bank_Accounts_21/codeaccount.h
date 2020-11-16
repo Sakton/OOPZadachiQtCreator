@@ -8,9 +8,12 @@ class CodeAccount {
  public:
   using id_type = uint32_t;
 
-  explicit CodeAccount( const id_type &id );
+  explicit CodeAccount( const id_type &id = 0 );
   id_type id( ) const;
+  void setId( const id_type &id );
+
   friend std::ostream &operator<<( std::ostream &out, const CodeAccount &oth );
+  friend std::istream &operator>>( std::istream &in, CodeAccount &oth );
 
  private:
   id_type validateCode( id_type code );

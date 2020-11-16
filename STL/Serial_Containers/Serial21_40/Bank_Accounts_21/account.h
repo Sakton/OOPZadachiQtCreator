@@ -9,23 +9,27 @@
 
 //пустые аккаунты недопустимы
 
-class Account : public abstract_save_open_class {
+class Account {
  public:
-  Account( const NumberAccount &num, const CodeAccount &code/*, const Family &family, const SummAccount &summa = SummAccount( ),
-           const DateAccount &date_ = DateAccount( ), const Procent &procent = Procent( ) */);
-  ~Account( ) override;
-  bool save( std::ofstream &out ) override;
-  bool read( std::ifstream &in ) override;
+  Account( );
+  explicit Account( const NumberAccount &num, const CodeAccount &code, const Family &family, const SummAccount &summa,
+                    const DateAccount &date, const Procent &procent );
+  Account( const Account &oth );
+  Account &operator=( const Account &oth );
+
+  bool save( std::ofstream &out );
+  bool read( std::ifstream &in );
 
   friend std::ostream &operator<<( std::ostream &out, const Account &acc );
+  friend std::istream &operator>>( std::istream &in, Account &acc );
 
  private:
   NumberAccount num_;
   CodeAccount code_;
-  //  Family family_;
-  //  SummAccount summa_;
-  //  DateAccount data_open_;
-  //  Procent procent_;
+  Family family_;
+  SummAccount summa_;
+  DateAccount data_open_;
+  Procent procent_;
 };
 
 #endif // ACCOUNT_H

@@ -1,5 +1,6 @@
 #include "numberaccount.h"
 
+#include <iostream>
 #include <stdexcept>
 
 NumberAccount::NumberAccount( const std::string &num ) : number_ { validateNumber( num ) } {}
@@ -11,9 +12,20 @@ std::string NumberAccount::validateNumber( const std::string &num ) const {
   return num;
 }
 
+void NumberAccount::setNumber( const std::string &number ) { number_ = validateNumber( number ); }
+
 std::string NumberAccount::number( ) const { return number_; }
 
 std::ostream &operator<<( std::ostream &out, const NumberAccount &na ) {
-  out << "NumberAccount = " << na.number( ) << std::endl;
+  out << na.number( ) << std::endl;
   return out;
+}
+
+std::istream &operator>>( std::istream &in, NumberAccount &na ) {
+  std::string tmp;
+  in >> tmp;
+  std::cout << "tmp number = " << tmp << std::endl;
+  // na.setNumber( tmp );
+  return in;
+  ;
 }

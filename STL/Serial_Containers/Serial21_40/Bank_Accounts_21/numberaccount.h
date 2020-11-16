@@ -8,9 +8,12 @@
 class NumberAccount {
  public:
   enum { SIZE_NUMBER = 5 };
-  explicit NumberAccount( const std::string& num );
+  explicit NumberAccount( const std::string& num = "00000" );
   std::string number( ) const;
+  void setNumber( const std::string& number );
+
   friend std::ostream& operator<<( std::ostream& out, const NumberAccount& na );
+  friend std::istream& operator>>( std::istream& in, NumberAccount& na );
 
  private:
   std::string validateNumber( const std::string& str ) const;
