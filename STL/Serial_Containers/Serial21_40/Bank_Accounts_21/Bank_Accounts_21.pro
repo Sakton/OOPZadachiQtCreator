@@ -16,6 +16,7 @@ SOURCES += \
         summaccount.cpp
 
 HEADERS += \
+	DriverTemplate.h \
 	abstract_save_open_class.h \
 	account.h \
 	accountimpl.h \
@@ -28,4 +29,5 @@ HEADERS += \
 	summaccount.h
 
 DISTFILES += \
-	Files/input
+	Files/input \
+	Files/result
