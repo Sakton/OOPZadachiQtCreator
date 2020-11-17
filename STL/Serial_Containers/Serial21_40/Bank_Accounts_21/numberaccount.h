@@ -12,14 +12,13 @@ class NumberAccount {
   std::string number( ) const;
   void setNumber( const std::string& number );
 
-  friend std::ostream& operator<<( std::ostream& out, const NumberAccount& na );
-  friend std::istream& operator>>( std::istream& in, NumberAccount& na );
-
  private:
   std::string validateNumber( const std::string& str ) const;
 
  private:
   std::string number_;
 };
+
+std::ostream& operator<<( std::ostream& out, const NumberAccount& na );
 
 #endif // NUMBERACCOUNT_H

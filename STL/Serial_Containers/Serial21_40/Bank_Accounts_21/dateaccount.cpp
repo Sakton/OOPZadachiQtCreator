@@ -33,10 +33,3 @@ std::ostream &operator<<( std::ostream &out, const Month &m ) { return out << m.
 std::ostream &operator<<( std::ostream &out, const Year &y ) { return out << y.year_; }
 
 std::ostream &operator<<( std::ostream &out, const DateAccount &da ) { return out << da.day_ << da.month_ << da.year_ << std::endl; }
-
-std::istream &operator>>( std::istream &in, DateAccount &da ) {
-  std::string tmp;
-  in >> tmp;
-  std::cout << tmp << std::endl;
-  return in;
-}

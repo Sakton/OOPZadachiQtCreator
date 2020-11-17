@@ -6,7 +6,7 @@
 NumberAccount::NumberAccount( const std::string &num ) : number_ { validateNumber( num ) } {}
 
 std::string NumberAccount::validateNumber( const std::string &num ) const {
-  if ( num.size( ) != SIZE_NUMBER ) throw std::runtime_error( "ERROR NUM ACC" );
+  if ( num.size( ) > SIZE_NUMBER ) throw std::runtime_error( "ERROR NUM ACC" );
   for ( auto &el : num )
     if ( !std::isdigit( el ) ) throw std::runtime_error( "ERROR NUM ACC NO DIGIT" );
   return num;
@@ -19,13 +19,4 @@ std::string NumberAccount::number( ) const { return number_; }
 std::ostream &operator<<( std::ostream &out, const NumberAccount &na ) {
   out << na.number( ) << std::endl;
   return out;
-}
-
-std::istream &operator>>( std::istream &in, NumberAccount &na ) {
-  std::string tmp;
-  in >> tmp;
-  std::cout << "tmp number = " << tmp << std::endl;
-  // na.setNumber( tmp );
-  return in;
-  ;
 }

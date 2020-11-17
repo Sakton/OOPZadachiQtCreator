@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         account.cpp \
+        accountimpl.cpp \
         bankaccount.cpp \
         codeaccount.cpp \
         dateaccount.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
 	abstract_save_open_class.h \
 	account.h \
+	accountimpl.h \
 	bankaccount.h \
 	codeaccount.h \
 	dateaccount.h \

@@ -6,28 +6,10 @@ Account::Account( const NumberAccount &num, const CodeAccount &code, const Famil
                   const DateAccount &date, const Procent &procent )
     : num_ { num }, code_ { code }, family_ { family }, summa_ { summa }, data_open_ { date }, procent_ { procent } {}
 
-Account::Account( const Account &oth )
-    : num_( oth.num_ ),
-      code_( oth.code_ ),
-      family_( oth.family_ ),
-      summa_( oth.summa_ ),
-      data_open_( oth.data_open_ ),
-      procent_( oth.procent_ ) {}
-
-Account &Account::operator=( const Account &oth ) {
-  if ( this == &oth ) return *this;
-  num_ = oth.num_;
-  code_ = oth.code_;
-  family_ = oth.family_;
-  summa_ = oth.summa_;
-  data_open_ = oth.data_open_;
-  procent_ = oth.procent_;
-  return *this;
-}
-
 bool Account::save( std::ofstream &out ) {
   out.write( reinterpret_cast< char * >( this ), sizeof( Account ) );
   return out.good( );
+  // return pImpl_->save( out );
 }
 
 bool Account::read( std::ifstream &in ) {
@@ -35,13 +17,21 @@ bool Account::read( std::ifstream &in ) {
   in.read( reinterpret_cast< char * >( &tmp ), sizeof( Account ) );
   *this = tmp;
   return in.good( );
+  // return pImpl_->read( in );
 }
+
+NumberAccount Account::num( ) const { return num_; }
+
+CodeAccount Account::code( ) const { return code_; }
+
+Family Account::family( ) const { return family_; }
+
+SummAccount Account::summa( ) const { return summa_; }
+
+DateAccount Account::data_open( ) const { return data_open_; }
+
+Procent Account::procent( ) const { return procent_; }
 
 std::ostream &operator<<( std::ostream &out, const Account &acc ) {
   return out << acc.num_ << acc.code_ << acc.family_ << acc.summa_ << acc.data_open_ << acc.procent_;
-}
-
-std::istream &operator>>( std::istream &in, Account &acc ) {
-  in >> acc.num_ >> acc.code_ >> acc.family_ >> acc.summa_ >> acc.data_open_ >> acc.procent_;
-  return in;
 }

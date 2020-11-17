@@ -16,11 +16,3 @@ std::string Family::family( ) const { return family_; }
 void Family::setFamily( const std::string &family ) { family_ = validateFamily( family ); }
 
 std::ostream &operator<<( std::ostream &out, const Family &fam ) { return out << fam.family( ) << std::endl; }
-
-std::istream &operator>>( std::istream &in, Family &fam ) {
-  std::string tmp;
-  in >> tmp;
-  std::cout << "tmp family = " << tmp << std::endl;
-  // fam.setFamily( tmp );
-  return in;
-}

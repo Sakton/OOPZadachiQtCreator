@@ -10,8 +10,6 @@ class Family
 
   std::string family( ) const;
   void setFamily( const std::string& family );
-  friend std::ostream& operator<<( std::ostream& out, const Family& fam );
-  friend std::istream& operator>>( std::istream& in, Family& fam );
 
  private:
   const std::string& validateFamily( const std::string& fam ) const;
@@ -19,5 +17,7 @@ class Family
  private:
   std::string family_;
 };
+
+std::ostream& operator<<( std::ostream& out, const Family& fam );
 
 #endif // FAMILY_H

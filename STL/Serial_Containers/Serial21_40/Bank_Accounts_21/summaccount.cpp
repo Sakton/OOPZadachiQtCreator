@@ -16,10 +16,3 @@ SummAccount::value_type SummAccount::summa( ) const { return summa_; }
 void SummAccount::setSumma( const value_type &summa ) { summa_ = summa; }
 
 std::ostream &operator<<( std::ostream &out, const SummAccount &ak ) { return out << ak.summa( ) << std::endl; }
-
-std::istream &operator>>( std::istream &in, SummAccount &ak ) {
-  std::string tmp;
-  in >> tmp;
-  std::cout << "tmp summAkk = " << tmp << std::endl;
-  return in;
-}

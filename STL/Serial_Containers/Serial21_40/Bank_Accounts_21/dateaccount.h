@@ -65,7 +65,6 @@ class DateAccount
   DateAccount( const Day &day, const Month &m, const Year &year );
   DateAccount( const DateAccount &oth );
   friend std::ostream &operator<<( std::ostream &out, const DateAccount &da );
-  friend std::istream &operator>>( std::istream &in, DateAccount &da );
 
  private:
   Day day_;

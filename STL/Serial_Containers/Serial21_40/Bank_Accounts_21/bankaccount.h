@@ -2,6 +2,7 @@
 #define BANKACCOUNT_H
 #include <fstream>
 #include <iostream>
+#include <queue>
 #include <vector>
 
 #include "account.h"
@@ -21,11 +22,47 @@ class BankAccounts {
   bool save( std::ofstream& fout );
   bool read( std::ifstream& fin );
 
+  template < typename Functor >
+  std::queue< T > searchLinear_if( Functor fun );
+
+  template < typename Functor >
+  std::queue< T > searchBinary_if( Functor fun );
+
+  template < typename Functor >
+  void sort( Functor fun );
+
+  void printDebug( );
+
   friend std::ostream& operator<<< T, Container >( std::ostream& out, const BankAccounts< T, Container >& ba );
 
  private:
   Container container_;
 };
+
+template < typename T, typename Container >
+template < typename Functor >
+std::queue< T > BankAccounts< T, Container >::searchLinear_if( Functor fun ) {
+  auto res = std::find_if( container_.begin( ), container_.end( ), fun );
+  std::queue< T > tempQueue;
+  while ( res != container_.end( ) ) {
+    if ( fun( *res ) ) {
+      tempQueue.push( *res );
+    }
+    ++res;
+  }
+  return tempQueue;
+}
+
+template < typename T, typename Container >
+template < typename Functor >
+std::queue< T > BankAccounts< T, Container >::searchBinary_if( Functor fun ) {  // FIXME
+}
+
+template < typename T, typename Container >
+template < typename Functor >
+void BankAccounts< T, Container >::sort( Functor fun ) {
+  std::sort( container_.begin( ), container_.end( ), fun );
+}
 
 template < typename T, typename Container >
 BankAccounts< T, Container >::BankAccounts( ) : container_( ) {}
@@ -37,13 +74,21 @@ void BankAccounts< T, Container >::push_back( const T& el ) {
 
 template < typename T, typename Container >
 bool BankAccounts< T, Container >::save( std::ofstream& fout ) {
-  std::copy( container_.begin( ), container_.end( ), std::ostream_iterator< T >( fout ) );
+  for ( auto& el : container_ ) {
+    fout.write( reinterpret_cast< char* >( &el ), sizeof( T ) );
+  }
   return fout.good( );
 }
 
 template < typename T, typename Container >
 bool BankAccounts< T, Container >::read( std::ifstream& fin ) {
-  std::copy( std::istream_iterator< T >( fin ), std::istream_iterator< T >( ), std::back_inserter( container_ ) );
+  while ( fin ) {
+    T el { };
+    fin.read( reinterpret_cast< char* >( &el ), sizeof( T ) );
+    if ( fin.good( ) ) {
+      container_.push_back( el );
+    }
+  }
   return fin.good( );
 }
 

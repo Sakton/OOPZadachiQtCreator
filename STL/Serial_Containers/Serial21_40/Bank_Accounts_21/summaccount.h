@@ -10,8 +10,6 @@ class SummAccount
 
   value_type summa( ) const;
   void setSumma( const value_type &summa );
-  friend std::ostream &operator<<( std::ostream &out, const SummAccount &ak );
-  friend std::istream &operator>>( std::istream &in, SummAccount &ak );
 
  private:
   const value_type &validateSumma( const value_type &summ ) const;
@@ -19,5 +17,7 @@ class SummAccount
  private:
   value_type summa_;
 };
+
+std::ostream &operator<<( std::ostream &out, const SummAccount &ak );
 
 #endif // SUMMACCOUNT_H
