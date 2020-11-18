@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
+namespace sktn {
 class Decimal32 {
+  // types
   using value_type = uint8_t;
   using container_type = std::vector< value_type >;
 
@@ -19,31 +21,39 @@ class Decimal32 {
   Decimal32 &operator-=( const Decimal32 &rhs );
   Decimal32 &operator*=( const Decimal32 &rhs );
   Decimal32 &operator/=( const Decimal32 &rhs );
+  Decimal32 &operator%=( const Decimal32 &rhs );
 
-  void swap( Decimal32 &oth );
-
-  friend const Decimal32 operator-( const Decimal32 &lhs, const Decimal32 &rhs );
-  friend const Decimal32 operator*( const Decimal32 &lhs, const Decimal32 &rhs );
-
+  // friends
   friend std::ostream &operator<<( std::ostream &out, const Decimal32 &dcm );
   friend bool operator<( const Decimal32 &a, const Decimal32 &b );
-  friend bool operator<=( const Decimal32 &a, const Decimal32 &b );
-  friend bool operator>=( const Decimal32 &a, const Decimal32 &b );
-  friend bool operator>( const Decimal32 &a, const Decimal32 &b );
   friend bool operator==( const Decimal32 &a, const Decimal32 &b );
-  friend bool operator!=( const Decimal32 &a, const Decimal32 &b );
 
-  explicit operator std::string( ) const;
+  // swap
+  void swap( Decimal32 &oth );
 
-  void printDebugTryth( );
-
+  // sizes
   container_type::size_type size( ) const;
 
  private:
+  explicit operator std::string( ) const;
   void trimZero( );
 
  private:
   container_type decimal_;
 };
+
+const Decimal32 operator+( const Decimal32 &lhs, const Decimal32 &rhs );
+const Decimal32 operator-( const Decimal32 &lhs, const Decimal32 &rhs );
+const Decimal32 operator*( const Decimal32 &lhs, const Decimal32 &rhs );
+const Decimal32 operator/( const Decimal32 &lhs, const Decimal32 &rhs );
+const Decimal32 operator%( const Decimal32 &lhs, const Decimal32 &rhs );
+
+bool operator<=( const Decimal32 &a, const Decimal32 &b );
+bool operator>=( const Decimal32 &a, const Decimal32 &b );
+bool operator>( const Decimal32 &a, const Decimal32 &b );
+bool operator!=( const Decimal32 &a, const Decimal32 &b );
+
+void swap( Decimal32 &lhs, Decimal32 &rhs );
+}  // namespace sktn
 
 #endif  // DECIMAL32_H
