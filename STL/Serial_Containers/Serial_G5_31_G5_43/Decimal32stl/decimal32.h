@@ -22,6 +22,9 @@ class Decimal32 {
 
   void swap( Decimal32 &oth );
 
+  friend const Decimal32 operator-( const Decimal32 &lhs, const Decimal32 &rhs );
+  friend const Decimal32 operator*( const Decimal32 &lhs, const Decimal32 &rhs );
+
   friend std::ostream &operator<<( std::ostream &out, const Decimal32 &dcm );
   friend bool operator<( const Decimal32 &a, const Decimal32 &b );
   friend bool operator<=( const Decimal32 &a, const Decimal32 &b );
@@ -29,6 +32,8 @@ class Decimal32 {
   friend bool operator>( const Decimal32 &a, const Decimal32 &b );
   friend bool operator==( const Decimal32 &a, const Decimal32 &b );
   friend bool operator!=( const Decimal32 &a, const Decimal32 &b );
+
+  explicit operator std::string( ) const;
 
   void printDebugTryth( );
 

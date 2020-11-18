@@ -117,12 +117,10 @@ Decimal32 &Decimal32::operator*=( const Decimal32 &rhs ) {
       auto deltaIterThis = it_this - decimal_.begin( );
       auto deltaIterRhs = it_rhs - rhs.decimal_.begin( );
       auto n = deltaIterThis + deltaIterRhs;
-      //      it_tmp[ n ] += ( *it_this ) * ( *it_rhs ) % 10;
-      //      it_tmp[ n + 1 ] += ( *it_this ) * ( *it_rhs ) / 10;
-      // FIXME ТУТ
       auto t = ( *it_this ) * ( *it_rhs );
-      it_tmp[ n ] = ( it_tmp[ n ] + t ) % 10;
-      it_tmp[ n + 1 ] += ( it_tmp[ n ] ) / 10;
+      auto tmp = ( it_tmp[ n ] + t );
+      it_tmp[ n ] = tmp % 10;
+      it_tmp[ n + 1 ] += tmp / 10;
     }
   }
   tmp.trimZero( );
@@ -130,7 +128,20 @@ Decimal32 &Decimal32::operator*=( const Decimal32 &rhs ) {
   return *this;
 }
 
+Decimal32 &Decimal32::operator/=( const Decimal32 &rhs ) {
+  const std::string delimoe = static_cast< std::string >( *this );
+  const std::string delitel = static_cast< std::string >( rhs );
+
+  return *this;
+}
+
 void Decimal32::swap( Decimal32 &oth ) { decimal_.swap( oth.decimal_ ); }
+
+Decimal32::operator std::string( ) const {
+  std::string res( size( ), ' ' );
+  std::transform( decimal_.crbegin( ), decimal_.crend( ), res.begin( ), []( const value_type &ch ) { return ch + '0'; } );
+  return res;
+}
 
 void Decimal32::printDebugTryth( ) { std::copy( decimal_.begin( ), decimal_.end( ), std::ostream_iterator< int >( std::cout ) ); }
 
@@ -163,3 +174,15 @@ bool operator>=( const Decimal32 &a, const Decimal32 &b ) { return a > b || a ==
 bool operator>( const Decimal32 &a, const Decimal32 &b ) { return !( a <= b ); }
 bool operator==( const Decimal32 &a, const Decimal32 &b ) { return a.decimal_ == b.decimal_; }
 bool operator!=( const Decimal32 &a, const Decimal32 &b ) { return !( a == b ); }
+
+const Decimal32 operator-( const Decimal32 &lhs, const Decimal32 &rhs ) {
+  Decimal32 loc = lhs;
+  loc -= rhs;
+  return loc;
+}
+
+const Decimal32 operator*( const Decimal32 &lhs, const Decimal32 &rhs ) {
+  Decimal32 loc = lhs;
+  loc *= rhs;
+  return loc;
+}
