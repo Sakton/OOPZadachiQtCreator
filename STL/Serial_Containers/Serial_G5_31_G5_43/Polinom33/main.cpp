@@ -6,7 +6,7 @@
 int main( ) {
   Polinom33Vec pv( 3, 3 );
   std::cout << pv << std::endl;
-  double coeff[] { 10, 9, 8 };
+  double coeff[] { 0, 1, 2 };
   Polinom33Vec pol( coeff, coeff + 3 );
   std::cout << pol << std::endl;
   Polinom33Vec t1 = pol + pv;
@@ -17,4 +17,6 @@ int main( ) {
   std::cout << t3 << std::endl;
   Polinom33Vec t4 = 4 * pol;
   std::cout << t4 << std::endl;
+  std::cout << "intergral = " << pol.integral( 2 ) << std::endl;
+  std::cout << "diff = " << pol.differencial( 2 ) << std::endl;
 }

@@ -29,8 +29,8 @@ class Polinom33Vec {
   Polinom33Vec &operator/=( const value_type &dx );
 
   // operation
-  void integral( );
-  void differencial( );
+  value_type integral( value_type x );
+  value_type differencial( value_type x );
 
   // swap
   void swap( Polinom33Vec &oth );

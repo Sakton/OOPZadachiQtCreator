@@ -4,10 +4,14 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        ifish.cpp \
         main.cpp \
-        polinom33deque.cpp \
-        polinom33vec.cpp
+        ozero.cpp \
+        rybak.cpp \
+        ulov.cpp
 
 HEADERS += \
-	polinom33deque.h \
-	polinom33vec.h
+	ifish.h \
+	ozero.h \
+	rybak.h \
+	ulov.h

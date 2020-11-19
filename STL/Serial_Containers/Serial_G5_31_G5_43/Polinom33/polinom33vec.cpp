@@ -78,7 +78,21 @@ Polinom33Vec &Polinom33Vec::operator/=( const value_type &dx ) {
   return *this;
 }
 
-void Polinom33Vec::integral( ) {}
+Polinom33Vec::value_type Polinom33Vec::integral( Polinom33Vec::value_type x ) {
+  value_type res = 0;
+  for ( size_type i = 0; i < size( ); ++i ) {
+    res += coeff_[ i ] * std::pow( x, ( i + 1 ) ) / ( i + 1 );
+  }
+  return res;
+}
+
+Polinom33Vec::value_type Polinom33Vec::differencial( Polinom33Vec::value_type x ) {
+  value_type res = 0;
+  for ( size_type i = size( ) - 1; i > 1; --i ) {
+    res += coeff_[ i ] * i * pow( x, i - 1 );
+  }
+  return res;
+}
 
 void Polinom33Vec::swap( Polinom33Vec &oth ) { coeff_.swap( oth.coeff_ ); }
 
