@@ -18,5 +18,5 @@ int main()
   std::cout << r2 << std::endl << std::endl;
   std::cout << r3 << std::endl << std::endl;
   //******
-  std::cout << "all.uloves = " << ( r1.getUlov( ) + r2.getUlov( ) ) << std::endl << std::endl;
+  // std::cout << "all.uloves = " << ( r1.getUlov( ) + r2.getUlov( ) ) << std::endl << std::endl;
 }
