@@ -1,14 +1,16 @@
-#ifndef DECIMAL32_H
-#define DECIMAL32_H
+#ifndef DECIMAL32QUEUE_H
+#define DECIMAL32QUEUE_H
+#include <cstdint>
+#include <deque>
 #include <iostream>
-#include <string>
-#include <vector>
+// Decimal32Queue
 
 namespace sktn {
+
 class Decimal32 {
   // types
   using value_type = uint8_t;
-  using container_type = std::vector< value_type >;
+  using container_type = std::deque< value_type >;
 
  private:
   explicit Decimal32( container_type::size_type n );  //для внутренних нужд
@@ -57,4 +59,4 @@ void swap( Decimal32 &lhs, Decimal32 &rhs );
 
 }  // namespace sktn
 
-#endif  // DECIMAL32_H
+#endif  // DECIMAL32QUEUE_H
