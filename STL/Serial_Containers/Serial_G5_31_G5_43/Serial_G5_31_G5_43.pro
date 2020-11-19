@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-	Decimal32stl
+	Decimal32stl \
+	Polinom33
