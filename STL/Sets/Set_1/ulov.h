@@ -5,16 +5,12 @@
 
 #include "ifish.h"
 
-class Predicat {
- public:
-  bool operator( )( const IFish* a, const IFish* b ) const { return a->getId( ) < b->getId( ); }
-};
-
 class Ulov
 {
  public:
   Ulov( );
-  void push( IFish* f );
+  // void push( IFish* f );
+  void push( std::shared_ptr< IFish > f );
   size_t size( ) const;
   friend std::ostream& operator<<( std::ostream& out, const Ulov& r );
 
@@ -23,7 +19,7 @@ class Ulov
   friend const Ulov operator/( const Ulov& u1, const Ulov& u2 );
 
  private:
-  std::set< IFish*, Predicat > ulov_;
+  std::set< std::shared_ptr< IFish >, Predicat > ulov_;
 };
 
 #endif // ULOV_H

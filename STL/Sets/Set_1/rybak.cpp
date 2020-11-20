@@ -8,7 +8,7 @@ void Rybak::getFishOut_n( Ozero* o, int8_t colvo ) {
   }
 }
 
-void Rybak::add( IFish* fish ) { ulov_.push( fish ); }
+void Rybak::add( std::shared_ptr< IFish > fish ) { ulov_.push( fish ); }
 
 size_t Rybak::size( ) const { return ulov_.size( ); }
 

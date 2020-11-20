@@ -2,12 +2,9 @@
 
 #include <algorithm>
 #include <vector>
-Ulov::Ulov()
-{
-  
-}
+Ulov::Ulov( ) {}
 
-void Ulov::push( IFish* f ) { ulov_.insert( f ); }
+void Ulov::push( std::shared_ptr< IFish > f ) { ulov_.insert( f ); }
 
 size_t Ulov::size( ) const { return ulov_.size( ); }
 

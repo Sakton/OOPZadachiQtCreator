@@ -18,6 +18,11 @@ class IFish
   int id_;
 };
 
+class Predicat {
+ public:
+  bool operator( )( const std::shared_ptr< IFish > &a, const std::shared_ptr< IFish > &b ) const { return a->getId( ) < b->getId( ); }
+};
+
 bool operator<( const IFish &lhs, const IFish &rhs );
 std::ostream &operator<<( std::ostream &out, const IFish &rhs );
 

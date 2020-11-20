@@ -5,8 +5,8 @@
 
 class Ozero {
  public:
-  IFish* getFish( );
-  IFish* getConkreteFish( uint8_t type );
+  std::shared_ptr< IFish > getFish( );
+  std::shared_ptr< IFish > getConkreteFish( uint8_t type );
 };
 
 #endif // OZERO_H

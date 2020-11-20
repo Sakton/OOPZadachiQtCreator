@@ -13,8 +13,7 @@ class Rybak
 
   // generate
   void getFishOut_n( Ozero* o, int8_t colvo );
-  void add( IFish* fish );
-
+  void add( std::shared_ptr< IFish > fish );
   // sz
   size_t size( ) const;
   friend std::ostream& operator<<( std::ostream& out, const Rybak& r );
