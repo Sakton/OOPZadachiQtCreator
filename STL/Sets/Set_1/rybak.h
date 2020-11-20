@@ -13,7 +13,7 @@ class Rybak
 
   // generate
   void getFishOut_n( Ozero* o, int8_t colvo );
-  void getFish( Ozero* o );
+  void add( IFish* fish );
 
   // sz
   size_t size( ) const;

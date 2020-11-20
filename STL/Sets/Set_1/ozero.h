@@ -1,7 +1,6 @@
 #ifndef OZERO_H
 #define OZERO_H
 #include <memory>
-
 #include "ifish.h"
 
 class Ozero {

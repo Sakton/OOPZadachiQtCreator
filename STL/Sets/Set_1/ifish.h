@@ -11,8 +11,10 @@ class IFish
   virtual std::string getType( ) const = 0;
   virtual std::ostream &display( std::ostream &out ) const;
   int getId( ) const;
+  static int getIDCOUNT( );
 
  private:
+  static constexpr int IDCOUNT = 8;  //плохо
   int id_;
 };
 

@@ -1,17 +1,14 @@
 #include "rybak.h"
 
-Rybak::Rybak()
-{
-  
-}
+Rybak::Rybak( ) {}
 
 void Rybak::getFishOut_n( Ozero* o, int8_t colvo ) {
   for ( int8_t i = 0; i < colvo; ++i ) {
-    getFish( o );
+    add( o->getFish( ) );
   }
 }
 
-void Rybak::getFish( Ozero* o ) { ulov_.push( o->getFish( ) ); }
+void Rybak::add( IFish* fish ) { ulov_.push( fish ); }
 
 size_t Rybak::size( ) const { return ulov_.size( ); }
 

@@ -9,6 +9,8 @@ std::ostream &IFish::display( std::ostream &out ) const {
 
 int IFish::getId( ) const { return id_; }
 
+int IFish::getIDCOUNT( ) { return IDCOUNT; }
+
 std::string Okun::getType( ) const { return TYPE; }
 
 std::ostream &Okun::display( std::ostream &out ) const {
