@@ -12,7 +12,7 @@ class Counter : public QObject {
 
  signals:
   void goodbye( );
-  void counterChanged( int32_t );
+  void counterChanged( int, int );
 
  public slots:
   void slotInc( );
