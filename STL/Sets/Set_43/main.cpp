@@ -7,13 +7,13 @@ int main( ) {
   std::srand( std::time( nullptr ) );
   Ogorod og1;
   Ogorod og2;
-  Ogorod og3;
+  //  Ogorod og3;
   std::cout << og1 << std::endl;
   std::cout << std::endl;
   std::cout << og2 << std::endl;
   std::cout << std::endl;
-  std::cout << og3 << std::endl;
-  std::cout << std::endl;
+  //  std::cout << og3 << std::endl;
+  //  std::cout << std::endl;
 
   Ogorod t1 = ( og1 + og2 );
   Ogorod t2 = ( og1 - og2 );

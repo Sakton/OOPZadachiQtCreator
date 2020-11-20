@@ -16,6 +16,8 @@ class Ogorod
   friend Ogorod operator-( const Ogorod &o1, const Ogorod &o2 );
   friend Ogorod operator/( const Ogorod &o1, const Ogorod &o2 );
 
+  void clear( );
+
  private:
   void getRandomCulture( );
 
