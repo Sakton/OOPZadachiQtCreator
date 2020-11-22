@@ -1,6 +1,7 @@
 #ifndef STACK7_H
 #define STACK7_H
 #include <algorithm>
+#include <string>
 
 template < typename T >
 class Stack7 {
