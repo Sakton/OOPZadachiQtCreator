@@ -1,4 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-	Part_1_The_basics
+	Containers \
+	Part_1_The_basics \
+	WIDGETS
