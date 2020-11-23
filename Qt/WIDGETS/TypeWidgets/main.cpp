@@ -1,6 +1,7 @@
-#include "typewidgets.h"
-
 #include <QApplication>
+#include <QPalette>
+
+#include "typewidgets.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +12,13 @@ int main(int argc, char *argv[])
   // w.setWindowFlags( Qt::WindowTitleHint );
   // w.setWindowFlags( Qt::WindowContextHelpButtonHint );
   // w.setWindowFlags( Qt::WindowStaysOnBottomHint );
-  w.show();
+
+  QPalette pal1;
+  pal1.setBrush( QPalette::Background, QBrush( QPixmap( ":/resources/Кроссворд.jpg" ) ) );
+  w.setPalette( pal1 );
+  //  w.resize( 800, 500 );
+  //  w.setAutoFillBackground( true );
+
+  w.show( );
   return a.exec();
 }
