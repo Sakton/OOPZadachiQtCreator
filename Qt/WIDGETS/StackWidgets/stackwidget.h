@@ -2,13 +2,12 @@
 #define STACKWIDGET_H
 
 #include <QMainWindow>
-#include <list>
+#include <QStackedWidget>
 
 class QStackedWidget;
 class QWidget;
 
-class StackWidget : public QMainWindow
-{
+class StackWidget : public QMainWindow {
   Q_OBJECT
 
  public:
