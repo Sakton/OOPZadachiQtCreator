@@ -1,14 +1,14 @@
 #ifndef STACKWIDGET_H
 #define STACKWIDGET_H
 
-#include <QMainWindow>
 #include <QStackedWidget>
+#include <QWidget>
 
-class QStackedWidget;
-class QWidget;
-
-class StackWidget : public QMainWindow {
+class StackWidget : public QWidget {
   Q_OBJECT
+
+ public slots:
+  void innt( int x );
 
  public:
   StackWidget(QWidget *parent = nullptr);
