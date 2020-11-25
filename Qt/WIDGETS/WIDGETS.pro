@@ -9,6 +9,7 @@ SUBDIRS += \
 	Labels \
 	Layouts \
 	RecursiveLayout \
+	SLIDERS \
 	ScrolArea \
 	StackWidgets \
 	TypeWidgets
