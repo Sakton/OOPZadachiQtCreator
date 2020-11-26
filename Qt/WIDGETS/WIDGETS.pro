@@ -10,6 +10,7 @@ SUBDIRS += \
 	Labels \
 	Layouts \
 	RecursiveLayout \
+	SELECTION_ELEMENTS \
 	SLIDERS \
 	ScrolArea \
 	StackWidgets \
