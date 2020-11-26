@@ -6,6 +6,7 @@ SUBDIRS += \
 	Frame \
 	GridLayout \
 	HBoxLayout \
+	INPUT_ELEMENTS \
 	Labels \
 	Layouts \
 	RecursiveLayout \
