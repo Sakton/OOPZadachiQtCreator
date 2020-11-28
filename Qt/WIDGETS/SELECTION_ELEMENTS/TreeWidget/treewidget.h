@@ -1,10 +1,9 @@
 #ifndef TREEWIDGET_H
 #define TREEWIDGET_H
 
-#include <QMainWindow>
+#include <QWidget>
 
-class TreeWidget : public QMainWindow
-{
+class TreeWidget : public QWidget {
   Q_OBJECT
 
  public:

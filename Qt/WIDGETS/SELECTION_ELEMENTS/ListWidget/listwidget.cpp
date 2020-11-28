@@ -1,5 +1,6 @@
 #include "listwidget.h"
 
+#include <QDebug>
 #include <QListWidget>
 
 ListWidget::ListWidget( QWidget *parent ) : QWidget( parent ) {
@@ -16,6 +17,9 @@ ListWidget::ListWidget( QWidget *parent ) : QWidget( parent ) {
     t->setFlags( Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled );
     listw->addItem( t );
   }
+
+  connect( listw, QOverload< QListWidgetItem * >::of( &QListWidget::itemClicked ), this, QOverload<>::of( &ListWidget::slotItemClicked ) );
+
   listw->show( );
 }
 
@@ -23,3 +27,4 @@ ListWidget::~ListWidget()
 {
 }
 
+void ListWidget::slotItemClicked( ) { qDebug( ) << "Tezasdcas"; }

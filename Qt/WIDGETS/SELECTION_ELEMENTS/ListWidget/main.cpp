@@ -1,11 +1,13 @@
-#include "listwidget.h"
-
 #include <QApplication>
+#include <QDebug>
+
+#include "listwidget.h"
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
   ListWidget w;
-  w.show();
+
+  w.show( );
   return a.exec();
 }
