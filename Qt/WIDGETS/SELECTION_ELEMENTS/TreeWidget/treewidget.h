@@ -9,5 +9,8 @@ class TreeWidget : public QWidget {
  public:
   TreeWidget(QWidget *parent = nullptr);
   ~TreeWidget();
+
+ public slots:
+  void slotTree( );
 };
 #endif // TREEWIDGET_H

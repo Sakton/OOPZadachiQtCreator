@@ -19,8 +19,7 @@ ListWidget::ListWidget( QWidget *parent ) : QWidget( parent ) {
   }
 
   connect( listw, QOverload< QListWidgetItem * >::of( &QListWidget::itemClicked ), this, QOverload<>::of( &ListWidget::slotItemClicked ) );
-
-  listw->show( );
+  resize( 400, 500 );
 }
 
 ListWidget::~ListWidget()

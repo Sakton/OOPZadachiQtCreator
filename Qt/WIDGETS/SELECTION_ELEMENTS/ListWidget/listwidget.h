@@ -3,8 +3,6 @@
 
 #include <QListWidget>
 
-class QListWidgetItem;
-
 class ListWidget : public QWidget {
   Q_OBJECT
 
