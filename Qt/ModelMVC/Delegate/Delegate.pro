@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    delegate.cpp
+    delegate.cpp \
+    simpledelegate.cpp
 
 HEADERS += \
-    delegate.h
+    delegate.h \
+    simpledelegate.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
