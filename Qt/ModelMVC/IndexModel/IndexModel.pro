@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
 	FileSystem \
-	IerarchicData
+	IerarchicData \
+	MyModel
