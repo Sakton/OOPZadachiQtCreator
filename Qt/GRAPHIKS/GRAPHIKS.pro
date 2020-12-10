@@ -1,0 +1,4 @@
+TEMPLATE = subdirs
+
+SUBDIRS += \
+	DrawPoint
