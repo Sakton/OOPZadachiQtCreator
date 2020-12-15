@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-	AsyncAndFuture
+	AsyncAndFuture \
+	EntonyUiliams
