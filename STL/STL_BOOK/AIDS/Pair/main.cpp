@@ -36,8 +36,9 @@ int main( ) {
   std::pair< int, Foo > pfoo2( std::piecewise_construct, std::make_tuple( 42 ), t );
 
   int x = 0;
-  auto pp = std::make_pair( std::ref( x ), std::ref( x ) );
+  // auto pp = std::make_pair( std::ref( x ), std::ref( x ) );
   // auto pp = std::make_pair( x, x );
+  std::pair< int&, int& > pp( x, x );  //а можно просто ссылки
   pp.first++;
   pp.second++;
   std::cout << "x = " << x << std::endl;
